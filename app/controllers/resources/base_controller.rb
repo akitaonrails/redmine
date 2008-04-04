@@ -2,6 +2,7 @@ module Resources
   class BaseController < ApplicationController
     before_filter :authenticate
     before_filter :require_admin
+
     def create
       @object = model_class.new(params[object_node_hash_key])
       respond_to do |format|

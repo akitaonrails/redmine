@@ -35,6 +35,12 @@ ActionController::Routing::Routes.draw do |map|
   # instead of a file named 'wsdl'
   map.connect ':controller/service.wsdl', :action => 'wsdl'
 
+  map.namespace(:resources) do |res|
+    res.resources :clients
+    res.resources :exhibits
+  end
+  
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id'
+  
 end
