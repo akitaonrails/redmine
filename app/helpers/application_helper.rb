@@ -156,6 +156,10 @@ module ApplicationHelper
     links.size > 1 ? l(:label_display_per_page, links.join(', ')) : nil
   end
   
+  def breadcrumb(*args)
+    content_tag('p', args.join(' &#187; ') + ' &#187; ', :class => 'breadcrumb')
+  end
+  
   def html_title(*args)
     if args.empty?
       title = []
@@ -459,8 +463,21 @@ module ApplicationHelper
   end
   
   def calendar_for(field_id)
+    include_calendar_headers_tags
     image_tag("calendar.png", {:id => "#{field_id}_trigger",:class => "calendar-trigger"}) +
     javascript_tag("Calendar.setup({inputField : '#{field_id}', ifFormat : '%Y-%m-%d', button : '#{field_id}_trigger' });")
+  end
+
+  def include_calendar_headers_tags
+    unless @calendar_headers_tags_included
+      @calendar_headers_tags_included = true
+      content_for :header_tags do
+        javascript_include_tag('calendar/calendar') +
+        javascript_include_tag("calendar/lang/calendar-#{current_language}.js") +
+        javascript_include_tag('calendar/calendar-setup') +
+        stylesheet_link_tag('calendar')
+      end
+    end
   end
   
   def wikitoolbar_for(field_id)

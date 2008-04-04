@@ -32,6 +32,19 @@ module IssuesHelper
       "<strong>#{@cached_label_assigned_to}</strong>: #{issue.assigned_to}<br />" +
       "<strong>#{@cached_label_priority}</strong>: #{issue.priority.name}"
   end
+  
+  def sidebar_queries
+    unless @sidebar_queries
+      # User can see public queries and his own queries
+      visible = ARCondition.new(["is_public = ? OR user_id = ?", true, (User.current.logged? ? User.current.id : 0)])
+      # Project specific queries and global queries
+      visible << (@project.nil? ? ["project_id IS NULL"] : ["project_id IS NULL OR project_id = ?", @project.id])
+      @sidebar_queries = Query.find(:all, 
+                                    :order => "name ASC",
+                                    :conditions => visible.conditions)
+    end
+    @sidebar_queries
+  end
 
   def show_detail(detail, no_html=false)
     case detail.property
@@ -131,6 +144,8 @@ module IssuesHelper
       # otherwise export custom fields marked as "For all projects"
       custom_fields = project.nil? ? IssueCustomField.for_all : project.all_custom_fields
       custom_fields.each {|f| headers << f.name}
+      # Description in the last column
+      headers << l(:field_description)
       csv << headers.collect {|c| begin; ic.iconv(c.to_s); rescue; c.to_s; end }
       # csv lines
       issues.each do |issue|
@@ -152,6 +167,7 @@ module IssuesHelper
                   format_time(issue.updated_on)
                   ]
         custom_fields.each {|f| fields << show_value(issue.custom_value_for(f)) }
+        fields << issue.description
         csv << fields.collect {|c| begin; ic.iconv(c.to_s); rescue; c.to_s; end }
       end
     end

@@ -181,6 +181,16 @@ class IssuesControllerTest < Test::Unit::TestCase
     assert_equal 'Value for field 2', v.value
   end
   
+  def test_post_new_without_custom_fields_param
+    @request.session[:user_id] = 2
+    post :new, :project_id => 1, 
+               :issue => {:tracker_id => 1,
+                          :subject => 'This is the test_new issue',
+                          :description => 'This is the description',
+                          :priority_id => 5}
+    assert_redirected_to 'issues/show'
+  end
+  
   def test_copy_issue
     @request.session[:user_id] = 2
     get :new, :project_id => 1, :copy_from => 1
@@ -339,6 +349,16 @@ class IssuesControllerTest < Test::Unit::TestCase
     assert_equal 'Bulk editing', Issue.find(1).journals.find(:first, :order => 'created_on DESC').notes
   end
 
+  def test_bulk_unassign
+    assert_not_nil Issue.find(2).assigned_to
+    @request.session[:user_id] = 2
+    # unassign issues
+    post :bulk_edit, :ids => [1, 2], :notes => 'Bulk unassigning', :assigned_to_id => 'none'
+    assert_response 302
+    # check that the issues were updated
+    assert_nil Issue.find(2).assigned_to
+  end
+  
   def test_move_one_issue_to_another_project
     @request.session[:user_id] = 1
     post :move, :id => 1, :new_project_id => 2
