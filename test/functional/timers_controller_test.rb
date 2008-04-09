@@ -43,7 +43,7 @@ class TimersControllerTest < Test::Unit::TestCase
   def test_create_without_login_redirects_to_signin_path
     with_valid_timer do
       @request.session[:user_id] = nil
-      post :create, :id => @issue[:id]
+      post :create, :issue_id => @issue[:id]
       assert_redirected_to signin_path
     end
   end
@@ -52,7 +52,7 @@ class TimersControllerTest < Test::Unit::TestCase
     with_authorize_override do
       with_valid_timer do
         @request.session[:user_id] = users(:users_003).id
-        xhr :post, :create, :id => @issue[:id]
+        xhr :post, :create, :issue_id => @issue[:id]
         assert_response :created
       end
     end
@@ -62,7 +62,7 @@ class TimersControllerTest < Test::Unit::TestCase
     with_authorize_override do
       with_invalid_timer do
         @request.session[:user_id] = users(:users_003).id
-        xhr :post, :create, :id => @issue[:id]
+        xhr :post, :create, :issue_id => @issue[:id]
         assert_response :unprocessable_entity
       end
     end
@@ -75,7 +75,7 @@ class TimersControllerTest < Test::Unit::TestCase
     
     with_authorize_override do
       @request.session[:user_id] = users(:users_003).id
-      xhr :post, :create, :id => @issue[:id]
+      xhr :post, :create, :issue_id => @issue[:id]
       assert_response :unprocessable_entity
     end
 

@@ -7,7 +7,7 @@ class TimersController < ApplicationController
           if timer.save
             format.js  { render :text => "Timer Started", :status => :created }
           else
-            format.js  { render :json => timer.errors, :status => :unprocessable_entity }
+            format.js  { render :text => timer.errors.full_messages, :status => :unprocessable_entity }
           end
         end
       rescue ActiveResource::ConnectionError => e
@@ -18,7 +18,7 @@ class TimersController < ApplicationController
 
   protected
   def find_project
-    @issue = Issue.find(params[:id])
+    @issue = Issue.find(params[:issue_id])
     @project = @issue.project
   end
 

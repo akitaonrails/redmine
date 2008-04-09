@@ -5,12 +5,12 @@
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 2
 # of the License, or (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -20,28 +20,52 @@ require 'csv'
 module IssuesHelper
   include ApplicationHelper
 
+  def link_to_timer_start(issue)
+    if authorize_for('timers', 'create')
+      dom_id_for_timer = dom_id(issue, 'start_timer')
+      dom_id_for_started_timer = dom_id(issue, 'timer_started')
+      content_tag('strong', 'Timer Started&nbsp;', :id => dom_id_for_started_timer, :style => 'display:none;') +
+      link_to_remote(
+      l(:button_log_time),
+      {
+        :url => url_for({:controller => 'timers', :action => 'create', :issue_id => @issue[:id]}),
+        :method => :post,
+        :before => "$('#{dom_id_for_timer}').hide()",
+        :failure => "alert('Error: ' + request.responseText + ' (Response Status:' + request.status + ')');Effect.Appear('#{dom_id_for_timer}'); ",
+        :success => "Effect.Grow('#{dom_id_for_started_timer}');",
+      },
+      {
+        :id => dom_id_for_timer,
+        :class => 'icon icon-time'
+      }
+      )
+    else
+      ''
+    end
+  end
+
   def render_issue_tooltip(issue)
     @cached_label_start_date ||= l(:field_start_date)
     @cached_label_due_date ||= l(:field_due_date)
     @cached_label_assigned_to ||= l(:field_assigned_to)
     @cached_label_priority ||= l(:field_priority)
-    
+
     link_to_issue(issue) + ": #{h(issue.subject)}<br /><br />" +
-      "<strong>#{@cached_label_start_date}</strong>: #{format_date(issue.start_date)}<br />" +
-      "<strong>#{@cached_label_due_date}</strong>: #{format_date(issue.due_date)}<br />" +
-      "<strong>#{@cached_label_assigned_to}</strong>: #{issue.assigned_to}<br />" +
-      "<strong>#{@cached_label_priority}</strong>: #{issue.priority.name}"
+    "<strong>#{@cached_label_start_date}</strong>: #{format_date(issue.start_date)}<br />" +
+    "<strong>#{@cached_label_due_date}</strong>: #{format_date(issue.due_date)}<br />" +
+    "<strong>#{@cached_label_assigned_to}</strong>: #{issue.assigned_to}<br />" +
+    "<strong>#{@cached_label_priority}</strong>: #{issue.priority.name}"
   end
-  
+
   def sidebar_queries
     unless @sidebar_queries
       # User can see public queries and his own queries
       visible = ARCondition.new(["is_public = ? OR user_id = ?", true, (User.current.logged? ? User.current.id : 0)])
       # Project specific queries and global queries
       visible << (@project.nil? ? ["project_id IS NULL"] : ["project_id IS NULL OR project_id = ?", @project.id])
-      @sidebar_queries = Query.find(:all, 
-                                    :order => "name ASC",
-                                    :conditions => visible.conditions)
+      @sidebar_queries = Query.find(:all,
+      :order => "name ASC",
+      :conditions => visible.conditions)
     end
     @sidebar_queries
   end
@@ -49,7 +73,7 @@ module IssuesHelper
   def show_detail(detail, no_html=false)
     case detail.property
     when 'attr'
-      label = l(("field_" + detail.prop_key.to_s.gsub(/\_id$/, "")).to_sym)   
+      label = l(("field_" + detail.prop_key.to_s.gsub(/\_id$/, "")).to_sym)
       case detail.prop_key
       when 'due_date', 'start_date'
         value = format_date(detail.value.to_date) if detail.value
@@ -80,11 +104,11 @@ module IssuesHelper
     when 'attachment'
       label = l(:label_attachment)
     end
-       
+
     label ||= detail.prop_key
     value ||= detail.value
     old_value ||= detail.old_value
-    
+
     unless no_html
       label = content_tag('strong', label)
       old_value = content_tag("i", h(old_value)) if detail.old_value
@@ -96,7 +120,7 @@ module IssuesHelper
         value = content_tag("i", h(value)) if value
       end
     end
-    
+
     if !detail.value.blank?
       case detail.property
       when 'attr', 'cf'
@@ -117,29 +141,29 @@ module IssuesHelper
       end
     end
   end
-  
+
   def issues_to_csv(issues, project = nil)
-    ic = Iconv.new(l(:general_csv_encoding), 'UTF-8')    
+    ic = Iconv.new(l(:general_csv_encoding), 'UTF-8')
     export = StringIO.new
     CSV::Writer.generate(export, l(:general_csv_separator)) do |csv|
       # csv header fields
       headers = [ "#",
-                  l(:field_status), 
-                  l(:field_project),
-                  l(:field_tracker),
-                  l(:field_priority),
-                  l(:field_subject),
-                  l(:field_assigned_to),
-                  l(:field_category),
-                  l(:field_fixed_version),
-                  l(:field_author),
-                  l(:field_start_date),
-                  l(:field_due_date),
-                  l(:field_done_ratio),
-                  l(:field_estimated_hours),
-                  l(:field_created_on),
-                  l(:field_updated_on)
-                  ]
+        l(:field_status),
+        l(:field_project),
+        l(:field_tracker),
+        l(:field_priority),
+        l(:field_subject),
+        l(:field_assigned_to),
+        l(:field_category),
+        l(:field_fixed_version),
+        l(:field_author),
+        l(:field_start_date),
+        l(:field_due_date),
+        l(:field_done_ratio),
+        l(:field_estimated_hours),
+        l(:field_created_on),
+        l(:field_updated_on)
+      ]
       # Export project custom fields if project is given
       # otherwise export custom fields marked as "For all projects"
       custom_fields = project.nil? ? IssueCustomField.for_all : project.all_custom_fields
@@ -150,22 +174,22 @@ module IssuesHelper
       # csv lines
       issues.each do |issue|
         fields = [issue.id,
-                  issue.status.name, 
-                  issue.project.name,
-                  issue.tracker.name, 
-                  issue.priority.name,
-                  issue.subject,
-                  issue.assigned_to,
-                  issue.category,
-                  issue.fixed_version,
-                  issue.author.name,
-                  format_date(issue.start_date),
-                  format_date(issue.due_date),
-                  issue.done_ratio,
-                  issue.estimated_hours,
-                  format_time(issue.created_on),  
-                  format_time(issue.updated_on)
-                  ]
+          issue.status.name,
+          issue.project.name,
+          issue.tracker.name,
+          issue.priority.name,
+          issue.subject,
+          issue.assigned_to,
+          issue.category,
+          issue.fixed_version,
+          issue.author.name,
+          format_date(issue.start_date),
+          format_date(issue.due_date),
+          issue.done_ratio,
+          issue.estimated_hours,
+          format_time(issue.created_on),
+          format_time(issue.updated_on)
+        ]
         custom_fields.each {|f| fields << show_value(issue.custom_value_for(f)) }
         fields << issue.description
         csv << fields.collect {|c| begin; ic.iconv(c.to_s); rescue; c.to_s; end }
