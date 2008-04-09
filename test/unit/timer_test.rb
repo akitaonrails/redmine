@@ -44,4 +44,13 @@ class TimerTest < Test::Unit::TestCase
     assert timer.errors.on(:task_code)
 
   end
+
+  def test_save_when_remote_end_fails
+    timer = Timer.new({:task_code => MotherBrainResource.valid_task_codes.first, :redmine_exhibit_id => "1"})
+    ActiveResource::HttpMock.respond_to do |mock|
+      mock.post Timer.collection_path, Timer.headers, timer.to_xml, 422
+    end
+    
+    assert ! timer.save
+  end
 end
