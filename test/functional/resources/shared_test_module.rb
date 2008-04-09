@@ -110,11 +110,5 @@ module Resources::SharedTestModule
     @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials('alberto', 'gonzalez')
     yield if block_given?
   end
-
-  def with_xml_request
-    @request.env["HTTP_ACCEPT"] = "application/xml"
-    yield if block_given?
-  end
-
   
 end

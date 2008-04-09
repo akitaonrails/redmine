@@ -9,6 +9,8 @@ ActionController::Routing::Routes.draw do |map|
   map.home '', :controller => 'welcome'
   map.signin 'login', :controller => 'account', :action => 'login'
   map.signout 'logout', :controller => 'account', :action => 'logout'
+
+  map.connect 'issues/:id/timer', :controller => 'timers', :action => :create, :method => :post
   
   map.connect 'wiki/:id/:page/:action', :controller => 'wiki', :page => nil
   map.connect 'roles/workflow/:id/:role_id/:tracker_id', :controller => 'roles', :action => 'workflow'

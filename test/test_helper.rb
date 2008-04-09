@@ -57,6 +57,12 @@ class Test::Unit::TestCase
   def test_uploaded_file(name, mime)
     ActionController::TestUploadedFile.new(Test::Unit::TestCase.fixture_path + "/files/#{name}", mime)
   end
+  
+  def with_xml_request
+    @request.env["HTTP_ACCEPT"] = "application/xml"
+    yield if block_given?
+  end
+  
 end
 
 
