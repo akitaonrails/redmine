@@ -2,6 +2,9 @@
 <div class="box">
 <!--[form:tracker]-->
 <p><%= f.text_field :name, :required => true %></p>
+<%- if @tracker.new_record? || @tracker.task_code.blank? -%>
+<p><%= f.select( :task_code, MotherBrainResource.valid_task_codes.collect{|a| [a,a]}, :include_blank => true, :required => true )%>
+<%- end -%>
 <p><%= f.check_box :is_in_chlog %></p>
 <p><%= f.check_box :is_in_roadmap %></p>
 <% if @tracker.new_record? && @trackers.any? %>

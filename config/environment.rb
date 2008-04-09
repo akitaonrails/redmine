@@ -97,3 +97,5 @@ GLoc.set_config(:raise_string_not_found_errors => false)
 
 require 'redmine'
 
+gem 'mother_brain_resource'
+require 'mother_brain_resource'
