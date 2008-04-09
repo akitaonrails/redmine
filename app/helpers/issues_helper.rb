@@ -28,7 +28,7 @@ module IssuesHelper
       link_to_remote(
       l(:button_log_time),
       {
-        :url => url_for({:controller => 'timers', :action => 'create', :issue_id => @issue[:id]}),
+        :url => url_for({:controller => 'timers', :action => 'create', :issue_id => issue[:id]}),
         :method => :post,
         :before => "$('#{dom_id_for_timer}').hide()",
         :failure => "alert('Error: ' + request.responseText + ' (Response Status:' + request.status + ')');Effect.Appear('#{dom_id_for_timer}'); ",
