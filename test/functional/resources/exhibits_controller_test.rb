@@ -52,6 +52,11 @@ class Resources::ExhibitsControllerTest < Test::Unit::TestCase
   end
 
   def invalid_attributes
-    valid_attributes(:identifier => '')
+    valid_attributes(:identifier => '', :name => '')
   end
+  
+  def object
+    @object ||= projects(:projects_003)
+  end
+  
 end

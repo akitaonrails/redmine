@@ -147,7 +147,21 @@ class Project < ActiveRecord::Base
   def active?
     self.status == STATUS_ACTIVE
   end
+  def active; active?; end
   
+  def active=(value)
+    return value if value == active?
+    value ? unarchive : archive
+  end
+      
+  def to_xml(options={}, &block)
+    options[:methods] ||= []
+    options[:methods] << :active
+    options[:methods].uniq!
+    super(options, &block)
+  end
+    
+    
   def archive
     # Archive subprojects if any
     children.each do |subproject|

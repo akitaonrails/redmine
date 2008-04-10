@@ -19,10 +19,51 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ProjectTest < Test::Unit::TestCase
   fixtures :projects, :issues, :issue_statuses, :journals, :journal_details, :users, :members, :roles, :projects_trackers, :trackers, :boards
-
+  module MockSetActiveProperty
+    def unarchive; @unarchive_called = true; end
+    def unarchive_called?; @unarchive_called; end
+    def archive; @archive_called = true; end
+    def archive_called?; @archive_called; end
+  end
   def setup
     @ecookbook = Project.find(1)
     @ecookbook_sub1 = Project.find(3)
+  end
+  
+  def test_to_xml_should_include_active
+    @project = projects(:projects_001)
+    assert_match %(<active type="boolean">true</active>), @project.to_xml
+  end
+  
+  def test_active_should_be_an_alias_of_active?
+    @project = projects(:projects_001)
+    assert_equal @project.active?, @project.active
+  end
+
+  def test_setting_active_to_current_state_prevents_state_change
+    @project = projects(:projects_001)
+    @project.extend(MockSetActiveProperty)
+    @project.active = @project.active?
+    assert ! @project.unarchive_called?
+    assert ! @project.archive_called?
+  end
+
+  def test_setting_active_to_true_when_non_active_unarchives
+    @project = projects(:projects_001)
+    @project.extend(MockSetActiveProperty)
+    def @project.active?; false; end
+    @project.active = true
+    assert @project.unarchive_called?
+    assert ! @project.archive_called?
+  end
+
+  def test_setting_active_to_false_when_active_unarchives
+    @project = projects(:projects_001)
+    @project.extend(MockSetActiveProperty)
+    def @project.active?; true; end
+    @project.active = false
+    assert ! @project.unarchive_called?
+    assert @project.archive_called?
   end
   
   def test_truth

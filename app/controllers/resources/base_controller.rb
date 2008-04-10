@@ -19,7 +19,19 @@ module Resources
       @object = model_class.find(params[:id])
       render :xml => @object.to_xml
     end
-
+    
+    def update
+      @object = model_class.find(params[:id])
+      respond_to do |format|
+        begin
+          @object.update_attributes!(params[object_node_hash_key])
+          format.xml  { render :xml => @object, :status => :no_content, :location => url_for(:action => 'show', :id => @object[:id]) }
+        rescue ActiveRecord::RecordInvalid => e
+          format.xml  { render :xml => @object.errors, :status => :unprocessable_entity }
+        end
+      end
+    end
+    
     protected
     def require_login
       true

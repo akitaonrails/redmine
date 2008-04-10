@@ -6,7 +6,7 @@ require 'resources/clients_controller'
 class Resources::ClientsController; def rescue_action(e) raise e end; end
 
 class Resources::ClientsControllerTest < Test::Unit::TestCase
-  fixtures :users
+  fixtures :users, :projects
   def setup
     @controller = Resources::ClientsController.new
     @request    = ActionController::TestRequest.new
@@ -23,6 +23,10 @@ class Resources::ClientsControllerTest < Test::Unit::TestCase
   end
 
   def invalid_attributes
-    valid_attributes(:identifier => '')
+    valid_attributes(:identifier => '', :name => '')
+  end
+  
+  def object
+    @object ||= projects(:projects_001)
   end
 end
