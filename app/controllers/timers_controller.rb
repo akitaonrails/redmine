@@ -23,7 +23,7 @@ class TimersController < ApplicationController
   end
 
   def timer
-    @timer ||= timer_class.new(:task_code => @issue.task_code, :redmine_exhibit_id => @issue.project_id)
+    @timer ||= timer_class.new(:issue => @issue)
   end
   def timer_class
     Timer
