@@ -12,8 +12,9 @@ default_run_options[:pty] = true
 #set :scm_passphrase, 
 
 #set :branch, "fireho"
-set :branch, "origin/master"
+set :branch, "fireho/master"
 set :deploy_via, :remote_cache
+
 
 #set :git_shallow_clone, 1
 #Shallow cloning will do a clone each time, but will only get the first tree, 
@@ -35,3 +36,20 @@ set :use_sudo, false
 role :app, "bcampos.fireho.com"
 role :web, "bcampos.fireho.com"
 role :db,  "bcampos.fireho.com", :primary => true
+
+
+namespace :deploy do  
+  task :start, :roles => :app do  
+  end  
+  
+  task :stop, :roles => :app do  
+  end  
+  
+  task :restart, :roles => :app do  
+    run "touch #{release_path}/tmp/restart.txt"  
+  end  
+  
+  task :after_update_code, :roles => :app do  
+    run "rm -rf #{release_path}/public/.htaccess"  
+  end  
+end
