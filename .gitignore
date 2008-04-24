@@ -1,0 +1,8 @@
+.DS_Store
+thumbs.db
+log/*.log
+tmp/**/*
+#config/database.yml
+db/*.sqlite3
+doc/api
+doc/app
