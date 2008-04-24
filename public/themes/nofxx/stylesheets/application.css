@@ -1,0 +1,141 @@
+@import url(../../../stylesheets/application.css);
+
+body {
+	background: #F1EFE2;
+}
+
+#wrapper {
+	background: #fff url(../images/content-right.png) 100% 0 repeat-y;
+	padding-right: 10px;
+}
+
+#wrapper2 {
+	background: #fff url(../images/content-left.png) repeat-y;
+	padding-left: 10px;
+}
+
+#top-menu {
+	font-size: 80%;
+	height: 1.8em;
+	background-color: #444;
+}
+
+#top-menu a {
+    
+	font-weight: bold;
+}
+
+#header {
+	height: 6.2em;
+	margin: 0;
+	background-color: #222;
+	color: #f8f8f8;
+	padding: 4px 8px 0px 6px;
+	position: relative;
+}
+
+#header h1 {
+	margin-top: 0.3em;
+	margin-left: 0px;
+background-image: url(../images/fireho.jpg);
+    background-position: -5% 35%;
+    background-repeat: no-repeat;
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 3px;
+                    }
+
+
+#quick-search {
+	float: right;
+	margin-top: 0.8em;
+}
+
+#main-menu li {
+	float: left;
+	list-style-type: none;
+	margin: 0px 2px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	white-space: nowrap;
+}
+
+#main-menu li a {
+	padding: 4px 10px 4px 10px;
+	background: #666;
+	font-weight: bold;
+}
+
+#main-menu li a:hover {
+	background: #999;
+}
+
+#main-menu li a.selected {
+	background: #fff;
+	color: #555;
+}
+
+table.list {
+	font-size: 90%
+}
+
+table#browser a {
+	line-height: 16px;
+}
+
+#footer {
+	text-align: right;
+	height: 40px;
+	color: #999;
+	background: #F1EFE2 url(../images/footer-bg.png) 0 0 repeat-x;
+	border: 0;
+	margin-left: -10px;
+	margin-right: -10px;
+	margin-top: -4px;
+	padding: 0;
+}
+
+#footer a {
+	color: #999;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#footer .bgl {
+	height: 40px;
+	background: transparent url(../images/footer-left.png) 0 0 no-repeat;
+}
+
+#footer .bgr {
+	height: 40px;
+	background: transparent url(../images/footer-right.png) 100% 0 no-repeat;
+	padding-top: 22px;
+	padding-right: 30px;
+}
+
+#main {
+	font: 100% Verdana,Tahoma,Arial,sans-serif;
+	background: #fff;
+}
+
+#content {
+	background: #fff;
+	border-right: 2px solid #ddd;
+}
+
+#content .tabs ul {
+	bottom: -1px;
+}
+
+h2, h3, h4, .wiki h1, .wiki h2, .wiki h3 {
+	border-bottom: 0px;
+	color: #606060;
+	font-family: Trebuchet MS,Georgia,"Times New Roman",serif;
+}
+
+h2, .wiki h1 {
+	letter-spacing: -1px;
+}
+
+h4 {
+	border-bottom: dotted 1px #c0c0c0;
+}
