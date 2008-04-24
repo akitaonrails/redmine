@@ -37,6 +37,11 @@ role :app, "bcampos.fireho.com"
 role :web, "bcampos.fireho.com"
 role :db,  "bcampos.fireho.com", :primary => true
 
+desc "Create symlinks for shared upload directories" 
+task :after_symlink do 
+      run "rm -rf #{release_path}/files"
+      run "ln -nfs #{shared_path}/files #{release_path}/files" 
+end
 
 namespace :deploy do  
   task :start, :roles => :app do  
