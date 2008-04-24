@@ -15,8 +15,8 @@ production:
  
 development:
   adapter: sqlite3
-  database: files/red.db
-  timeout:  3600
+  database: db/red.db
+  timeout:  5000
 
 test:
   adapter: mysql
