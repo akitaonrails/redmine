@@ -51,12 +51,12 @@ Rails::Initializer.run do |config|
   
 	# SMTP server configuration
 	config.action_mailer.smtp_settings = {
-		:address => "127.0.0.1",
+		:address => "mail.fireho.com",
 		:port => 25,
-		:domain => "somenet.foo",
+		:domain => "fireho.com",
 		:authentication => :login,
-		:user_name => "redmine@somenet.foo",
-		:password => "redmine",
+		:user_name => "gestor@fireho.com",
+		:password => "rocknroll",
 	}
 	
 	config.action_mailer.perform_deliveries = true
