@@ -26,7 +26,7 @@ module Redmine
     class TextileFormatter < RedCloth
       
       # auto_link rule after textile rules so that it doesn't break !image_url! tags
-      RULES = [:textile, :inline_auto_link, :inline_auto_mailto, :inline_toc, :inline_macros]
+      RULES = [:textile, :block_markdown_rule, :inline_auto_link, :inline_auto_mailto, :inline_toc, :inline_macros]
       
       def initialize(*args)
         super
@@ -45,7 +45,7 @@ module Redmine
       # Patch for RedCloth.  Fixed in RedCloth r128 but _why hasn't released it yet.
       # <a href="http://code.whytheluckystiff.net/redcloth/changeset/128">http://code.whytheluckystiff.net/redcloth/changeset/128</a>
       def hard_break( text ) 
-        text.gsub!( /(.)\n(?!\n|\Z| *([#*=]+(\s|$)|[{|]))/, "\\1<br />" ) if hard_breaks 
+        text.gsub!( /(.)\n(?!\n|\Z| *([#*=]+(\s|$)|[{|]))/, "\\1<br />\n" ) if hard_breaks 
       end
       
       # Patch to add code highlighting support to RedCloth
@@ -56,7 +56,7 @@ module Redmine
             content = @pre_list[$1.to_i]
             if content.match(/<code\s+class="(\w+)">\s?(.+)/m)
               content = "<code class=\"#{$1} CodeRay\">" + 
-                CodeRay.scan($2, $1).html(:escape => false, :line_numbers => :inline)
+                CodeRay.scan($2, $1.downcase).html(:escape => false, :line_numbers => :inline)
             end
             content
           end

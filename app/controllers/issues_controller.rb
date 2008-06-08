@@ -102,6 +102,7 @@ class IssuesController < ApplicationController
     @edit_allowed = User.current.allowed_to?(:edit_issues, @project)
     @activities = Enumeration::get_values('ACTI')
     @priorities = Enumeration::get_values('IPRI')
+    @time_entry = TimeEntry.new
     respond_to do |format|
       format.html { render :template => 'issues/show.rhtml' }
       format.atom { render :action => 'changes', :layout => false, :content_type => 'application/atom+xml' }
@@ -344,8 +345,8 @@ class IssuesController < ApplicationController
   end
   
   def preview
-    issue = @project.issues.find_by_id(params[:id])
-    @attachements = issue.attachments if issue
+    @issue = @project.issues.find_by_id(params[:id]) unless params[:id].blank?
+    @attachements = @issue.attachments if @issue
     @text = params[:notes] || (params[:issue] ? params[:issue][:description] : nil)
     render :partial => 'common/preview'
   end
@@ -413,6 +414,7 @@ private
       else
         @query = Query.find_by_id(session[:query][:id]) if session[:query][:id]
         @query ||= Query.new(:name => "_", :project => @project, :filters => session[:query][:filters])
+        @query.project = @project
       end
     end
   end

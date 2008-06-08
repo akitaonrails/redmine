@@ -22,7 +22,7 @@ require 'wiki_controller'
 class WikiController; def rescue_action(e) raise e end; end
 
 class WikiControllerTest < Test::Unit::TestCase
-  fixtures :projects, :users, :roles, :members, :enabled_modules, :wikis, :wiki_pages, :wiki_contents, :wiki_content_versions
+  fixtures :projects, :users, :roles, :members, :enabled_modules, :wikis, :wiki_pages, :wiki_contents, :wiki_content_versions, :attachments
   
   def setup
     @controller = WikiController.new
@@ -43,6 +43,10 @@ class WikiControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'show'
     assert_tag :tag => 'h1', :content => /Another page/
+    # Included page with an inline image
+    assert_tag :tag => 'p', :content => /This is an inline image/
+    assert_tag :tag => 'img', :attributes => { :src => '/attachments/download/3',
+                                               :alt => 'This is a logo' }
   end
   
   def test_show_unexistent_page_without_edit_right
@@ -80,6 +84,17 @@ class WikiControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'common/_preview'
     assert_tag :tag => 'strong', :content => /previewed text/
+  end
+  
+  def test_preview_new_page
+    @request.session[:user_id] = 2
+    xhr :post, :preview, :id => 1, :page => 'New page',
+                                   :content => { :text => 'h1. New page',
+                                                 :comments => '',
+                                                 :version => 0 }
+    assert_response :success
+    assert_template 'common/_preview'
+    assert_tag :tag => 'h1', :content => /New page/
   end
   
   def test_history
@@ -147,7 +162,7 @@ class WikiControllerTest < Test::Unit::TestCase
     assert_template 'special_page_index'
     pages = assigns(:pages)
     assert_not_nil pages
-    assert_equal 2, pages.size
+    assert_equal Project.find(1).wiki.pages.size, pages.size
     assert_tag :tag => 'a', :attributes => { :href => '/wiki/ecookbook/CookBook_documentation' },
                             :content => /CookBook documentation/
   end
@@ -155,5 +170,61 @@ class WikiControllerTest < Test::Unit::TestCase
   def test_not_found
     get :index, :id => 999
     assert_response 404
+  end
+  
+  def test_protect_page
+    page = WikiPage.find_by_wiki_id_and_title(1, 'Another_page')
+    assert !page.protected?
+    @request.session[:user_id] = 2
+    post :protect, :id => 1, :page => page.title, :protected => '1'
+    assert_redirected_to 'wiki/ecookbook/Another_page'
+    assert page.reload.protected?
+  end
+  
+  def test_unprotect_page
+    page = WikiPage.find_by_wiki_id_and_title(1, 'CookBook_documentation')
+    assert page.protected?
+    @request.session[:user_id] = 2
+    post :protect, :id => 1, :page => page.title, :protected => '0'
+    assert_redirected_to 'wiki/ecookbook'
+    assert !page.reload.protected?
+  end
+  
+  def test_show_page_with_edit_link
+    @request.session[:user_id] = 2
+    get :index, :id => 1
+    assert_response :success
+    assert_template 'show'
+    assert_tag :tag => 'a', :attributes => { :href => '/wiki/1/CookBook_documentation/edit' }
+  end
+  
+  def test_show_page_without_edit_link
+    @request.session[:user_id] = 4
+    get :index, :id => 1
+    assert_response :success
+    assert_template 'show'
+    assert_no_tag :tag => 'a', :attributes => { :href => '/wiki/1/CookBook_documentation/edit' }
+  end  
+  
+  def test_edit_unprotected_page
+    # Non members can edit unprotected wiki pages
+    @request.session[:user_id] = 4
+    get :edit, :id => 1, :page => 'Another_page'
+    assert_response :success
+    assert_template 'edit'
+  end
+  
+  def test_edit_protected_page_by_nonmember
+    # Non members can't edit protected wiki pages
+    @request.session[:user_id] = 4
+    get :edit, :id => 1, :page => 'CookBook_documentation'
+    assert_response 403
+  end
+  
+  def test_edit_protected_page_by_member
+    @request.session[:user_id] = 2
+    get :edit, :id => 1, :page => 'CookBook_documentation'
+    assert_response :success
+    assert_template 'edit'    
   end
 end

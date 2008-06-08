@@ -36,7 +36,7 @@ class Issue < ActiveRecord::Base
   has_many :relations_to, :class_name => 'IssueRelation', :foreign_key => 'issue_to_id', :dependent => :delete_all
   
   acts_as_watchable
-  acts_as_searchable :columns => ['subject', 'description'], :with => {:journal => :issue}
+  acts_as_searchable :columns => ['subject', "#{table_name}.description"], :include => :project, :with => {:journal => :issue}
   acts_as_event :title => Proc.new {|o| "#{o.tracker.name} ##{o.id}: #{o.subject}"},
                 :url => Proc.new {|o| {:controller => 'issues', :action => 'show', :id => o.id}}                
   
@@ -93,7 +93,11 @@ class Issue < ActiveRecord::Base
     self.priority = nil
     write_attribute(:priority_id, pid)
   end
-
+  
+  def estimated_hours=(h)
+    write_attribute :estimated_hours, (h.is_a?(String) ? h.to_hours : h)
+  end
+  
   def validate
     if self.due_date.nil? && @attributes['due_date'] && !@attributes['due_date'].empty?
       errors.add :due_date, :activerecord_error_not_a_date
@@ -153,6 +157,8 @@ class Issue < ActiveRecord::Base
     # Close duplicates if the issue was closed
     if @issue_before_change && !@issue_before_change.closed? && self.closed?
       duplicates.each do |duplicate|
+        # Reload is need in case the duplicate was updated by a previous duplicate
+        duplicate.reload
         # Don't re-close it if it's already closed
         next if duplicate.closed?
         # Same user and notes
@@ -222,6 +228,12 @@ class Issue < ActiveRecord::Base
   # Returns an array of the duplicate issues
   def duplicates
     relations.select {|r| r.relation_type == IssueRelation::TYPE_DUPLICATES}.collect {|r| r.other_issue(self)}
+  end
+  
+  # Returns the due date or the target due date if any
+  # Used on gantt chart
+  def due_before
+    due_date || (fixed_version ? fixed_version.effective_date : nil)
   end
   
   def duration

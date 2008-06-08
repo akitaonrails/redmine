@@ -20,7 +20,7 @@ require File.dirname(__FILE__) + '/../../test_helper'
 class ApplicationHelperTest < HelperTestCase
   include ApplicationHelper
   include ActionView::Helpers::TextHelper
-  fixtures :projects, :repositories, :changesets, :trackers, :issue_statuses, :issues, :documents, :versions, :wikis, :wiki_pages, :wiki_contents
+  fixtures :projects, :repositories, :changesets, :trackers, :issue_statuses, :issues, :documents, :versions, :wikis, :wiki_pages, :wiki_contents, :roles, :enabled_modules
 
   def setup
     super
@@ -58,7 +58,9 @@ class ApplicationHelperTest < HelperTestCase
     to_test = {
       'This is a "link":http://foo.bar' => 'This is a <a href="http://foo.bar" class="external">link</a>',
       'This is an intern "link":/foo/bar' => 'This is an intern <a href="/foo/bar">link</a>',
-      '"link (Link title)":http://foo.bar' => '<a href="http://foo.bar" title="Link title" class="external">link</a>'
+      '"link (Link title)":http://foo.bar' => '<a href="http://foo.bar" title="Link title" class="external">link</a>',
+      # no multiline link text
+      "This is a double quote \"on the first line\nand another on a second line\":test" => "This is a double quote \"on the first line<br />\nand another on a second line\":test"
     }
     to_test.each { |text, result| assert_equal "<p>#{result}</p>", textilizable(text) }
   end
@@ -125,6 +127,8 @@ class ApplicationHelperTest < HelperTestCase
       '[[onlinestore:Start page]]' => '<a href="/wiki/onlinestore/Start_page" class="wiki-page">Start page</a>',
       '[[onlinestore:Start page|Text]]' => '<a href="/wiki/onlinestore/Start_page" class="wiki-page">Text</a>',
       '[[onlinestore:Unknown page]]' => '<a href="/wiki/onlinestore/Unknown_page" class="wiki-page new">Unknown page</a>',
+      # striked through link
+      '-[[Another page|Page]]-' => '<del><a href="/wiki/ecookbook/Another_page" class="wiki-page">Page</a></del>',
       # escaping
       '![[Another page|Page]]' => '[[Another page|Page]]',
     }
@@ -134,12 +138,15 @@ class ApplicationHelperTest < HelperTestCase
   
   def test_html_tags
     to_test = {
-      "<div>content</div>" => "<p>&lt;div>content&lt;/div></p>",
-      "<script>some script;</script>" => "<p>&lt;script>some script;&lt;/script></p>",
+      "<div>content</div>" => "<p>&lt;div&gt;content&lt;/div&gt;</p>",
+      "<div class=\"bold\">content</div>" => "<p>&lt;div class=\"bold\"&gt;content&lt;/div&gt;</p>",
+      "<script>some script;</script>" => "<p>&lt;script&gt;some script;&lt;/script&gt;</p>",
       # do not escape pre/code tags
       "<pre>\nline 1\nline2</pre>" => "<pre>\nline 1\nline2</pre>",
       "<pre><code>\nline 1\nline2</code></pre>" => "<pre><code>\nline 1\nline2</code></pre>",
       "<pre><div>content</div></pre>" => "<pre>&lt;div&gt;content&lt;/div&gt;</pre>",
+      "HTML comment: <!-- no comments -->" => "<p>HTML comment: &lt;!-- no comments --&gt;</p>",
+      "<!-- opening comment" => "<p>&lt;!-- opening comment</p>"
     }
     to_test.each { |text, result| assert_equal result, textilizable(text) }
   end
@@ -159,12 +166,42 @@ class ApplicationHelperTest < HelperTestCase
     to_test.each { |text, result| assert_equal "<table>#{result}</table>", textilizable(text).gsub(/[\t\n]/, '') }
   end
   
+  def test_text_formatting
+    to_test = {'*_+bold, italic and underline+_*' => '<strong><em><ins>bold, italic and underline</ins></em></strong>',
+               '(_text within parentheses_)' => '(<em>text within parentheses</em>)'
+              }
+    to_test.each { |text, result| assert_equal "<p>#{result}</p>", textilizable(text) }
+  end
+  
+  def test_wiki_horizontal_rule
+    assert_equal '<hr />', textilizable('---')
+    assert_equal '<p>Dashes: ---</p>', textilizable('Dashes: ---')
+  end
+  
   def test_macro_hello_world
     text = "{{hello_world}}"
     assert textilizable(text).match(/Hello world!/)
     # escaping
     text = "!{{hello_world}}"
     assert_equal '<p>{{hello_world}}</p>', textilizable(text)
+  end
+  
+  def test_macro_include
+    @project = Project.find(1)
+    # include a page of the current project wiki
+    text = "{{include(Another page)}}"
+    assert textilizable(text).match(/This is a link to a ticket/)
+    
+    @project = nil
+    # include a page of a specific project wiki
+    text = "{{include(ecookbook:Another page)}}"
+    assert textilizable(text).match(/This is a link to a ticket/)
+
+    text = "{{include(ecookbook:)}}"
+    assert textilizable(text).match(/CookBook documentation/)
+
+    text = "{{include(unknowidentifier:somepage)}}"
+    assert textilizable(text).match(/Unknow project/)
   end
   
   def test_date_format_default

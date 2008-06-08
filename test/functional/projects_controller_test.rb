@@ -29,18 +29,13 @@ class ProjectsControllerTest < Test::Unit::TestCase
     @controller = ProjectsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    @request.session[:user_id] = nil
   end
 
   def test_index
     get :index
     assert_response :success
-    assert_template 'list'
-  end
-
-  def test_list
-    get :list
-    assert_response :success
-    assert_template 'list'
+    assert_template 'index'
     assert_not_nil assigns(:project_tree)
     # Root project as hash key
     assert assigns(:project_tree).has_key?(Project.find(1))
@@ -61,6 +56,21 @@ class ProjectsControllerTest < Test::Unit::TestCase
     assert_template 'show'
     assert_not_nil assigns(:project)
     assert_equal Project.find_by_identifier('ecookbook'), assigns(:project)
+  end
+  
+  def test_private_subprojects_hidden
+    get :show, :id => 'ecookbook'
+    assert_response :success
+    assert_template 'show'
+    assert_no_tag :tag => 'a', :content => /Private child/
+  end
+
+  def test_private_subprojects_visible
+    @request.session[:user_id] = 2 # manager who is a member of the private subproject
+    get :show, :id => 'ecookbook'
+    assert_response :success
+    assert_template 'show'
+    assert_tag :tag => 'a', :content => /Private child/
   end
   
   def test_settings
@@ -144,7 +154,7 @@ class ProjectsControllerTest < Test::Unit::TestCase
                :content => /#{2.days.ago.to_date.day}/,
                :sibling => { :tag => "dl",
                  :child => { :tag => "dt",
-                   :attributes => { :class => 'journal' },
+                   :attributes => { :class => 'issue-edit' },
                    :child => { :tag => "a",
                      :content => /(#{IssueStatus.find(2).name})/,
                    }
@@ -222,27 +232,56 @@ class ProjectsControllerTest < Test::Unit::TestCase
     assert_not_nil assigns(:calendar)
   end
 
-  def test_calendar_with_subprojects
+  def test_calendar_with_subprojects_should_not_show_private_subprojects
     get :calendar, :id => 1, :with_subprojects => 1, :tracker_ids => [1, 2]
     assert_response :success
     assert_template 'calendar'
     assert_not_nil assigns(:calendar)
+    assert_no_tag :tag => 'a', :content => /#6/
+  end
+  
+  def test_calendar_with_subprojects_should_show_private_subprojects
+    @request.session[:user_id] = 2
+    get :calendar, :id => 1, :with_subprojects => 1, :tracker_ids => [1, 2]
+    assert_response :success
+    assert_template 'calendar'
+    assert_not_nil assigns(:calendar)
+    assert_tag :tag => 'a', :content => /#6/
   end
 
   def test_gantt
     get :gantt, :id => 1
     assert_response :success
     assert_template 'gantt.rhtml'
-    assert_not_nil assigns(:events)
+    events = assigns(:events)
+    assert_not_nil events
+    # Issue with start and due dates
+    i = Issue.find(1)
+    assert_not_nil i.due_date
+    assert events.include?(Issue.find(1))
+    # Issue with without due date but targeted to a version with date
+    i = Issue.find(2)
+    assert_nil i.due_date
+    assert events.include?(i)
   end
 
-  def test_gantt_with_subprojects
+  def test_gantt_with_subprojects_should_not_show_private_subprojects
     get :gantt, :id => 1, :with_subprojects => 1, :tracker_ids => [1, 2]
     assert_response :success
     assert_template 'gantt.rhtml'
     assert_not_nil assigns(:events)
+    assert_no_tag :tag => 'a', :content => /#6/
   end
   
+  def test_gantt_with_subprojects_should_show_private_subprojects
+    @request.session[:user_id] = 2
+    get :gantt, :id => 1, :with_subprojects => 1, :tracker_ids => [1, 2]
+    assert_response :success
+    assert_template 'gantt.rhtml'
+    assert_not_nil assigns(:events)
+    assert_tag :tag => 'a', :content => /#6/
+  end
+
   def test_gantt_export_to_pdf
     get :gantt, :id => 1, :format => 'pdf'
     assert_response :success

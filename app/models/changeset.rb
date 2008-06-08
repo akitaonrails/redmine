@@ -27,13 +27,17 @@ class Changeset < ActiveRecord::Base
                 :url => Proc.new {|o| {:controller => 'repositories', :action => 'revision', :id => o.repository.project_id, :rev => o.revision}}
                 
   acts_as_searchable :columns => 'comments',
-                     :include => :repository,
+                     :include => {:repository => :project},
                      :project_key => "#{Repository.table_name}.project_id",
                      :date_column => 'committed_on'
   
   validates_presence_of :repository_id, :revision, :committed_on, :commit_date
   validates_uniqueness_of :revision, :scope => :repository_id
   validates_uniqueness_of :scmid, :scope => :repository_id, :allow_nil => true
+  
+  def revision=(r)
+    write_attribute :revision, (r.nil? ? nil : r.to_s)
+  end
   
   def comments=(comment)
     write_attribute(:comments, comment.strip)
@@ -71,7 +75,7 @@ class Changeset < ActiveRecord::Base
     if ref_keywords.delete('*')
       # find any issue ID in the comments
       target_issue_ids = []
-      comments.scan(%r{([\s\(,-^])#(\d+)(?=[[:punct:]]|\s|<|$)}).each { |m| target_issue_ids << m[1] }
+      comments.scan(%r{([\s\(,-]|^)#(\d+)(?=[[:punct:]]|\s|<|$)}).each { |m| target_issue_ids << m[1] }
       referenced_issues += repository.project.issues.find_all_by_id(target_issue_ids)
     end
     

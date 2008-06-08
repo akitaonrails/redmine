@@ -53,13 +53,44 @@ class IssuesControllerTest < Test::Unit::TestCase
     assert_template 'index.rhtml'
     assert_not_nil assigns(:issues)
     assert_nil assigns(:project)
+    assert_tag :tag => 'a', :content => /Can't print recipes/
+    assert_tag :tag => 'a', :content => /Subproject issue/
+    # private projects hidden
+    assert_no_tag :tag => 'a', :content => /Issue of a private subproject/
+    assert_no_tag :tag => 'a', :content => /Issue on project 2/
   end
 
   def test_index_with_project
+    Setting.display_subprojects_issues = 0
     get :index, :project_id => 1
     assert_response :success
     assert_template 'index.rhtml'
     assert_not_nil assigns(:issues)
+    assert_tag :tag => 'a', :content => /Can't print recipes/
+    assert_no_tag :tag => 'a', :content => /Subproject issue/
+  end
+  
+  def test_index_with_project_and_subprojects
+    Setting.display_subprojects_issues = 1
+    get :index, :project_id => 1
+    assert_response :success
+    assert_template 'index.rhtml'
+    assert_not_nil assigns(:issues)
+    assert_tag :tag => 'a', :content => /Can't print recipes/
+    assert_tag :tag => 'a', :content => /Subproject issue/
+    assert_no_tag :tag => 'a', :content => /Issue of a private subproject/
+  end
+  
+  def test_index_with_project_and_subprojects_should_show_private_subprojects
+    @request.session[:user_id] = 2
+    Setting.display_subprojects_issues = 1
+    get :index, :project_id => 1
+    assert_response :success
+    assert_template 'index.rhtml'
+    assert_not_nil assigns(:issues)
+    assert_tag :tag => 'a', :content => /Can't print recipes/
+    assert_tag :tag => 'a', :content => /Subproject issue/
+    assert_tag :tag => 'a', :content => /Issue of a private subproject/
   end
   
   def test_index_with_project_and_filter
@@ -169,13 +200,15 @@ class IssuesControllerTest < Test::Unit::TestCase
                :issue => {:tracker_id => 1,
                           :subject => 'This is the test_new issue',
                           :description => 'This is the description',
-                          :priority_id => 5},
+                          :priority_id => 5,
+                          :estimated_hours => ''},
                :custom_fields => {'2' => 'Value for field 2'}
     assert_redirected_to 'issues/show'
     
     issue = Issue.find_by_subject('This is the test_new issue')
     assert_not_nil issue
     assert_equal 2, issue.author_id
+    assert_nil issue.estimated_hours
     v = issue.custom_values.find_by_custom_field_id(2)
     assert_not_nil v
     assert_equal 'Value for field 2', v.value
@@ -254,10 +287,13 @@ class IssuesControllerTest < Test::Unit::TestCase
     issue = Issue.find(1)
     assert_equal 1, issue.status_id
     @request.session[:user_id] = 2
-    post :edit,
-         :id => 1,
-         :issue => { :status_id => 2, :assigned_to_id => 3 },
-         :notes => 'Assigned to dlopper'
+    assert_difference('TimeEntry.count', 0) do
+      post :edit,
+           :id => 1,
+           :issue => { :status_id => 2, :assigned_to_id => 3 },
+           :notes => 'Assigned to dlopper',
+           :time_entry => { :hours => '', :comments => '', :activity_id => Enumeration.get_values('ACTI').first }
+    end
     assert_redirected_to 'issues/show/1'
     issue.reload
     assert_equal 2, issue.status_id
@@ -288,10 +324,12 @@ class IssuesControllerTest < Test::Unit::TestCase
   def test_post_edit_with_note_and_spent_time
     @request.session[:user_id] = 2
     spent_hours_before = Issue.find(1).spent_hours
-    post :edit,
-         :id => 1,
-         :notes => '2.5 hours added',
-         :time_entry => { :hours => '2.5', :comments => '', :activity_id => Enumeration.get_values('ACTI').first }
+    assert_difference('TimeEntry.count') do
+      post :edit,
+           :id => 1,
+           :notes => '2.5 hours added',
+           :time_entry => { :hours => '2.5', :comments => '', :activity_id => Enumeration.get_values('ACTI').first }
+    end
     assert_redirected_to 'issues/show/1'
     
     issue = Issue.find(1)
@@ -450,10 +488,11 @@ class IssuesControllerTest < Test::Unit::TestCase
   end
   
   def test_destroy_issue_with_no_time_entries
+    assert_nil TimeEntry.find_by_issue_id(2)
     @request.session[:user_id] = 2
-    post :destroy, :id => 3
+    post :destroy, :id => 2
     assert_redirected_to 'projects/ecookbook/issues'
-    assert_nil Issue.find_by_id(3)
+    assert_nil Issue.find_by_id(2)
   end
 
   def test_destroy_issues_with_time_entries

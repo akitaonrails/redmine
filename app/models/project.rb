@@ -46,7 +46,7 @@ class Project < ActiveRecord::Base
                           
   acts_as_tree :order => "name", :counter_cache => true
 
-  acts_as_searchable :columns => ['name', 'description'], :project_key => 'id'
+  acts_as_searchable :columns => ['name', 'description'], :project_key => 'id', :permission => nil
   acts_as_event :title => Proc.new {|o| "#{l(:label_project)}: #{o.name}"},
                 :url => Proc.new {|o| {:controller => 'projects', :action => 'show', :id => o.id}}
 
@@ -57,7 +57,7 @@ class Project < ActiveRecord::Base
   validates_associated :custom_values, :on => :update
   validates_associated :repository, :wiki
   validates_length_of :name, :maximum => 30
-  validates_length_of :homepage, :maximum => 60
+  validates_length_of :homepage, :maximum => 255
   validates_length_of :identifier, :in => 3..20
   validates_format_of :identifier, :with => /^[a-z0-9\-]*$/
   
@@ -73,14 +73,16 @@ class Project < ActiveRecord::Base
   
   def issues_with_subprojects(include_subprojects=false)
     conditions = nil
-    if include_subprojects && !active_children.empty?
-      ids = [id] + active_children.collect {|c| c.id}
-      conditions = ["#{Issue.table_name}.project_id IN (#{ids.join(',')})"]
+    if include_subprojects
+      ids = [id] + child_ids
+      conditions = ["#{Project.table_name}.id IN (#{ids.join(',')}) AND #{Project.visible_by}"]
     end
-    conditions ||= ["#{Issue.table_name}.project_id = ?", id]
+    conditions ||= ["#{Project.table_name}.id = ?", id]
     # Quick and dirty fix for Rails 2 compatibility
     Issue.send(:with_scope, :find => { :conditions => conditions }) do 
-      yield
+      Version.send(:with_scope, :find => { :conditions => conditions }) do
+        yield
+      end
     end 
   end
 
@@ -91,6 +93,7 @@ class Project < ActiveRecord::Base
   end	
 
   def self.visible_by(user=nil)
+    user ||= User.current
     if user && user.admin?
       return "#{Project.table_name}.status=#{Project::STATUS_ACTIVE}"
     elsif user && user.memberships.any?
@@ -197,6 +200,10 @@ class Project < ActiveRecord::Base
   
   def all_custom_fields
     @all_custom_fields ||= (IssueCustomField.for_all + custom_fields).uniq
+  end
+  
+  def project
+    self
   end
   
   def <=>(project)

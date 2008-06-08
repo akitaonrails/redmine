@@ -32,14 +32,14 @@ set :deploy_to, "/var/www/apps/#{application}"
 #s#et :domain, "redmine.fireho.com"
 set :use_sudo, false
 
-
 # ROLES
 # #
-if ENV['staging']
+#if ENV['staging']
   set :domain, "bcampos.fireho.com"
-else
-  set :domain, application
-end
+  
+#else
+#  set :domain, application
+#end
 
 role :app, domain
 role :web, domain
