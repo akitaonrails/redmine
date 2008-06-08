@@ -9,8 +9,8 @@ set :repository,  "ssh://bcampos.fireho.com:22223/var/repo/redmine.git"
 #set :repository,  "ssh://deploy_d...@mydomain.com:8888/opt/repos/project.git "
 set :scm, :git
 #set :scm_passphrase, 
-#set :branch, "fireho"
-set :branch, "fireho/master"
+#set :branch, "fireho/master"
+set :branch, "master"
 set :deploy_via, :remote_cache
 #set :git_enable_submodules, 1
 #set :git_shallow_clone, 1
