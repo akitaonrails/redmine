@@ -29,21 +29,21 @@ body {
 	height: 6.2em;
 	margin: 0;
 	background-color: #fff;
-	color: #333333;
+	color: #f8f8f8;
 	padding: 4px 8px 0px 6px;
 	position: relative;
 }
 
 #header h1 {
-	margin-top: 0px;
+	margin-top: 0.3em;
 	margin-left: 0px;
 background-image: url(../images/fireho.jpg);
     background-position: -5% 35%;
     background-repeat: no-repeat;
     padding-left: 30px;
     padding-top: 10px;
-    padding-bottom: 30px;
-                    }
+    padding-bottom: 3px;
+}
 
 
 #quick-search {
