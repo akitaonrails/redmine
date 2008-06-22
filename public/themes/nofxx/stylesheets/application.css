@@ -28,21 +28,21 @@ body {
 #header {
 	height: 6.2em;
 	margin: 0;
-	background-color: #eee;
-	color: #f8f8f8;
+	background-color: #fff;
+	color: #333333;
 	padding: 4px 8px 0px 6px;
 	position: relative;
 }
 
 #header h1 {
-	margin-top: 0.3em;
+	margin-top: 0px;
 	margin-left: 0px;
 background-image: url(../images/fireho.jpg);
     background-position: -5% 35%;
     background-repeat: no-repeat;
     padding-left: 30px;
     padding-top: 10px;
-    padding-bottom: 3px;
+    padding-bottom: 30px;
                     }
 
 
