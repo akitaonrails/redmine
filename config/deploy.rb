@@ -1,11 +1,11 @@
 # APP
 # #
 set :application, "redmine"
-set :user, "deployer"
+set :user, "nofxxx"
 
 # REPO
 # #
-set :repository,  "ssh://bcampos.fireho.com:22223/var/repo/redmine.git"
+set :repository,  "ssh://nofxx@bcampos.fireho.com:22223/var/repo/redmine.git"
 #set :repository,  "ssh://deploy_d...@mydomain.com:8888/opt/repos/project.git "
 set :scm, :git
 #set :scm_passphrase, 
@@ -35,7 +35,7 @@ set :use_sudo, false
 # ROLES
 # #
 #if ENV['staging']
-  set :domain, "bcampos.fireho.com"
+  set :domain, "ssaint.fireho.com"
   
 #else
 #  set :domain, application
