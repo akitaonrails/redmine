@@ -25,11 +25,12 @@ body {
 	font-weight: bold;
 }
 
+
 #header {
 	height: 6.2em;
 	margin: 0;
 	background-color: #fff;
-	color: #f8f8f8;
+	color: #111;
 	padding: 4px 8px 0px 6px;
 	position: relative;
 }
@@ -38,9 +39,9 @@ body {
 	margin-top: 0.3em;
 	margin-left: 0px;
 background-image: url(../images/fireho.jpg);
-    background-position: -5% 35%;
+    background-position: -1% 35%;
     background-repeat: no-repeat;
-    padding-left: 30px;
+    padding-left: 50px;
     padding-top: 10px;
     padding-bottom: 3px;
 }
