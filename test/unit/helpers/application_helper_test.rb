@@ -108,7 +108,9 @@ class ApplicationHelperTest < HelperTestCase
       '!version:"1.0"'              => 'version:"1.0"',
       '!source:/some/file'          => 'source:/some/file',
       # invalid expressions
-      'source:'                     => 'source:'
+      'source:'                     => 'source:',
+      # url hash
+      "http://foo.bar/FAQ#3"       => '<a class="external" href="http://foo.bar/FAQ#3">http://foo.bar/FAQ#3</a>',
     }
     @project = Project.find(1)
     to_test.each { |text, result| assert_equal "<p>#{result}</p>", textilizable(text) }
@@ -151,13 +153,16 @@ class ApplicationHelperTest < HelperTestCase
     to_test.each { |text, result| assert_equal result, textilizable(text) }
   end
   
+  def test_allowed_html_tags
+    to_test = {
+      "<pre>preformatted text</pre>" => "<pre>preformatted text</pre>",
+      "<notextile>no *textile* formatting</notextile>" => "no *textile* formatting",
+    }
+    to_test.each { |text, result| assert_equal result, textilizable(text) }
+  end
+  
   def test_wiki_links_in_tables
-    to_test = {"|Cell 11|Cell 12|Cell 13|\n|Cell 21|Cell 22||\n|Cell 31||Cell 33|" => 
-                 '<tr><td>Cell 11</td><td>Cell 12</td><td>Cell 13</td></tr>' +
-                 '<tr><td>Cell 21</td><td>Cell 22</td></tr>' +
-                 '<tr><td>Cell 31</td><td>Cell 33</td></tr>',
-                 
-               "|[[Page|Link title]]|[[Other Page|Other title]]|\n|Cell 21|[[Last page]]|" =>
+    to_test = {"|[[Page|Link title]]|[[Other Page|Other title]]|\n|Cell 21|[[Last page]]|" =>
                  '<tr><td><a href="/wiki/ecookbook/Page" class="wiki-page new">Link title</a></td>' +
                  '<td><a href="/wiki/ecookbook/Other_Page" class="wiki-page new">Other title</a></td>' +
                  '</tr><tr><td>Cell 21</td><td><a href="/wiki/ecookbook/Last_page" class="wiki-page new">Last page</a></td></tr>'
@@ -176,6 +181,96 @@ class ApplicationHelperTest < HelperTestCase
   def test_wiki_horizontal_rule
     assert_equal '<hr />', textilizable('---')
     assert_equal '<p>Dashes: ---</p>', textilizable('Dashes: ---')
+  end
+  
+  def test_table_of_content
+    raw = <<-RAW
+{{toc}}
+
+h1. Title
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas sed libero.
+
+h2. Subtitle
+
+Nullam commodo metus accumsan nulla. Curabitur lobortis dui id dolor.
+
+h2. Subtitle with %{color:red}red text%
+
+h1. Another title
+
+RAW
+
+    expected = '<div class="toc">' +
+               '<a href="#1" class="heading1">Title</a>' +
+               '<a href="#2" class="heading2">Subtitle</a>' + 
+               '<a href="#3" class="heading2">Subtitle with red text</a>' +
+               '<a href="#4" class="heading1">Another title</a>' +
+               '</div>'
+               
+    assert textilizable(raw).include?(expected)
+  end
+  
+  def test_blockquote
+    # orig raw text
+    raw = <<-RAW
+John said:
+> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas sed libero.
+> Nullam commodo metus accumsan nulla. Curabitur lobortis dui id dolor.
+> * Donec odio lorem,
+> * sagittis ac,
+> * malesuada in,
+> * adipiscing eu, dolor.
+>
+> >Nulla varius pulvinar diam. Proin id arcu id lorem scelerisque condimentum. Proin vehicula turpis vitae lacus.
+> Proin a tellus. Nam vel neque.
+
+He's right.
+RAW
+    
+    # expected html
+    expected = <<-EXPECTED
+<p>John said:</p>
+<blockquote>
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas sed libero.
+Nullam commodo metus accumsan nulla. Curabitur lobortis dui id dolor.
+<ul>
+  <li>Donec odio lorem,</li>
+  <li>sagittis ac,</li>
+  <li>malesuada in,</li>
+  <li>adipiscing eu, dolor.</li>
+</ul>
+<blockquote>
+<p>Nulla varius pulvinar diam. Proin id arcu id lorem scelerisque condimentum. Proin vehicula turpis vitae lacus.</p>
+</blockquote>
+<p>Proin a tellus. Nam vel neque.</p>
+</blockquote>
+<p>He's right.</p>
+EXPECTED
+    
+    assert_equal expected.gsub(%r{\s+}, ''), textilizable(raw).gsub(%r{\s+}, '')
+  end
+  
+  def test_table
+    raw = <<-RAW
+This is a table with empty cells:
+
+|cell11|cell12||
+|cell21||cell23|
+|cell31|cell32|cell33|
+RAW
+
+    expected = <<-EXPECTED
+<p>This is a table with empty cells:</p>
+
+<table>
+  <tr><td>cell11</td><td>cell12</td><td></td></tr>
+  <tr><td>cell21</td><td></td><td>cell23</td></tr>
+  <tr><td>cell31</td><td>cell32</td><td>cell33</td></tr>
+</table>
+EXPECTED
+
+    assert_equal expected.gsub(%r{\s+}, ''), textilizable(raw).gsub(%r{\s+}, '')
   end
   
   def test_macro_hello_world

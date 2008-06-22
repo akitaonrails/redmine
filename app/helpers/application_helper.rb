@@ -15,6 +15,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+require 'coderay'
+require 'coderay/helpers/file_type'
+
 module ApplicationHelper
   include Redmine::WikiFormatting::Macros::Definitions
 
@@ -90,6 +93,11 @@ module ApplicationHelper
     include_date ? local.strftime("#{@date_format} #{@time_format}") : local.strftime(@time_format)
   end
   
+  # Truncates and returns the string as a single line
+  def truncate_single_line(string, *args)
+    truncate(string, *args).gsub(%r{[\r\n]+}m, ' ')
+  end
+  
   def html_hours(text)
     text.gsub(%r{(\d+)\.(\d+)}, '<span class="hours hours-int">\1</span><span class="hours hours-dec">.\2</span>')
   end
@@ -111,6 +119,11 @@ module ApplicationHelper
     l(:actionview_datehelper_select_month_names).split(',')[month-1]
   end
 
+  def syntax_highlight(name, content)
+    type = CodeRay::FileType[name]
+    type ? CodeRay.scan(content, type).html : h(content)
+  end
+  
   def pagination_links_full(paginator, count=nil, options={})
     page_param = options.delete(:page_param) || :page
     url_param = params.dup
@@ -293,7 +306,7 @@ module ApplicationHelper
     #     source:some/file#L120 -> Link to line 120 of the file
     #     source:some/file@52#L120 -> Link to line 120 of the file's revision 52
     #     export:some/file -> Force the download of the file
-    text = text.gsub(%r{([\s\(,-^])(!)?(attachment|document|version|commit|source|export)?((#|r)(\d+)|(:)([^"\s<>][^\s<>]*|"[^"]+"))(?=[[:punct:]]|\s|<|$)}) do |m|
+    text = text.gsub(%r{([\s\(,\-\>]|^)(!)?(attachment|document|version|commit|source|export)?((#|r)(\d+)|(:)([^"\s<>][^\s<>]*|"[^"]+"))(?=[[:punct:]]|\s|<|$)}) do |m|
       leading, esc, prefix, sep, oid = $1, $2, $3, $5 || $7, $6 || $8
       link = nil
       if esc.nil?
@@ -301,7 +314,7 @@ module ApplicationHelper
           if project && (changeset = project.changesets.find_by_revision(oid))
             link = link_to("r#{oid}", {:only_path => only_path, :controller => 'repositories', :action => 'revision', :id => project, :rev => oid},
                                       :class => 'changeset',
-                                      :title => truncate(changeset.comments, 100))
+                                      :title => truncate_single_line(changeset.comments, 100))
           end
         elsif sep == '#'
           oid = oid.to_i
@@ -340,7 +353,9 @@ module ApplicationHelper
             end
           when 'commit'
             if project && (changeset = project.changesets.find(:first, :conditions => ["scmid LIKE ?", "#{name}%"]))
-              link = link_to h("#{name}"), {:only_path => only_path, :controller => 'repositories', :action => 'revision', :id => project, :rev => changeset.revision}, :class => 'changeset', :title => truncate(changeset.comments, 100)
+              link = link_to h("#{name}"), {:only_path => only_path, :controller => 'repositories', :action => 'revision', :id => project, :rev => changeset.revision},
+                                           :class => 'changeset',
+                                           :title => truncate_single_line(changeset.comments, 100)
             end
           when 'source', 'export'
             if project && project.repository

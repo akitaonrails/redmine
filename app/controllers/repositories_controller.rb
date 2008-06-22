@@ -30,13 +30,15 @@ class RepositoriesController < ApplicationController
   before_filter :authorize
   accept_key_auth :revisions
   
+  rescue_from Redmine::Scm::Adapters::CommandFailed, :with => :show_error_command_failed
+  
   def edit
     @repository = @project.repository
     if !@repository
       @repository = Repository.factory(params[:repository_scm])
-      @repository.project = @project
+      @repository.project = @project if @repository
     end
-    if request.post?
+    if request.post? && @repository
       @repository.attributes = params[:repository]
       @repository.save
     end
@@ -56,8 +58,6 @@ class RepositoriesController < ApplicationController
     # latest changesets
     @changesets = @repository.changesets.find(:all, :limit => 10, :order => "committed_on DESC")
     show_error_not_found unless @entries || @changesets.any?
-  rescue Redmine::Scm::Adapters::CommandFailed => e
-    show_error_command_failed(e.message)
   end
   
   def browse
@@ -68,16 +68,12 @@ class RepositoriesController < ApplicationController
       show_error_not_found and return unless @entries
       render :action => 'browse'
     end
-  rescue Redmine::Scm::Adapters::CommandFailed => e
-    show_error_command_failed(e.message)
   end
   
   def changes
-    @entry = @repository.scm.entry(@path, @rev)
+    @entry = @repository.entry(@path, @rev)
     show_error_not_found and return unless @entry
     @changesets = @repository.changesets_for_path(@path)
-  rescue Redmine::Scm::Adapters::CommandFailed => e
-    show_error_command_failed(e.message)
   end
   
   def revisions
@@ -96,13 +92,13 @@ class RepositoriesController < ApplicationController
   end
   
   def entry
-    @entry = @repository.scm.entry(@path, @rev)
+    @entry = @repository.entry(@path, @rev)
     show_error_not_found and return unless @entry
     
     # If the entry is a dir, show the browser
     browse and return if @entry.is_dir?
     
-    @content = @repository.scm.cat(@path, @rev)
+    @content = @repository.cat(@path, @rev)
     show_error_not_found and return unless @content
     if 'raw' == params[:format] || @content.is_binary_data?
       # Force the download if it's a binary file
@@ -111,15 +107,11 @@ class RepositoriesController < ApplicationController
       # Prevent empty lines when displaying a file with Windows style eol
       @content.gsub!("\r\n", "\n")
     end
-  rescue Redmine::Scm::Adapters::CommandFailed => e
-    show_error_command_failed(e.message)
   end
   
   def annotate
     @annotate = @repository.scm.annotate(@path, @rev)
     render_error l(:error_scm_annotate) and return if @annotate.nil? || @annotate.empty?
-  rescue Redmine::Scm::Adapters::CommandFailed => e
-    show_error_command_failed(e.message)
   end
   
   def revision
@@ -137,27 +129,33 @@ class RepositoriesController < ApplicationController
     end
   rescue ChangesetNotFound
     show_error_not_found
-  rescue Redmine::Scm::Adapters::CommandFailed => e
-    show_error_command_failed(e.message)
   end
   
   def diff
-    @diff_type = params[:type] || User.current.pref[:diff_type] || 'inline'
-    @diff_type = 'inline' unless %w(inline sbs).include?(@diff_type)
-    
-    # Save diff type as user preference
-    if User.current.logged? && @diff_type != User.current.pref[:diff_type]
-      User.current.pref[:diff_type] = @diff_type
-      User.current.preference.save
+    if params[:format] == 'diff'
+      @diff = @repository.diff(@path, @rev, @rev_to)
+      show_error_not_found and return unless @diff
+      filename = "changeset_r#{@rev}"
+      filename << "_r#{@rev_to}" if @rev_to
+      send_data @diff.join, :filename => "#{filename}.diff",
+                            :type => 'text/x-patch',
+                            :disposition => 'attachment'
+    else
+      @diff_type = params[:type] || User.current.pref[:diff_type] || 'inline'
+      @diff_type = 'inline' unless %w(inline sbs).include?(@diff_type)
+      
+      # Save diff type as user preference
+      if User.current.logged? && @diff_type != User.current.pref[:diff_type]
+        User.current.pref[:diff_type] = @diff_type
+        User.current.preference.save
+      end
+      
+      @cache_key = "repositories/diff/#{@repository.id}/" + Digest::MD5.hexdigest("#{@path}-#{@rev}-#{@rev_to}-#{@diff_type}")    
+      unless read_fragment(@cache_key)
+        @diff = @repository.diff(@path, @rev, @rev_to)
+        show_error_not_found unless @diff
+      end
     end
-    
-    @cache_key = "repositories/diff/#{@repository.id}/" + Digest::MD5.hexdigest("#{@path}-#{@rev}-#{@rev_to}-#{@diff_type}")    
-    unless read_fragment(@cache_key)
-      @diff = @repository.diff(@path, @rev, @rev_to, @diff_type)
-      show_error_not_found unless @diff
-    end
-  rescue Redmine::Scm::Adapters::CommandFailed => e
-    show_error_command_failed(e.message)
   end
   
   def stats  
@@ -207,8 +205,9 @@ private
     render_error l(:error_scm_not_found)
   end
   
-  def show_error_command_failed(msg)
-    render_error l(:error_scm_command_failed, msg)
+  # Handler for Redmine::Scm::Adapters::CommandFailed exception
+  def show_error_command_failed(exception)
+    render_error l(:error_scm_command_failed, exception.message)
   end
   
   def graph_commits_per_month(repository)

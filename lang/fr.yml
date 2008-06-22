@@ -214,6 +214,7 @@ setting_per_page_options: Options d'objets affichés par page
 setting_user_format: Format d'affichage des utilisateurs
 setting_activity_days_default: Nombre de jours affichés sur l'activité des projets
 setting_display_subprojects_issues: Afficher par défaut les demandes des sous-projets sur les projets principaux
+setting_enabled_scm: SCM activés
 
 project_module_issue_tracking: Suivi des demandes
 project_module_time_tracking: Suivi du temps passé
@@ -447,7 +448,8 @@ label_loading: Chargement...
 label_relation_new: Nouvelle relation
 label_relation_delete: Supprimer la relation
 label_relates_to: lié à
-label_duplicates: doublon de
+label_duplicates: duplique
+label_duplicated_by: dupliqué par
 label_blocks: bloque
 label_blocked_by: bloqué par
 label_precedes: précède
@@ -596,6 +598,7 @@ text_destroy_time_entries_question: %.02f heures ont été enregistrées sur les
 text_destroy_time_entries: Supprimer les heures
 text_assign_time_entries_to_project: Reporter les heures sur le projet
 text_reassign_time_entries: 'Reporter les heures sur cette demande:'
+text_user_wrote: '%s a écrit:'
 
 default_role_manager: Manager
 default_role_developper: Développeur

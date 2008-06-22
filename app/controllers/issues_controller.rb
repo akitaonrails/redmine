@@ -19,7 +19,7 @@ class IssuesController < ApplicationController
   layout 'base'
   menu_item :new_issue, :only => :new
   
-  before_filter :find_issue, :only => [:show, :edit, :destroy_attachment]
+  before_filter :find_issue, :only => [:show, :edit, :reply, :destroy_attachment]
   before_filter :find_issues, :only => [:bulk_edit, :move, :destroy]
   before_filter :find_project, :only => [:new, :update_form, :preview]
   before_filter :authorize, :except => [:index, :changes, :preview, :update_form, :context_menu]
@@ -149,7 +149,7 @@ class IssuesController < ApplicationController
         attach_files(@issue, params[:attachments])
         flash[:notice] = l(:notice_successful_create)
         Mailer.deliver_issue_add(@issue) if Setting.notified_events.include?('issue_added')
-        redirect_to :controller => 'issues', :action => 'show', :id => @issue,  :project_id => @project
+        redirect_to :controller => 'issues', :action => 'show', :id => @issue
         return
       end		
     end	
@@ -186,13 +186,13 @@ class IssuesController < ApplicationController
         @custom_values = @project.custom_fields_for_issues(@issue.tracker).collect { |x| CustomValue.new(:custom_field => x, :customized => @issue, :value => params["custom_fields"][x.id.to_s]) }
         @issue.custom_values = @custom_values
       end
+      @time_entry = TimeEntry.new(:project => @project, :issue => @issue, :user => User.current, :spent_on => Date.today)
+      @time_entry.attributes = params[:time_entry]
       attachments = attach_files(@issue, params[:attachments])
       attachments.each {|a| journal.details << JournalDetail.new(:property => 'attachment', :prop_key => a.id, :value => a.filename)}
       if @issue.save
         # Log spend time
         if current_role.allowed_to?(:log_time)
-          @time_entry = TimeEntry.new(:project => @project, :issue => @issue, :user => User.current, :spent_on => Date.today)
-          @time_entry.attributes = params[:time_entry]
           @time_entry.save
         end
         if !journal.new_record?
@@ -208,6 +208,26 @@ class IssuesController < ApplicationController
     flash.now[:error] = l(:notice_locking_conflict)
   end
 
+  def reply
+    journal = Journal.find(params[:journal_id]) if params[:journal_id]
+    if journal
+      user = journal.user
+      text = journal.notes
+    else
+      user = @issue.author
+      text = @issue.description
+    end
+    content = "#{ll(Setting.default_language, :text_user_wrote, user)}\\n> "
+    content << text.to_s.strip.gsub(%r{<pre>((.|\s)*?)</pre>}m, '[...]').gsub('"', '\"').gsub(/(\r?\n|\r\n?)/, "\\n> ") + "\\n\\n"
+    render(:update) { |page|
+      page.<< "$('notes').value = \"#{content}\";"
+      page.show 'update'
+      page << "Form.Element.focus('notes');"
+      page << "Element.scrollTo('update');"
+      page << "$('notes').scrollTop = $('notes').scrollHeight - $('notes').clientHeight;"
+    }
+  end
+  
   # Bulk edit a set of issues
   def bulk_edit
     if request.post?

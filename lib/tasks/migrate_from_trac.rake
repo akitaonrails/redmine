@@ -126,6 +126,10 @@ namespace :redmine do
           File.open("#{trac_fullpath}", 'rb').read
         end
         
+        def description
+          read_attribute(:description).to_s.slice(0,255)
+        end
+        
       private
         def trac_fullpath
           attachment_type = read_attribute(:type)
@@ -191,6 +195,10 @@ namespace :redmine do
         set_table_name :permission  
       end
       
+      class TracSessionAttribute < ActiveRecord::Base
+        set_table_name :session_attribute
+      end
+       
       def self.find_or_create_user(username, project_member = false)
         return User.anonymous if username.blank?
         
@@ -198,10 +206,23 @@ namespace :redmine do
         if !u
           # Create a new user if not found
           mail = username[0,limit_for(User, 'mail')]
+          if mail_attr = TracSessionAttribute.find_by_sid_and_name(username, 'email')
+            mail = mail_attr.value
+          end
           mail = "#{mail}@foo.bar" unless mail.include?("@")
-          u = User.new :firstname => username[0,limit_for(User, 'firstname')].gsub(/[^\w\s\'\-]/i, '-'),
-                       :lastname => '-',
-                       :mail => mail.gsub(/[^-@a-z0-9\.]/i, '-')
+          
+          name = username
+          if name_attr = TracSessionAttribute.find_by_sid_and_name(username, 'name')
+            name = name_attr.value
+          end
+          name =~ (/(.*)(\s+\w+)?/)
+          fn = $1.strip
+          ln = ($2 || '-').strip
+          
+          u = User.new :mail => mail.gsub(/[^-@a-z0-9\.]/i, '-'),
+                       :firstname => fn[0, limit_for(User, 'firstname')].gsub(/[^\w\s\'\-]/i, '-'),
+                       :lastname => ln[0, limit_for(User, 'lastname')].gsub(/[^\w\s\'\-]/i, '-')
+
           u.login = username[0,limit_for(User, 'login')].gsub(/[^a-z0-9_\-@\.]/i, '-')
           u.password = 'trac'
           u.admin = true if TracPermission.find_by_username_and_action(username, 'admin')
@@ -233,7 +254,8 @@ namespace :redmine do
         text = text.gsub(/\[\"(.+)\".*\]/) {|s| "[[#{$1.delete(',./?;|:')}]]"}
         text = text.gsub(/\[wiki:\"(.+)\".*\]/) {|s| "[[#{$1.delete(',./?;|:')}]]"}
         text = text.gsub(/\[wiki:\"(.+)\".*\]/) {|s| "[[#{$1.delete(',./?;|:')}]]"}
-        text = text.gsub(/\[wiki:([^\s\]]+).*\]/) {|s| "[[#{$1.delete(',./?;|:')}]]"}
+        text = text.gsub(/\[wiki:([^\s\]]+)\]/) {|s| "[[#{$1.delete(',./?;|:')}]]"}
+        text = text.gsub(/\[wiki:([^\s\]]+)\s(.*)\]/) {|s| "[[#{$1.delete(',./?;|:')}|#{$2.delete(',./?;|:')}]]"}
 
 	# Links to pages UsingJustWikiCaps
 	text = text.gsub(/([^!]|^)(^| )([A-Z][a-z]+[A-Z][a-zA-Z]+)/, '\\1\\2[[\3]]')
@@ -408,6 +430,7 @@ namespace :redmine do
               a.file = attachment
               a.author = find_or_create_user(attachment.author)
               a.container = i
+              a.description = attachment.description
               migrated_ticket_attachments += 1 if a.save
         	end
         	
@@ -456,6 +479,7 @@ namespace :redmine do
               a = Attachment.new :created_on => attachment.time
               a.file = attachment
               a.author = find_or_create_user(attachment.author)
+              a.description = attachment.description
               a.container = p
               migrated_wiki_attachments += 1 if a.save
             end

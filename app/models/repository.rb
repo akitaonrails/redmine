@@ -19,7 +19,10 @@ class Repository < ActiveRecord::Base
   belongs_to :project
   has_many :changesets, :dependent => :destroy, :order => "#{Changeset.table_name}.committed_on DESC, #{Changeset.table_name}.id DESC"
   has_many :changes, :through => :changesets
-    
+  
+  # Checks if the SCM is enabled when creating a repository
+  validate_on_create { |r| r.errors.add(:type, :activerecord_error_invalid) unless Setting.enabled_scm.include?(r.class.name.demodulize) }
+  
   # Removes leading and trailing whitespace
   def url=(arg)
     write_attribute(:url, arg ? arg.to_s.strip : nil)
@@ -48,12 +51,20 @@ class Repository < ActiveRecord::Base
     scm.supports_annotate?
   end
   
+  def entry(path=nil, identifier=nil)
+    scm.entry(path, identifier)
+  end
+  
   def entries(path=nil, identifier=nil)
     scm.entries(path, identifier)
   end
   
-  def diff(path, rev, rev_to, type)
-    scm.diff(path, rev, rev_to, type)
+  def cat(path, identifier=nil)
+    scm.cat(path, identifier)
+  end
+  
+  def diff(path, rev, rev_to)
+    scm.diff(path, rev, rev_to)
   end
   
   # Default behaviour: we search in cached changesets

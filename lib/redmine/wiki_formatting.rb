@@ -45,7 +45,7 @@ module Redmine
       # Patch for RedCloth.  Fixed in RedCloth r128 but _why hasn't released it yet.
       # <a href="http://code.whytheluckystiff.net/redcloth/changeset/128">http://code.whytheluckystiff.net/redcloth/changeset/128</a>
       def hard_break( text ) 
-        text.gsub!( /(.)\n(?!\n|\Z| *([#*=]+(\s|$)|[{|]))/, "\\1<br />\n" ) if hard_breaks 
+        text.gsub!( /(.)\n(?!\n|\Z|>| *(>? *[#*=]+(\s|$)|[{|]))/, "\\1<br />\n" ) if hard_breaks 
       end
       
       # Patch to add code highlighting support to RedCloth
@@ -85,6 +85,9 @@ module Redmine
           @toc.each_with_index do |heading, index|
             # remove wiki links from the item
             toc_item = heading.last.gsub(/(\[\[|\]\])/, '')
+            # remove styles
+            # eg. %{color:red}Triggers% => Triggers
+            toc_item.gsub! %r[%\{[^\}]*\}([^%]+)%], '\\1'
             out << "<a href=\"##{index+1}\" class=\"heading#{heading.first}\">#{toc_item}</a>"
           end
           out << '</div>'

@@ -170,6 +170,10 @@ tr.entry td.size { text-align: right; font-size: 90%; }
 tr.entry td.revision, tr.entry td.author { text-align: center; }
 tr.entry td.age { text-align: right; }
 
+tr.entry span.expander {background-image: url(../images/bullet_toggle_plus.png); padding-left: 8px; margin-left: 0; cursor: pointer;}
+tr.entry.open span.expander {background-image: url(../images/bullet_toggle_minus.png);}
+tr.entry.file td.filename a { margin-left: 16px; }
+
 tr.changeset td.author { text-align: center; width: 15%; }
 tr.changeset td.committed_on { text-align: center; width: 15%; }
 
@@ -226,6 +230,8 @@ input, select {vertical-align: middle; margin-top: 1px; margin-bottom: 1px;}
 fieldset {border: 1px solid #e4e4e4; margin:0;}
 legend {color: #484848;}
 hr { width: 100%; height: 1px; background: #ccc; border: 0;}
+blockquote { font-style: italic; border-left: 3px solid #e0e0e0; padding-left: 0.6em; margin-left: 2.4em;}
+blockquote blockquote { margin-left: 0;}
 textarea.wiki-edit { width: 99%; }
 li p {margin-top: 0;}
 div.issue {background:#ffffdd; padding:6px; margin-bottom:6px;border: 1px solid #d7d7d7;}
@@ -300,7 +306,7 @@ height: 1%;
 clear:left;
 }
 
-html>body .tabular p {overflow:auto;}
+html>body .tabular p {overflow:hidden;}
 
 .tabular label{
 font-weight: bold;

@@ -78,6 +78,15 @@ class RepositoriesSubversionControllerTest < Test::Unit::TestCase
       assert_template 'entry'
     end
     
+    def test_entry_at_given_revision
+      get :entry, :id => 1, :path => ['subversion_test', 'helloworld.rb'], :rev => 2
+      assert_response :success
+      assert_template 'entry'
+      # this line was removed in r3 and file was moved in r6
+      assert_tag :tag => 'td', :attributes => { :class => /line-code/},
+                               :content => /Here's the code/
+    end
+    
     def test_entry_not_found
       get :entry, :id => 1, :path => ['subversion_test', 'zzz.c']
       assert_tag :tag => 'div', :attributes => { :class => /error/ },
@@ -102,8 +111,13 @@ class RepositoriesSubversionControllerTest < Test::Unit::TestCase
       assert_response :success
       assert_template 'revision'
       assert_tag :tag => 'tr',
-                 :child => { :tag => 'td', :content => %r{/test/some/path/in/the/repo} },
                  :child => { :tag => 'td', 
+                             # link to the entry at rev 2
+                             :child => { :tag => 'a', :attributes => {:href => 'repositories/entry/ecookbook/test/some/path/in/the/repo?rev=2'},
+                                                      :content => %r{/test/some/path/in/the/repo} }
+                           },
+                 :child => { :tag => 'td', 
+                             # link to partial diff
                              :child => { :tag => 'a', :attributes => { :href => '/repositories/diff/ecookbook/test/some/path/in/the/repo?rev=2' } }
                            }
     end
