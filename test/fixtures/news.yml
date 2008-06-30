@@ -20,3 +20,19 @@ news_002:
   summary: eCookbook 1.0 have downloaded 100,000 times
   author_id: 2
   comments_count: 0
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: news
+#
+#  id             :integer         not null, primary key
+#  author_id      :integer         default(0), not null
+#  project_id     :integer         
+#  comments_count :integer         default(0), not null
+#  description    :text            
+#  summary        :string(255)     default("")
+#  title          :string(60)      default(""), not null
+#  created_on     :datetime        
+#
+

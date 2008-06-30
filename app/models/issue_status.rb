@@ -67,3 +67,16 @@ private
     raise "Can't delete status" if Issue.find(:first, :conditions => ["status_id=?", self.id])
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: issue_statuses
+#
+#  id         :integer         not null, primary key
+#  is_closed  :boolean         not null
+#  is_default :boolean         not null
+#  name       :string(30)      default(""), not null
+#  position   :integer         default(1)
+#
+

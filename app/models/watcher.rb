@@ -21,3 +21,15 @@ class Watcher < ActiveRecord::Base
   
   validates_uniqueness_of :user_id, :scope => [:watchable_type, :watchable_id]
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: watchers
+#
+#  id             :integer         not null, primary key
+#  user_id        :integer         
+#  watchable_id   :integer         default(0), not null
+#  watchable_type :string(255)     default(""), not null
+#
+

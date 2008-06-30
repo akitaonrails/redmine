@@ -254,3 +254,29 @@ class Issue < ActiveRecord::Base
     "#{tracker} ##{id}: #{subject}"
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: issues
+#
+#  id               :integer         not null, primary key
+#  assigned_to_id   :integer         
+#  author_id        :integer         default(0), not null
+#  category_id      :integer         
+#  fixed_version_id :integer         
+#  priority_id      :integer         default(0), not null
+#  project_id       :integer         default(0), not null
+#  status_id        :integer         default(0), not null
+#  tracker_id       :integer         default(0), not null
+#  description      :text            
+#  done_ratio       :integer         default(0), not null
+#  due_date         :date            
+#  estimated_hours  :float           
+#  lock_version     :integer         default(0), not null
+#  start_date       :date            
+#  subject          :string(255)     default(""), not null
+#  created_on       :datetime        
+#  updated_on       :datetime        
+#
+

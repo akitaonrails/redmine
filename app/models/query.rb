@@ -367,3 +367,18 @@ class Query < ActiveRecord::Base
     (project_clauses + filters_clauses).join(' AND ')
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: queries
+#
+#  id           :integer         not null, primary key
+#  project_id   :integer         
+#  user_id      :integer         default(0), not null
+#  column_names :text            
+#  filters      :text            
+#  is_public    :boolean         not null
+#  name         :string(255)     default(""), not null
+#
+

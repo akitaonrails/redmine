@@ -50,3 +50,16 @@ class UserPreference < ActiveRecord::Base
   def comments_sorting; self[:comments_sorting] end
   def comments_sorting=(order); self[:comments_sorting]=order end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: user_preferences
+#
+#  id        :integer         not null, primary key
+#  user_id   :integer         default(0), not null
+#  hide_mail :boolean         
+#  others    :text            
+#  time_zone :string(255)     
+#
+

@@ -41,3 +41,15 @@ class IssueCategory < ActiveRecord::Base
   
   def to_s; name end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: issue_categories
+#
+#  id             :integer         not null, primary key
+#  assigned_to_id :integer         
+#  project_id     :integer         default(0), not null
+#  name           :string(30)      default(""), not null
+#
+

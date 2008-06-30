@@ -29,3 +29,16 @@ issue_statuses_005:
   is_default: false
   is_closed: true
   id: 5
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: issue_statuses
+#
+#  id         :integer         not null, primary key
+#  is_closed  :boolean         not null
+#  is_default :boolean         not null
+#  name       :string(30)      default(""), not null
+#  position   :integer         default(1)
+#
+

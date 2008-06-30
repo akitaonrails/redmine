@@ -21,3 +21,18 @@ class Comment < ActiveRecord::Base
 
   validates_presence_of :commented, :author, :comments
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: comments
+#
+#  id             :integer         not null, primary key
+#  author_id      :integer         default(0), not null
+#  commented_id   :integer         default(0), not null
+#  commented_type :string(30)      default(""), not null
+#  comments       :text            
+#  created_on     :datetime        not null
+#  updated_on     :datetime        not null
+#
+

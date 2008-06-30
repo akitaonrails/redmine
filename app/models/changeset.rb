@@ -129,3 +129,19 @@ class Changeset < ActiveRecord::Base
     @next ||= Changeset.find(:first, :conditions => ['id > ? AND repository_id = ?', self.id, self.repository_id], :order => 'id ASC')
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: changesets
+#
+#  id            :integer         not null, primary key
+#  repository_id :integer         not null
+#  comments      :text            
+#  commit_date   :date            
+#  committer     :string(255)     
+#  revision      :string(255)     not null
+#  scmid         :string(255)     
+#  committed_on  :datetime        not null
+#
+

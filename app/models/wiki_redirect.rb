@@ -21,3 +21,16 @@ class WikiRedirect < ActiveRecord::Base
   validates_presence_of :title, :redirects_to
   validates_length_of :title, :redirects_to, :maximum => 255
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: wiki_redirects
+#
+#  id           :integer         not null, primary key
+#  wiki_id      :integer         not null
+#  redirects_to :string(255)     
+#  title        :string(255)     
+#  created_on   :datetime        not null
+#
+

@@ -40,3 +40,13 @@ enabled_modules_010:
   project_id: 3
   id: 10
   
+# == Schema Info
+# Schema version: 94
+#
+# Table name: enabled_modules
+#
+#  id         :integer         not null, primary key
+#  project_id :integer         
+#  name       :string(255)     not null
+#
+

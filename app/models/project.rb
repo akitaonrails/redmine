@@ -260,3 +260,22 @@ private
     @actions_allowed ||= allowed_permissions.inject([]) { |actions, permission| actions += Redmine::AccessControl.allowed_actions(permission) }.flatten
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: projects
+#
+#  id             :integer         not null, primary key
+#  parent_id      :integer         
+#  description    :text(255)       
+#  homepage       :string(255)     default("")
+#  identifier     :string(20)      
+#  is_public      :boolean         default(TRUE), not null
+#  name           :string(30)      default(""), not null
+#  projects_count :integer         default(0)
+#  status         :integer         default(1), not null
+#  created_on     :datetime        
+#  updated_on     :datetime        
+#
+

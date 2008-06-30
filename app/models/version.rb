@@ -104,3 +104,19 @@ private
     raise "Can't delete version" if self.fixed_issues.find(:first)
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: versions
+#
+#  id              :integer         not null, primary key
+#  project_id      :integer         default(0), not null
+#  description     :string(255)     default("")
+#  effective_date  :date            
+#  name            :string(255)     default(""), not null
+#  wiki_page_title :string(255)     
+#  created_on      :datetime        
+#  updated_on      :datetime        
+#
+

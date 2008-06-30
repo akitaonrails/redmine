@@ -163,3 +163,16 @@ class WikiAnnotate
     @lines.each { |line| line[0] ||= current.version }
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: wiki_pages
+#
+#  id         :integer         not null, primary key
+#  wiki_id    :integer         not null
+#  protected  :boolean         not null
+#  title      :string(255)     not null
+#  created_on :datetime        not null
+#
+

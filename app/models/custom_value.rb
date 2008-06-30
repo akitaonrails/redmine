@@ -48,3 +48,16 @@ protected
     end
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: custom_values
+#
+#  id              :integer         not null, primary key
+#  custom_field_id :integer         default(0), not null
+#  customized_id   :integer         default(0), not null
+#  customized_type :string(30)      default(""), not null
+#  value           :text            
+#
+

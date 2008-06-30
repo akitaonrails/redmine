@@ -288,3 +288,26 @@ class AnonymousUser < User
   def time_zone; nil end
   def rss_key; nil end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: users
+#
+#  id                :integer         not null, primary key
+#  auth_source_id    :integer         
+#  admin             :boolean         not null
+#  firstname         :string(30)      default(""), not null
+#  hashed_password   :string(40)      default(""), not null
+#  language          :string(5)       default("")
+#  lastname          :string(30)      default(""), not null
+#  login             :string(30)      default(""), not null
+#  mail              :string(60)      default(""), not null
+#  mail_notification :boolean         default(TRUE), not null
+#  status            :integer         default(1), not null
+#  type              :string(255)     
+#  created_on        :datetime        
+#  last_login_on     :datetime        
+#  updated_on        :datetime        
+#
+

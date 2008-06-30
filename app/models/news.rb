@@ -32,3 +32,19 @@ class News < ActiveRecord::Base
     find(:all, :limit => count, :conditions => Project.visible_by(user), :include => [ :author, :project ], :order => "#{News.table_name}.created_on DESC")	
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: news
+#
+#  id             :integer         not null, primary key
+#  author_id      :integer         default(0), not null
+#  project_id     :integer         
+#  comments_count :integer         default(0), not null
+#  description    :text            
+#  summary        :string(255)     default("")
+#  title          :string(60)      default(""), not null
+#  created_on     :datetime        
+#
+

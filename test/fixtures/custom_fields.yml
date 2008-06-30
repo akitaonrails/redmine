@@ -62,3 +62,27 @@ custom_fields_005:
   field_format: float
   default_value: ""
   
+
+
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: custom_fields
+#
+#  id              :integer         not null, primary key
+#  default_value   :text            
+#  field_format    :string(30)      default(""), not null
+#  is_filter       :boolean         not null
+#  is_for_all      :boolean         not null
+#  is_required     :boolean         not null
+#  max_length      :integer         default(0), not null
+#  min_length      :integer         default(0), not null
+#  name            :string(30)      default(""), not null
+#  position        :integer         default(1)
+#  possible_values :text            
+#  regexp          :string(255)     default("")
+#  searchable      :boolean         
+#  type            :string(30)      default(""), not null
+#
+

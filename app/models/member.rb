@@ -40,3 +40,17 @@ class Member < ActiveRecord::Base
     IssueCategory.update_all "assigned_to_id = NULL", ["project_id = ? AND assigned_to_id = ?", project.id, user.id]
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: members
+#
+#  id                :integer         not null, primary key
+#  project_id        :integer         default(0), not null
+#  role_id           :integer         default(0), not null
+#  user_id           :integer         default(0), not null
+#  mail_notification :boolean         not null
+#  created_on        :datetime        
+#
+

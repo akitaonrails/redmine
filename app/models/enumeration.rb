@@ -64,3 +64,16 @@ private
     end
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: enumerations
+#
+#  id         :integer         not null, primary key
+#  is_default :boolean         not null
+#  name       :string(30)      default(""), not null
+#  opt        :string(4)       default(""), not null
+#  position   :integer         default(1)
+#
+
