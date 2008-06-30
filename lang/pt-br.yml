@@ -226,7 +226,7 @@ label_enumeration_new: Novo
 label_information: Informação
 label_information_plural: Informações
 label_please_login: Efetue o login
-label_register: Registre-se
+label_register: Registrar
 label_password_lost: Perdi minha senha
 label_home: Página inicial
 label_my_page: Minha página
@@ -251,7 +251,7 @@ label_auth_source: Modo de autenticação
 label_auth_source_new: Novo modo de autenticação
 label_auth_source_plural: Modos de autenticação
 label_subproject_plural: Sub-projetos
-label_min_max_length: Tamanho mín-máx
+label_min_max_length: Tamanho mín máx
 label_list: Lista
 label_date: Data
 label_integer: Inteiro

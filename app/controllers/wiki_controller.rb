@@ -19,7 +19,11 @@ require 'diff'
 
 class WikiController < ApplicationController
   layout 'base'
-  before_filter :find_wiki, :authorize
+  before_filter :find_wiki
+  
+  # never log in / authorize for "exists" action (it's entirely public)
+  before_filter :authorize, :except => :exists
+  skip_before_filter :check_if_login_required, :only => :exists
   
   verify :method => :post, :only => [:destroy, :destroy_attachment, :protect], :redirect_to => { :action => :index }
 
@@ -52,6 +56,11 @@ class WikiController < ApplicationController
     render :action => 'show'
   end
   
+  def exists
+    @page = @wiki.find_page(params[:page])
+    render :text => "#{(!@page.nil?).to_s}"
+  end
+  
   # edit an existing page or a new one
   def edit
     @page = @wiki.find_or_new_page(params[:page])    
@@ -62,8 +71,13 @@ class WikiController < ApplicationController
     @content.text = "h1. #{@page.pretty_title}" if @content.text.blank?
     # don't keep previous comment
     @content.comments = nil
-    if request.post?      
-      if !@page.new_record? && @content.text == params[:content][:text]
+    if request.post?
+      # Update display_in_toc property and see if it changed
+      new_display_in_toc = params[:display_in_toc] == "1"
+      page_changed = @page.display_in_toc? != new_display_in_toc
+      @page.display_in_toc = new_display_in_toc
+      
+      if !@page.new_record? && !page_changed && @content.text == params[:content][:text]
         # don't save if text wasn't changed
         redirect_to :action => 'index', :id => @project, :page => @page.title
         return
@@ -73,7 +87,8 @@ class WikiController < ApplicationController
       @content.attributes = params[:content]
       @content.author = User.current
       # if page is new @page.save will also save content, but not if page isn't a new record
-      if (@page.new_record? ? @page.save : @content.save)
+      if (@page.new_record? || page_changed ? @page.save : @content.save)
+        Mailer.deliver_wiki_page_updated(@page) if Setting.notified_events.include?('wiki_page_updated')
         redirect_to :action => 'index', :id => @project, :page => @page.title
       end
     end
@@ -174,6 +189,13 @@ class WikiController < ApplicationController
     return render_403 unless editable?
     attach_files(@page, params[:attachments])
     redirect_to :action => 'index', :page => @page.title
+  end
+
+  def add_comment
+    @page = @wiki.find_page(params[:page])
+    @comment = Comment.new(params[:comment])
+    @comment.author = User.current
+    @page.comments << @comment
   end
 
   def destroy_attachment

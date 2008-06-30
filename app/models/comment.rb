@@ -20,6 +20,9 @@ class Comment < ActiveRecord::Base
   belongs_to :author, :class_name => 'User', :foreign_key => 'author_id'
 
   validates_presence_of :commented, :author, :comments
+
+  # Used in the views to anchor comments
+  attr_accessor :indice
 end
 
 # == Schema Info
