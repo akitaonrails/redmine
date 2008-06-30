@@ -5,8 +5,7 @@ set :user, "nofxxx"
 
 # REPO
 # #
-set :repository,  "ssh://nofxx@bcampos.fireho.com:22223/var/repo/redmine.git"
-#set :repository,  "ssh://deploy_d...@mydomain.com:8888/opt/repos/project.git "
+set :repository,  "git://github.com/nofxx/redmine.git"
 set :scm, :git
 #set :scm_passphrase, 
 #set :branch, "fireho/master"
@@ -16,15 +15,12 @@ set :deploy_via, :remote_cache
 #set :git_shallow_clone, 1
 #nao eh bom com set :branch
 
-
 # SSH
 # #
 ssh_options[:paranoid] = false
 ssh_options[:port] = 22223
 default_run_options[:pty] = true
 # git user and pass 
-
-
 
 # OPTIONS
 # #
@@ -45,7 +41,6 @@ role :app, domain
 role :web, domain
 role :db,  domain, :primary => true
 
-
 # TASKS
 # #
 desc "Create symlinks for shared upload directories" 
@@ -53,7 +48,6 @@ task :after_symlink do
       run "rm -rf #{release_path}/files"
       run "ln -nfs #{shared_path}/files #{release_path}/files" 
 end
-
 
 # PASSENGER DEPLOY
 # #

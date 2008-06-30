@@ -163,11 +163,15 @@ class RepositoriesController < ApplicationController
   
   def graph
     data = nil    
-    case params[:graph]
+    data = case params[:graph]
     when "commits_per_month"
-      data = graph_commits_per_month(@repository)
+      then graph_commits_per_month(@repository)
     when "commits_per_author"
-      data = graph_commits_per_author(@repository)
+      then graph_commits_per_author(@repository)
+    when "commits_per_author_pie"
+      then graph_commits_per_author_pie(@repository)
+    when "changes_per_author_pie"
+      then graph_changes_per_author_pie(@repository)
     end
     if data
       headers["Content-Type"] = "image/svg+xml"
@@ -228,7 +232,7 @@ private
   
     graph = SVG::Graph::Bar.new(
       :height => 300,
-      :width => 500,
+      :width => 1000,
       :fields => fields.reverse,
       :stack => :side,
       :scale_integers => true,
@@ -271,7 +275,7 @@ private
     
     graph = SVG::Graph::BarHorizontal.new(
       :height => 300,
-      :width => 500,
+      :width => 1000,
       :fields => fields,
       :stack => :side,
       :scale_integers => true,
@@ -293,6 +297,98 @@ private
        
     graph.burn
   end
+  
+  def graph_commits_per_author_pie(repository)
+    commits_by_author = repository.changesets.count(:all, :group => :committer)
+    commits_by_author.sort! {|x, y| x.last <=> y.last}
+
+   # changes_by_author = repository.changes.count(:all, :group => :committer)
+    #h = changes_by_author.inject({}) {|o, i| o[i.first] = i.last; o}
+    
+    fields = commits_by_author.collect {|r| r.first}
+    commits_data = commits_by_author.collect {|r| r.last}
+   # changes_data = commits_by_author.collect {|r| h[r.first] || 0}
+    
+#    fields = fields + [""]*(10 - fields.length) if fields.length<10
+#    commits_data = commits_data + [0]*(10 - commits_data.length) if commits_data.length<10
+#    changes_data = changes_data + [0]*(10 - changes_data.length) if changes_data.length<10
+    
+    # Remove email adress in usernames
+    fields = fields.collect {|c| c.gsub(%r{<.+@.+>}, '') }
+    
+    
+    graph = SVG::Graph::Pie.new(
+      :height => 300,
+      :width => 800,
+      :fields => fields,
+      :scale_integers => true,
+#      :show_data_values => false,
+      :graph_title => l(:label_commits_per_author),
+      :show_graph_title => true,
+      :show_shadow => false,
+      :show_percent => true,
+      :expand_gap => 100,
+   #   :expand_greatest => true,
+    # :expanded => true,
+      :show_actual_values => false,
+      :show_key_percent => true,
+      :show_percent => true
+    )
+    
+    
+    graph.add_data(
+      :data => commits_data,
+      :title => l(:label_revision_plural)
+    )
+
+
+       
+    graph.burn
+
+  end
+  
+  def graph_changes_per_author_pie(repository)
+    commits_by_author = repository.changesets.count(:all, :group => :committer)
+    commits_by_author.sort! {|x, y| x.last <=> y.last}
+
+    changes_by_author = repository.changes.count(:all, :group => :committer)
+    h = changes_by_author.inject({}) {|o, i| o[i.first] = i.last; o}
+    
+    fields = commits_by_author.collect {|r| r.first}
+    commits_data = commits_by_author.collect {|r| r.last}
+    changes_data = commits_by_author.collect {|r| h[r.first] || 0}
+    
+#    fields = fields + [""]*(10 - fields.length) if fields.length<10
+#    commits_data = commits_data + [0]*(10 - commits_data.length) if commits_data.length<10
+#    changes_data = changes_data + [0]*(10 - changes_data.length) if changes_data.length<10
+    
+    # Remove email adress in usernames
+    fields = fields.collect {|c| c.gsub(%r{<.+@.+>}, '') }
+    
+    
+    graph = SVG::Graph::Pie.new(
+      :height => 300,
+      :width => 800,
+      :fields => fields,
+      :scale_integers => true,
+#      :show_data_values => false,
+      :graph_title => l(:label_changes_per_author),
+      :show_graph_title => true,
+      :show_shadow => false,
+      :show_percent => true
+#      :expanded => true
+    )
+    
+    graph.add_data(
+      :data => changes_data,
+      :title => l(:label_change_plural)
+    )
+       
+    graph.burn
+
+  end
+  
+  
 
 end
   
