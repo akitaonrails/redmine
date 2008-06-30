@@ -2,6 +2,7 @@
 thumbs.db
 log/*.log
 config/database.yml
+config/deploy.rb
 tmp/**/*
 db/*.db
 doc/api
