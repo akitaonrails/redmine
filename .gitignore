@@ -10,9 +10,9 @@ doc/app
 doc/plugins
 doc/controllers.png
 doc/models.png
+tmp/sessions/*
 db/schema.rb
-nbproject/
-nbproject/*
+nbproject/**/*
 public/uploads
 public/uploads/**/*
 *.tmproj
