@@ -16,7 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 require 'SVG/Graph/Bar'
-require 'SVG/Graph/BarHorizontal'
+require 'SVG/Graph/BarHorizontal'     
+require 'SVG/Graph/Pie'
 require 'digest/sha1'
 
 class ChangesetNotFound < Exception; end
