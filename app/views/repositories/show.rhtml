@@ -1,14 +1,23 @@
 <div class="contextual">
-<%= link_to l(:label_statistics), {:action => 'stats', :id => @project}, :class => 'icon icon-stats' %>
+	<%= link_to l(:label_statistics), {:action => 'stats', :id => @project}, :class => 'icon icon-stats' %>
 
-<% if !@entries.nil? && authorize_for('repositories', 'browse') -%>
-<% form_tag(:action => 'browse', :id => @project) do -%>
-| <%= l(:label_revision) %>: <%= text_field_tag 'rev', @rev, :size => 5 %>
-<% end -%>
-<% end -%>
+	<% if !@entries.nil? && authorize_for('repositories', 'browse') -%>
+		<% form_tag(:action => 'browse', :id => @project) do -%>
+				| <%= l(:label_revision) %>: <%= text_field_tag 'rev', @rev, :size => 5 %>
+		<% end -%>
+	<% end -%>
 </div>
 
-<h2><%= l(:label_repository) %> (<%= @repository.scm_name %>)</h2>
+ 
+          
+<% unless @changesets.empty? %>
+	<h2>Last commit</h2>  
+	  <% for changeset in [@changesets.first] do %>   
+			<%# link_to format_revision(changeset.revision), :action => 'revision', :id => project, :rev => changeset.revision %>    
+			<h4> <%=h changeset.committer.to_s.split('<').first %> <%= format_time(changeset.committed_on) %></h4>
+		  <p><%= textilizable(changeset.comments) %></p>
+	  <% end %>                             
+<% end %>
 
 <% if !@entries.nil? && authorize_for('repositories', 'browse') %>
 <%= render :partial => 'dir_list' %>
@@ -27,4 +36,11 @@
 <%= stylesheet_link_tag "scm" %>
 <% end %>
 
-<% html_title(l(:label_repository)) -%>
+<% html_title(l(:label_repository)) -%> 
+ 
+<%- if @repository.supports_cat? && @readme -%>   
+	<h2>Readme</h2>   
+	<%= render :partial => 'common/file', :locals => {:filename => 'README', :content => @readme} %>  
+<%- end -%>   
+
+<h2><%= l(:label_repository) %> (<%= @repository.scm_name %>)</h2> 

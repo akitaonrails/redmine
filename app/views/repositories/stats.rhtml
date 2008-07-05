@@ -10,11 +10,11 @@
   :src => url_for(:controller => 'repositories', :action => 'graph', 
     :id => @project, :graph => "commits_per_author")) %>
 </tr><br><tr>
-<%= tag("embed", :width => 800, :height => 350, :type => "image/svg+xml", 
+<%= tag("embed", :width => 800, :height => 400, :type => "image/svg+xml", 
   :src => url_for(:controller => 'repositories', :action => 'graph', 
     :id => @project, :graph => "commits_per_author_pie")) %>
 </tr><br><tr>
-<%= tag("embed", :width => 800, :height => 350, :type => "image/svg+xml", 
+<%= tag("embed", :width => 800, :height => 400, :type => "image/svg+xml", 
   :src => url_for(:controller => 'repositories', :action => 'graph', 
     :id => @project, :graph => "changes_per_author_pie")) %>
 

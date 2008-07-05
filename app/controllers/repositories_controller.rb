@@ -56,8 +56,11 @@ class RepositoriesController < ApplicationController
     # root entries
     @entries = @repository.entries('', @rev)    
     # latest changesets
-    @changesets = @repository.changesets.find(:all, :limit => 10, :order => "committed_on DESC")
-    show_error_not_found unless @entries || @changesets.any?
+    @changesets = @repository.changesets.find(:all, :limit => 15, :order => "committed_on DESC")
+    show_error_not_found unless @entries || @changesets.any?     
+    # readme if any  
+    # suppose to return nil if no file found
+    @readme = @repository.cat('README', @rev)
   end
   
   def browse
@@ -302,23 +305,15 @@ private
     commits_by_author = repository.changesets.count(:all, :group => :committer)
     commits_by_author.sort! {|x, y| x.last <=> y.last}
 
-   # changes_by_author = repository.changes.count(:all, :group => :committer)
-    #h = changes_by_author.inject({}) {|o, i| o[i.first] = i.last; o}
-    
     fields = commits_by_author.collect {|r| r.first}
     commits_data = commits_by_author.collect {|r| r.last}
-   # changes_data = commits_by_author.collect {|r| h[r.first] || 0}
-    
-#    fields = fields + [""]*(10 - fields.length) if fields.length<10
-#    commits_data = commits_data + [0]*(10 - commits_data.length) if commits_data.length<10
-#    changes_data = changes_data + [0]*(10 - changes_data.length) if changes_data.length<10
     
     # Remove email adress in usernames
     fields = fields.collect {|c| c.gsub(%r{<.+@.+>}, '') }
     
     
     graph = SVG::Graph::Pie.new(
-      :height => 300,
+      :height => 350,
       :width => 800,
       :fields => fields,
       :scale_integers => true,
@@ -328,21 +323,18 @@ private
       :show_shadow => false,
       :show_percent => true,
       :expand_gap => 100,
-   #   :expand_greatest => true,
+    # :expand_greatest => true,
     # :expanded => true,
       :show_actual_values => false,
       :show_key_percent => true,
       :show_percent => true
     )
     
-    
     graph.add_data(
       :data => commits_data,
       :title => l(:label_revision_plural)
     )
 
-
-       
     graph.burn
 
   end
@@ -358,16 +350,11 @@ private
     commits_data = commits_by_author.collect {|r| r.last}
     changes_data = commits_by_author.collect {|r| h[r.first] || 0}
     
-#    fields = fields + [""]*(10 - fields.length) if fields.length<10
-#    commits_data = commits_data + [0]*(10 - commits_data.length) if commits_data.length<10
-#    changes_data = changes_data + [0]*(10 - changes_data.length) if changes_data.length<10
-    
     # Remove email adress in usernames
     fields = fields.collect {|c| c.gsub(%r{<.+@.+>}, '') }
-    
-    
+
     graph = SVG::Graph::Pie.new(
-      :height => 300,
+      :height => 350,
       :width => 800,
       :fields => fields,
       :scale_integers => true,
@@ -387,8 +374,6 @@ private
     graph.burn
 
   end
-  
-  
 
 end
   
