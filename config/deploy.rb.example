@@ -46,7 +46,14 @@ end
 
 # PASSENGER DEPLOY
 # #
-namespace :deploy do  
+namespace :deploy do          
+
+	desc "Copy config database.yml"
+	task :copy_database_configuration do
+       run "cp #{shared_path}/config/database.yml #{release_path}/config"    
+	end
+	after "deploy:update_code", "deploy:copy_database_configuration"
+
   task :start, :roles => :app do  
   end  
   

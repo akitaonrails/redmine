@@ -1,0 +1,18 @@
+redMine - project management software
+ Copyright (C) 2006-2007  Jean-Philippe Lang
+ http://www.redmine.org/
+
+Modifications:
+
+ - More graphics and few changes on existent ones. (DONE)
+ - Merge github.com/mcm nice wiki comments. (DONE)
+ - Changes on the repo view: readme, last commit. (Almost Done)
+ - Add hours spent on the scm commit (TODO)                   
+ - Add a simpler new ticket view, for ppl not aware of project intrinsics, users. (TODO)
+ - Add a devs notification when new commit occurs, with the commit message. (TODO, tricky)
+
+
+This fork doesn`t have any official relation with redmine!                              
+
+Tested on rails: 2.0.2, ruby enterprise 1.8.6-20080624
+nofxx - 07/2008

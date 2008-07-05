@@ -377,6 +377,7 @@ label_change_plural: Промени
 label_statistics: Статистики
 label_commits_per_month: Ревизии по месеци
 label_commits_per_author: Ревизии по автор
+label_changes_per_author: Changes per author 
 label_view_diff: Виж разликите
 label_diff_inline: хоризонтално
 label_diff_side_by_side: вертикално
