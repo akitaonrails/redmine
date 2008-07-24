@@ -23,6 +23,13 @@ class Comment < ActiveRecord::Base
 
   # Used in the views to anchor comments
   attr_accessor :indice
+
+  # Returns TRUE if this comment is editable by a user given.
+  # Note: this check reuses :edit_issue_notes and :edit_own_issue_notes permissions.
+  def editable_by?(user)
+    project = commented.project
+    user && user.logged? && (user.allowed_to?(:edit_issue_notes, project) || (self.author == user && user.allowed_to?(:edit_own_issue_notes, project)))
+  end
 end
 
 # == Schema Info

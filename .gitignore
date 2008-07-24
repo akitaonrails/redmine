@@ -19,3 +19,5 @@ public/uploads/**/*
 *.tmproj
 coverage/*
 vendor/rails
+tmp
+
