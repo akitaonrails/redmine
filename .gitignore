@@ -2,6 +2,7 @@
 thumbs.db
 log/*.log
 config/database.yml
+config/email.yml
 config/deploy.rb
 tmp/**/*
 db/*.db
@@ -16,6 +17,7 @@ nbproject
 nbproject/**/*
 public/uploads
 public/uploads/**/*
+public/plugin_assets
 *.tmproj
 coverage/*
 vendor/rails

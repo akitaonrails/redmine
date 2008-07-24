@@ -1,8 +1,8 @@
-redMine - project management software
- Copyright (C) 2006-2007  Jean-Philippe Lang
- http://www.redmine.org/
+Redmine - project management software
+Copyright (C) 2006-2008  Jean-Philippe Lang
+http://www.redmine.org
 
-Modifications:
+== MODS:
 
  - More graphics and few changes on existent ones. (DONE)
  - Merge github.com/mcm nice wiki comments. (DONE)
@@ -11,8 +11,7 @@ Modifications:
  - Add a simpler new ticket view, for ppl not aware of project intrinsics, users. (TODO)
  - Add a devs notification when new commit occurs, with the commit message. (TODO, tricky)
 
+      
+== Redmine
 
-This fork doesn`t have any official relation with redmine!                              
-
-Tested on rails: 2.0.2, ruby enterprise 1.8.6-20080624
-nofxx - 07/2008
+This fork doesn`t have any official relation with Redmine!                              

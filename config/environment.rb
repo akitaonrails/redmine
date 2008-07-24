@@ -49,17 +49,6 @@ Rails::Initializer.run do |config|
   # Use Active Record's schema dumper instead of SQL when creating the test database
   # (enables use of different database adapters for development and test environments)
   # config.active_record.schema_format = :ruby
-  
-	# SMTP server configuration
-	config.action_mailer.smtp_settings = {
-		:address => "mail.fireho.com",
-		:port => 25,
-		:domain => "fireho.com",
-		:authentication => :login,
-		:user_name => "gestor@fireho.com",
-		:password => "rocknroll",
-	}
-	
 
 	# Tell ActionMailer not to deliver emails to the real world.
 	# The :test delivery method accumulates sent emails in the
