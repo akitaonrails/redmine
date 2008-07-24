@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html { 
         @project_tree = projects.group_by {|p| p.parent || p}
-        @project_tree.each_key {|p| @project_tree[p] -= [p]} 
+        @project_tree.keys.each {|p| @project_tree[p] -= [p]} 
       }
       format.atom {
         render_feed(projects.sort_by(&:created_on).reverse.slice(0, Setting.feeds_limit.to_i), 
@@ -63,21 +63,17 @@ class ProjectsController < ApplicationController
   
   # Add a new project
   def add
-    @custom_fields = IssueCustomField.find(:all, :order => "#{CustomField.table_name}.position")
+    @issue_custom_fields = IssueCustomField.find(:all, :order => "#{CustomField.table_name}.position")
     @trackers = Tracker.all
     @root_projects = Project.find(:all,
                                   :conditions => "parent_id IS NULL AND status = #{Project::STATUS_ACTIVE}",
                                   :order => 'name')
     @project = Project.new(params[:project])
     if request.get?
-      @custom_values = ProjectCustomField.find(:all, :order => "#{CustomField.table_name}.position").collect { |x| CustomValue.new(:custom_field => x, :customized => @project) }
       @project.trackers = Tracker.all
       @project.is_public = Setting.default_projects_public?
       @project.enabled_module_names = Redmine::AccessControl.available_project_modules
     else
-      @project.custom_fields = CustomField.find(params[:custom_field_ids]) if params[:custom_field_ids]
-      @custom_values = ProjectCustomField.find(:all, :order => "#{CustomField.table_name}.position").collect { |x| CustomValue.new(:custom_field => x, :customized => @project, :value => (params[:custom_fields] ? params["custom_fields"][x.id.to_s] : nil)) }
-      @project.custom_values = @custom_values
       @project.enabled_module_names = params[:enabled_modules]
       if @project.save
         flash[:notice] = l(:notice_successful_create)
@@ -88,7 +84,6 @@ class ProjectsController < ApplicationController
 	
   # Show @project
   def show
-    @custom_values = @project.custom_values.find(:all, :include => :custom_field, :order => "#{CustomField.table_name}.position")
     @members_by_role = @project.members.find(:all, :include => [:user, :role], :order => 'position').group_by {|m| m.role}
     @subprojects = @project.children.find(:all, :conditions => Project.visible_by(User.current))
     @news = @project.news.find(:all, :limit => 5, :include => [ :author, :project ], :order => "#{News.table_name}.created_on DESC")
@@ -115,11 +110,10 @@ class ProjectsController < ApplicationController
     @root_projects = Project.find(:all,
                                   :conditions => ["parent_id IS NULL AND status = #{Project::STATUS_ACTIVE} AND id <> ?", @project.id],
                                   :order => 'name')
-    @custom_fields = IssueCustomField.find(:all)
+    @issue_custom_fields = IssueCustomField.find(:all, :order => "#{CustomField.table_name}.position")
     @issue_category ||= IssueCategory.new
     @member ||= @project.members.new
     @trackers = Tracker.all
-    @custom_values ||= ProjectCustomField.find(:all, :order => "#{CustomField.table_name}.position").collect { |x| @project.custom_values.find_by_custom_field_id(x.id) || CustomValue.new(:custom_field => x) }
     @repository ||= @project.repository
     @wiki ||= @project.wiki
   end
@@ -127,10 +121,6 @@ class ProjectsController < ApplicationController
   # Edit @project
   def edit
     if request.post?
-      if params[:custom_fields]
-        @custom_values = ProjectCustomField.find(:all, :order => "#{CustomField.table_name}.position").collect { |x| CustomValue.new(:custom_field => x, :customized => @project, :value => params["custom_fields"][x.id.to_s]) }
-        @project.custom_values = @custom_values
-      end
       @project.attributes = params[:project]
       if @project.save
         flash[:notice] = l(:notice_successful_update)
@@ -258,7 +248,8 @@ class ProjectsController < ApplicationController
       @events += Issue.find(:all, :include => [:project, :author, :tracker], :conditions => cond.conditions)
       
       cond = ARCondition.new(Project.allowed_to_condition(User.current, :view_issues, :project => @project, :with_subprojects => @with_subprojects))
-      cond.add(["#{Journal.table_name}.journalized_type = 'Issue' AND #{JournalDetail.table_name}.prop_key = 'status_id' AND #{Journal.table_name}.created_on BETWEEN ? AND ?", @date_from, @date_to])
+      cond.add(["#{Journal.table_name}.journalized_type = 'Issue' AND #{Journal.table_name}.created_on BETWEEN ? AND ?", @date_from, @date_to])
+      cond.add("#{JournalDetail.table_name}.prop_key = 'status_id' OR #{Journal.table_name}.notes <> ''")
       @events += Journal.find(:all, :include => [{:issue => :project}, :details, :user], :conditions => cond.conditions)
     end
     
@@ -320,7 +311,10 @@ class ProjectsController < ApplicationController
     
     respond_to do |format|
       format.html { render :layout => false if request.xhr? }
-      format.atom { render_feed(@events, :title => "#{@project || Setting.app_title}: #{l(:label_activity)}") }
+      format.atom {
+        title = (@scope.size == 1) ? l("label_#{@scope.first.singularize}_plural") : l(:label_activity)
+        render_feed(@events, :title => "#{@project || Setting.app_title}: #{title}")
+      }
     end
   end
   

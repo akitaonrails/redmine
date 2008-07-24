@@ -50,3 +50,9 @@
 <div id="preview" class="wiki"></div>
 </div>
 <% end %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'scm' %>
+<% end %>
+
+<% html_title h(@topic.subject) %>

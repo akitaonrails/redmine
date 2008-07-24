@@ -9,6 +9,12 @@ issue_categories_002:
   project_id: 1
   assigned_to_id: 
   id: 2
+issue_categories_003: 
+  name: Stock management
+  project_id: 2
+  assigned_to_id: 
+  id: 3  
+
 
 # == Schema Info
 # Schema version: 94
@@ -20,4 +26,5 @@ issue_categories_002:
 #  project_id     :integer         default(0), not null
 #  name           :string(30)      default(""), not null
 #
+
 

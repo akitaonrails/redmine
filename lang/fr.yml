@@ -48,6 +48,7 @@ general_text_no: 'non'
 general_text_yes: 'oui'
 general_lang_name: 'Français'
 general_csv_separator: ';'
+general_csv_decimal_separator: ','
 general_csv_encoding: ISO-8859-1
 general_pdf_encoding: ISO-8859-1
 general_day_names: Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche
@@ -215,6 +216,8 @@ setting_user_format: Format d'affichage des utilisateurs
 setting_activity_days_default: Nombre de jours affichés sur l'activité des projets
 setting_display_subprojects_issues: Afficher par défaut les demandes des sous-projets sur les projets principaux
 setting_enabled_scm: SCM activés
+setting_mail_handler_api_enabled: "Activer le WS pour la réception d'emails"
+setting_mail_handler_api_key: Clé de protection de l'API
 
 project_module_issue_tracking: Suivi des demandes
 project_module_time_tracking: Suivi du temps passé
@@ -515,6 +518,8 @@ label_preferences: Préférences
 label_chronological_order: Dans l'ordre chronologique
 label_reverse_chronological_order: Dans l'ordre chronologique inverse
 label_planning: Planning
+label_incoming_emails: Emails entrants
+label_generate_key: Générer une clé
 
 button_login: Connexion
 button_submit: Soumettre
@@ -599,6 +604,9 @@ text_destroy_time_entries: Supprimer les heures
 text_assign_time_entries_to_project: Reporter les heures sur le projet
 text_reassign_time_entries: 'Reporter les heures sur cette demande:'
 text_user_wrote: '%s a écrit:'
+text_enumeration_destroy_question: 'Cette valeur est affectée à %d objets.'
+text_enumeration_category_reassign_to: 'Réaffecter les objets à cette valeur:'
+text_email_delivery_not_configured: "L'envoi de mail n'est pas configuré, les notifications sont désactivées.\nConfigurez votre serveur SMTP dans config/email.yml et redémarrez l'application pour les activer."
 
 default_role_manager: Manager
 default_role_developper: Développeur

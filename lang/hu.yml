@@ -48,6 +48,7 @@ general_text_no: 'nem'
 general_text_yes: 'igen'
 general_lang_name: 'Magyar'
 general_csv_separator: ','
+general_csv_decimal_separator: '.'
 general_csv_encoding: ISO-8859-2
 general_pdf_encoding: ISO-8859-2
 general_day_names: Hétfő,Kedd,Szerda,Csütörtök,Péntek,Szombat,Vasárnap
@@ -355,7 +356,7 @@ label_last_changes: utolsó %d változás
 label_change_view_all: Minden változás megtekintése
 label_personalize_page: Az oldal testreszabása
 label_comment: Megjegyzés
-label_comment_plural: Megjegyzések
+label_comment_plural: Megjegyzés
 label_comment_add: Megjegyzés hozzáadása
 label_comment_added: Megjegyzés hozzáadva
 label_comment_delete: Megjegyzések törlése
@@ -625,3 +626,10 @@ mail_subject_reminder: "%d feladat határidős az elkövetkező napokban"
 text_user_wrote: '%s írta:'
 label_duplicated_by: duplikálta
 setting_enabled_scm: Forráskódkezelő (SCM) engedélyezése
+text_enumeration_category_reassign_to: 'Újra hozzárendelés ehhez:'
+text_enumeration_destroy_question: '%d objektum van hozzárendelve ehhez az értékhez.'
+label_incoming_emails: Beérkezett levelek
+label_generate_key: Kulcs generálása
+setting_mail_handler_api_enabled: Web Service engedélyezése a beérkezett levelekhez
+setting_mail_handler_api_key: API kulcs
+text_email_delivery_not_configured: "Az E-mail küldés nincs konfigurálva, és az értesítések ki vannak kapcsolva.\nÁllítsd be az SMTP szervert a config/email.yml fájlban és indítsd újra az alkalmazást, hogy érvénybe lépjen."

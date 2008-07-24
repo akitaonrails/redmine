@@ -31,10 +31,14 @@ class ApplicationHelperTest < HelperTestCase
       'http://foo.bar' => '<a class="external" href="http://foo.bar">http://foo.bar</a>',
       'http://foo.bar/~user' => '<a class="external" href="http://foo.bar/~user">http://foo.bar/~user</a>',
       'http://foo.bar.' => '<a class="external" href="http://foo.bar">http://foo.bar</a>.',
+      'This is a link: http://foo.bar.' => 'This is a link: <a class="external" href="http://foo.bar">http://foo.bar</a>.',
+      'A link (eg. http://foo.bar).' => 'A link (eg. <a class="external" href="http://foo.bar">http://foo.bar</a>).',
       'http://foo.bar/foo.bar#foo.bar.' => '<a class="external" href="http://foo.bar/foo.bar#foo.bar">http://foo.bar/foo.bar#foo.bar</a>.',
       'www.foo.bar' => '<a class="external" href="http://www.foo.bar">www.foo.bar</a>',
       'http://foo.bar/page?p=1&t=z&s=' => '<a class="external" href="http://foo.bar/page?p=1&#38;t=z&#38;s=">http://foo.bar/page?p=1&#38;t=z&#38;s=</a>',
-      'http://foo.bar/page#125' => '<a class="external" href="http://foo.bar/page#125">http://foo.bar/page#125</a>'
+      'http://foo.bar/page#125' => '<a class="external" href="http://foo.bar/page#125">http://foo.bar/page#125</a>',
+      'http://foo@www.bar.com' => '<a class="external" href="http://foo@www.bar.com">http://foo@www.bar.com</a>',
+      'ftp://foo.bar' => '<a class="external" href="ftp://foo.bar">ftp://foo.bar</a>',
     }
     to_test.each { |text, result| assert_equal "<p>#{result}</p>", textilizable(text) }
   end
@@ -59,6 +63,7 @@ class ApplicationHelperTest < HelperTestCase
       'This is a "link":http://foo.bar' => 'This is a <a href="http://foo.bar" class="external">link</a>',
       'This is an intern "link":/foo/bar' => 'This is an intern <a href="/foo/bar">link</a>',
       '"link (Link title)":http://foo.bar' => '<a href="http://foo.bar" title="Link title" class="external">link</a>',
+      "This is not a \"Link\":\n\nAnother paragraph" => "This is not a \"Link\":</p>\n\n\n\t<p>Another paragraph",
       # no multiline link text
       "This is a double quote \"on the first line\nand another on a second line\":test" => "This is a double quote \"on the first line<br />\nand another on a second line\":test"
     }
@@ -78,7 +83,8 @@ class ApplicationHelperTest < HelperTestCase
     version_link = link_to('1.0', {:controller => 'versions', :action => 'show', :id => 2},
                                   :class => 'version')
 
-    source_url = {:controller => 'repositories', :action => 'entry', :id => 'ecookbook', :path => 'some/file'}
+    source_url = {:controller => 'repositories', :action => 'entry', :id => 'ecookbook', :path => ['some', 'file']}
+    source_url_with_ext = {:controller => 'repositories', :action => 'entry', :id => 'ecookbook', :path => ['some', 'file.ext']}
     
     to_test = {
       # tickets
@@ -94,8 +100,15 @@ class ApplicationHelperTest < HelperTestCase
       'version:"1.0"'               => version_link,
       # source
       'source:/some/file'           => link_to('source:/some/file', source_url, :class => 'source'),
+      'source:/some/file.'          => link_to('source:/some/file', source_url, :class => 'source') + ".",
+      'source:/some/file.ext.'      => link_to('source:/some/file.ext', source_url_with_ext, :class => 'source') + ".",
+      'source:/some/file. '         => link_to('source:/some/file', source_url, :class => 'source') + ".",
+      'source:/some/file.ext. '     => link_to('source:/some/file.ext', source_url_with_ext, :class => 'source') + ".",
+      'source:/some/file, '         => link_to('source:/some/file', source_url, :class => 'source') + ",",
       'source:/some/file@52'        => link_to('source:/some/file@52', source_url.merge(:rev => 52), :class => 'source'),
+      'source:/some/file.ext@52'    => link_to('source:/some/file.ext@52', source_url_with_ext.merge(:rev => 52), :class => 'source'),
       'source:/some/file#L110'      => link_to('source:/some/file#L110', source_url.merge(:anchor => 'L110'), :class => 'source'),
+      'source:/some/file.ext#L110'  => link_to('source:/some/file.ext#L110', source_url_with_ext.merge(:anchor => 'L110'), :class => 'source'),
       'source:/some/file@52#L110'   => link_to('source:/some/file@52#L110', source_url.merge(:rev => 52, :anchor => 'L110'), :class => 'source'),
       'export:/some/file'           => link_to('export:/some/file', source_url.merge(:format => 'raw'), :class => 'source download'),
       # escaping

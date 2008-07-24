@@ -38,9 +38,17 @@ class ProjectsControllerTest < Test::Unit::TestCase
     assert_template 'index'
     assert_not_nil assigns(:project_tree)
     # Root project as hash key
-    assert assigns(:project_tree).has_key?(Project.find(1))
+    assert assigns(:project_tree).keys.include?(Project.find(1))
     # Subproject in corresponding value
     assert assigns(:project_tree)[Project.find(1)].include?(Project.find(3))
+  end
+  
+  def test_index_atom
+    get :index, :format => 'atom'
+    assert_response :success
+    assert_template 'common/feed.atom.rxml'
+    assert_select 'feed>title', :text => 'Redmine: Latest projects'
+    assert_select 'feed>entry', :count => Project.count(:conditions => Project.visible_by(User.current))
   end
   
   def test_show_by_id
@@ -83,7 +91,7 @@ class ProjectsControllerTest < Test::Unit::TestCase
   def test_edit
     @request.session[:user_id] = 2 # manager
     post :edit, :id => 1, :project => {:name => 'Test changed name',
-                                       :custom_field_ids => ['']}
+                                       :issue_custom_field_ids => ['']}
     assert_redirected_to 'projects/settings/ecookbook'
     project = Project.find(1)
     assert_equal 'Test changed name', project.name
@@ -154,7 +162,7 @@ class ProjectsControllerTest < Test::Unit::TestCase
                :content => /#{2.days.ago.to_date.day}/,
                :sibling => { :tag => "dl",
                  :child => { :tag => "dt",
-                   :attributes => { :class => 'issue-edit' },
+                   :attributes => { :class => /issue-edit/ },
                    :child => { :tag => "a",
                      :content => /(#{IssueStatus.find(2).name})/,
                    }
@@ -170,7 +178,7 @@ class ProjectsControllerTest < Test::Unit::TestCase
                :content => /#{3.day.ago.to_date.day}/,
                :sibling => { :tag => "dl",
                  :child => { :tag => "dt",
-                   :attributes => { :class => 'issue' },
+                   :attributes => { :class => /issue/ },
                    :child => { :tag => "a",
                      :content => /#{Issue.find(1).subject}/,
                    }
@@ -303,5 +311,34 @@ class ProjectsControllerTest < Test::Unit::TestCase
     post :unarchive, :id => 1
     assert_redirected_to 'admin/projects'
     assert Project.find(1).active?
+  end
+  
+  def test_project_menu
+    assert_no_difference 'Redmine::MenuManager.items(:project_menu).size' do
+      Redmine::MenuManager.map :project_menu do |menu|
+        menu.push :foo, { :controller => 'projects', :action => 'show' }, :cation => 'Foo'
+        menu.push :bar, { :controller => 'projects', :action => 'show' }, :before => :activity
+        menu.push :hello, { :controller => 'projects', :action => 'show' }, :caption => Proc.new {|p| p.name.upcase }, :after => :bar
+      end
+      
+      get :show, :id => 1
+      assert_tag :div, :attributes => { :id => 'main-menu' },
+                       :descendant => { :tag => 'li', :child => { :tag => 'a', :content => 'Foo' } }
+  
+      assert_tag :div, :attributes => { :id => 'main-menu' },
+                       :descendant => { :tag => 'li', :child => { :tag => 'a', :content => 'Bar' },
+                                                      :before => { :tag => 'li', :child => { :tag => 'a', :content => 'ECOOKBOOK' } } }
+
+      assert_tag :div, :attributes => { :id => 'main-menu' },
+                       :descendant => { :tag => 'li', :child => { :tag => 'a', :content => 'ECOOKBOOK' },
+                                                      :before => { :tag => 'li', :child => { :tag => 'a', :content => 'Activity' } } }
+      
+      # Remove the menu items
+      Redmine::MenuManager.map :project_menu do |menu|
+        menu.delete :foo
+        menu.delete :bar
+        menu.delete :hello
+      end
+    end
   end
 end

@@ -60,24 +60,8 @@ class Test::Unit::TestCase
   
   # Use a temporary directory for attachment related tests
   def set_tmp_attachments_directory
+    Dir.mkdir "#{RAILS_ROOT}/tmp/test" unless File.directory?("#{RAILS_ROOT}/tmp/test")
     Dir.mkdir "#{RAILS_ROOT}/tmp/test/attachments" unless File.directory?("#{RAILS_ROOT}/tmp/test/attachments")
     Attachment.storage_path = "#{RAILS_ROOT}/tmp/test/attachments"
-  end
-end
-
-
-# ActionController::TestUploadedFile bug
-# see http://dev.rubyonrails.org/ticket/4635
-class String
-  def original_filename
-    "testfile.txt"
-  end
-  
-  def content_type
-    "text/plain"
-  end
-  
-  def read
-    self.to_s
   end
 end

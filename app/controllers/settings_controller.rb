@@ -39,6 +39,7 @@ class SettingsController < ApplicationController
     end
     @options = {}
     @options[:user_format] = User::USER_FORMATS.keys.collect {|f| [User.current.name(f), f.to_s] }
+    @deliveries = ActionMailer::Base.perform_deliveries
   end
   
   def plugin
@@ -49,7 +50,7 @@ class SettingsController < ApplicationController
       flash[:notice] = l(:notice_successful_update)
       redirect_to :action => 'plugin', :id => params[:id]
     end
-    @partial = "../../vendor/plugins/#{plugin_id}/app/views/" + @plugin.settings[:partial]
+    @partial = @plugin.settings[:partial]
     @settings = Setting["plugin_#{plugin_id}"]
   end
 end

@@ -28,15 +28,17 @@ class Issue < ActiveRecord::Base
   has_many :journals, :as => :journalized, :dependent => :destroy
   has_many :attachments, :as => :container, :dependent => :destroy
   has_many :time_entries, :dependent => :delete_all
-  has_many :custom_values, :dependent => :delete_all, :as => :customized
-  has_many :custom_fields, :through => :custom_values
-  has_and_belongs_to_many :changesets, :order => "revision ASC"
+  has_and_belongs_to_many :changesets, :order => "#{Changeset.table_name}.committed_on ASC, #{Changeset.table_name}.id ASC"
   
   has_many :relations_from, :class_name => 'IssueRelation', :foreign_key => 'issue_from_id', :dependent => :delete_all
   has_many :relations_to, :class_name => 'IssueRelation', :foreign_key => 'issue_to_id', :dependent => :delete_all
   
+  acts_as_customizable
   acts_as_watchable
-  acts_as_searchable :columns => ['subject', "#{table_name}.description"], :include => :project, :with => {:journal => :issue}
+  acts_as_searchable :columns => ['subject', "#{table_name}.description", "#{Journal.table_name}.notes"],
+                     :include => [:project, :journals],
+                     # sort by id so that limited eager loading doesn't break with postgresql
+                     :order_column => "#{table_name}.id"
   acts_as_event :title => Proc.new {|o| "#{o.tracker.name} ##{o.id}: #{o.subject}"},
                 :url => Proc.new {|o| {:controller => 'issues', :action => 'show', :id => o.id}}                
   
@@ -44,7 +46,6 @@ class Issue < ActiveRecord::Base
   validates_length_of :subject, :maximum => 255
   validates_inclusion_of :done_ratio, :in => 0..100
   validates_numericality_of :estimated_hours, :allow_nil => true
-  validates_associated :custom_values, :on => :update
 
   def after_initialize
     if new_record?
@@ -52,6 +53,11 @@ class Issue < ActiveRecord::Base
       self.status ||= IssueStatus.default
       self.priority ||= Enumeration.default('IPRI')
     end
+  end
+  
+  # Overrides Redmine::Acts::Customizable::InstanceMethods#available_custom_fields
+  def available_custom_fields
+    (project && tracker) ? project.all_issue_custom_fields.select {|c| tracker.custom_fields.include? c } : []
   end
   
   def copy_from(arg)
@@ -166,11 +172,6 @@ class Issue < ActiveRecord::Base
         duplicate.update_attribute :status, self.status
       end
     end
-  end
-  
-  def custom_value_for(custom_field)
-    self.custom_values.each {|v| return v if v.custom_field_id == custom_field.id }
-    return nil
   end
   
   def init_journal(user, notes = "")

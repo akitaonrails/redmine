@@ -41,7 +41,21 @@ module ApplicationHelper
   end
   
   def link_to_issue(issue, options={})
+    options[:class] ||= ''
+    options[:class] << ' issue'
+    options[:class] << ' closed' if issue.closed?
     link_to "#{issue.tracker.name} ##{issue.id}", {:controller => "issues", :action => "show", :id => issue}, options
+  end
+  
+  # Generates a link to an attachment.
+  # Options:
+  # * :text - Link text (default to attachment filename)
+  # * :download - Force download (default: false)
+  def link_to_attachment(attachment, options={})
+    text = options.delete(:text) || attachment.filename
+    action = options.delete(:download) ? 'download' : 'show'
+    
+    link_to(h(text), {:controller => 'attachments', :action => action, :id => attachment, :filename => attachment.filename }, options)
   end
   
   def toggle_link(name, id, options={})
@@ -49,14 +63,6 @@ module ApplicationHelper
     onclick << (options[:focus] ? "Form.Element.focus('#{options[:focus]}'); " : "this.blur(); ")
     onclick << "return false;"
     link_to(name, "#", :onclick => onclick)
-  end
-  
-  def show_and_goto_link(name, id, options={})
-    onclick = "Element.show('#{id}'); "
-    onclick << (options[:focus] ? "Form.Element.focus('#{options[:focus]}'); " : "this.blur(); ")
-    onclick << "Element.scrollTo('#{id}'); "
-    onclick << "return false;"
-    link_to(name, "#", options.merge(:onclick => onclick))
   end
   
   def image_to_function(name, function, html_options = {})
@@ -83,11 +89,7 @@ module ApplicationHelper
     return nil unless time
     time = time.to_time if time.is_a?(String)
     zone = User.current.time_zone
-    if time.utc?
-      local = zone ? zone.adjust(time) : time.getlocal
-    else
-      local = zone ? zone.adjust(time.getutc) : time
-    end
+    local = zone ? time.in_time_zone(zone) : (time.utc? ? time.utc_to_local : time)
     @date_format ||= (Setting.date_format.blank? || Setting.date_format.size < 2 ? l(:general_fmt_date) : Setting.date_format)
     @time_format ||= (Setting.time_format.blank? ? l(:general_fmt_time) : Setting.time_format)
     include_date ? local.strftime("#{@date_format} #{@time_format}") : local.strftime(@time_format)
@@ -104,7 +106,8 @@ module ApplicationHelper
   
   def authoring(created, author)
     time_tag = content_tag('acronym', distance_of_time_in_words(Time.now, created), :title => format_time(created))
-    l(:label_added_time_by, author || 'Anonymous', time_tag)
+    author_tag = (author.is_a?(User) && !author.anonymous?) ? link_to(h(author), :controller => 'account', :action => 'show', :id => author) : h(author || 'Anonymous')
+    l(:label_added_time_by, author_tag, time_tag)
   end
   
   def l_or_humanize(s)
@@ -124,6 +127,10 @@ module ApplicationHelper
     type ? CodeRay.scan(content, type).html : h(content)
   end
   
+  def to_path_param(path)
+    path.to_s.split(%r{[/\\]}).select {|p| !p.blank?}
+  end
+
   def pagination_links_full(paginator, count=nil, options={})
     page_param = options.delete(:page_param) || :page
     url_param = params.dup
@@ -306,7 +313,7 @@ module ApplicationHelper
     #     source:some/file#L120 -> Link to line 120 of the file
     #     source:some/file@52#L120 -> Link to line 120 of the file's revision 52
     #     export:some/file -> Force the download of the file
-    text = text.gsub(%r{([\s\(,\-\>]|^)(!)?(attachment|document|version|commit|source|export)?((#|r)(\d+)|(:)([^"\s<>][^\s<>]*|"[^"]+"))(?=[[:punct:]]|\s|<|$)}) do |m|
+    text = text.gsub(%r{([\s\(,\-\>]|^)(!)?(attachment|document|version|commit|source|export)?((#|r)(\d+)|(:)([^"\s<>][^\s<>]*?|"[^"]+?"))(?=(?=[[:punct:]]\W)|\s|<|$)}) do |m|
       leading, esc, prefix, sep, oid = $1, $2, $3, $5 || $7, $6 || $8
       link = nil
       if esc.nil?
@@ -361,7 +368,8 @@ module ApplicationHelper
             if project && project.repository
               name =~ %r{^[/\\]*(.*?)(@([0-9a-f]+))?(#(L\d+))?$}
               path, rev, anchor = $1, $3, $5
-              link = link_to h("#{prefix}:#{name}"), {:controller => 'repositories', :action => 'entry', :id => project, :path => path,
+              link = link_to h("#{prefix}:#{name}"), {:controller => 'repositories', :action => 'entry', :id => project,
+                                                      :path => to_path_param(path),
                                                       :rev => rev,
                                                       :anchor => anchor,
                                                       :format => (prefix == 'export' ? 'raw' : nil)},

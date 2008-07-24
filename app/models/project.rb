@@ -22,7 +22,6 @@ class Project < ActiveRecord::Base
   
   has_many :members, :include => :user, :conditions => "#{User.table_name}.status=#{User::STATUS_ACTIVE}"
   has_many :users, :through => :members
-  has_many :custom_values, :dependent => :delete_all, :as => :customized
   has_many :enabled_modules, :dependent => :delete_all
   has_and_belongs_to_many :trackers, :order => "#{Tracker.table_name}.position"
   has_many :issues, :dependent => :destroy, :order => "#{Issue.table_name}.created_on DESC", :include => [:status, :tracker]
@@ -38,7 +37,7 @@ class Project < ActiveRecord::Base
   has_many :changesets, :through => :repository
   has_one :wiki, :dependent => :destroy
   # Custom field for the project issues
-  has_and_belongs_to_many :custom_fields, 
+  has_and_belongs_to_many :issue_custom_fields, 
                           :class_name => 'IssueCustomField',
                           :order => "#{CustomField.table_name}.position",
                           :join_table => "#{table_name_prefix}custom_fields_projects#{table_name_suffix}",
@@ -46,15 +45,16 @@ class Project < ActiveRecord::Base
                           
   acts_as_tree :order => "name", :counter_cache => true
 
+  acts_as_customizable
   acts_as_searchable :columns => ['name', 'description'], :project_key => 'id', :permission => nil
   acts_as_event :title => Proc.new {|o| "#{l(:label_project)}: #{o.name}"},
-                :url => Proc.new {|o| {:controller => 'projects', :action => 'show', :id => o.id}}
+                :url => Proc.new {|o| {:controller => 'projects', :action => 'show', :id => o.id}},
+                :author => nil
 
   attr_protected :status, :enabled_module_names
   
   validates_presence_of :name, :identifier
   validates_uniqueness_of :name, :identifier
-  validates_associated :custom_values, :on => :update
   validates_associated :repository, :wiki
   validates_length_of :name, :maximum => 30
   validates_length_of :homepage, :maximum => 255
@@ -113,16 +113,18 @@ class Project < ActiveRecord::Base
     end
     if user.admin?
       # no restriction
-    elsif user.logged?
-      statements << "#{Project.table_name}.is_public = #{connection.quoted_true}" if Role.non_member.allowed_to?(permission)
-      allowed_project_ids = user.memberships.select {|m| m.role.allowed_to?(permission)}.collect {|m| m.project_id}
-      statements << "#{Project.table_name}.id IN (#{allowed_project_ids.join(',')})" if allowed_project_ids.any?
-    elsif Role.anonymous.allowed_to?(permission)
-      # anonymous user allowed on public project
-      statements << "#{Project.table_name}.is_public = #{connection.quoted_true}" 
     else
-      # anonymous user is not authorized
       statements << "1=0"
+      if user.logged?
+        statements << "#{Project.table_name}.is_public = #{connection.quoted_true}" if Role.non_member.allowed_to?(permission)
+        allowed_project_ids = user.memberships.select {|m| m.role.allowed_to?(permission)}.collect {|m| m.project_id}
+        statements << "#{Project.table_name}.id IN (#{allowed_project_ids.join(',')})" if allowed_project_ids.any?
+      elsif Role.anonymous.allowed_to?(permission)
+        # anonymous user allowed on public project
+        statements << "#{Project.table_name}.is_public = #{connection.quoted_true}" 
+      else
+        # anonymous user is not authorized
+      end
     end
     statements.empty? ? base_statement : "((#{base_statement}) AND (#{statements.join(' OR ')}))"
   end
@@ -195,12 +197,8 @@ class Project < ActiveRecord::Base
   
   # Returns an array of all custom fields enabled for project issues
   # (explictly associated custom fields and custom fields enabled for all projects)
-  def custom_fields_for_issues(tracker)
-    all_custom_fields.select {|c| tracker.custom_fields.include? c }
-  end
-  
-  def all_custom_fields
-    @all_custom_fields ||= (IssueCustomField.for_all + custom_fields).uniq
+  def all_issue_custom_fields
+    @all_issue_custom_fields ||= (IssueCustomField.for_all + issue_custom_fields).uniq
   end
   
   def project

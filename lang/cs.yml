@@ -51,6 +51,7 @@ general_text_no: 'ne'
 general_text_yes: 'ano'
 general_lang_name: 'Čeština'
 general_csv_separator: ','
+general_csv_decimal_separator: '.'
 general_csv_encoding: UTF-8
 general_pdf_encoding: UTF-8
 general_day_names: Pondělí,Úterý,Středa,Čtvrtek,Pátek,Sobota,Neděle
@@ -629,3 +630,10 @@ mail_subject_reminder: "%d issue(s) due in the next days"
 text_user_wrote: '%s wrote:'
 label_duplicated_by: duplicated by
 setting_enabled_scm: Enabled SCM
+text_enumeration_category_reassign_to: 'Reassign them to this value:'
+text_enumeration_destroy_question: '%d objects are assigned to this value.'
+label_incoming_emails: Incoming emails
+label_generate_key: Generate a key
+setting_mail_handler_api_enabled: Enable WS for incoming emails
+setting_mail_handler_api_key: API key
+text_email_delivery_not_configured: "Email delivery is not configured, and notifications are disabled.\nConfigure your SMTP server in config/email.yml and restart the application to enable them."

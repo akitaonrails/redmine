@@ -148,7 +148,7 @@ a, a:link, a:visited{ color: #2A5685; text-decoration: none; }
 a:hover, a:active{ color: #c61a1a; text-decoration: underline;}
 a img{ border: 0; }
 
-a.issue.closed, .issue.closed a { text-decoration: line-through; }
+a.issue.closed { text-decoration: line-through; }
 
 /***** Tables *****/
 table.list { border: 1px solid #e4e4e4;  border-collapse: collapse; width: 100%; margin-bottom: 4px; }
@@ -252,17 +252,23 @@ div#issue-changesets .changeset { border-bottom: 1px solid #ddd; }
 div#issue-changesets p { margin-top: 0; margin-bottom: 1em;}
 
 div#activity dl, #search-results { margin-left: 2em; }
-div#activity dd { margin-bottom: 1em; padding-left: 18px; }
-div#activity dt, #search-results dt { margin-bottom: 1px; padding-left: 20px; line-height: 18px; background-position: 0 50%; background-repeat: no-repeat; }
+div#activity dd, #search-results dd { margin-bottom: 1em; padding-left: 18px; font-size: 0.9em; }
+div#activity dt, #search-results dt { margin-bottom: 0px; padding-left: 20px; line-height: 18px; background-position: 0 50%; background-repeat: no-repeat; }
+div#activity dt.me .time { border-bottom: 1px solid #999; }
 div#activity dt .time { color: #777; font-size: 80%; }
 div#activity dd .description, #search-results dd .description { font-style: italic; }
 div#activity span.project:after, #search-results span.project:after { content: " -"; }
-#search-results dd { margin-bottom: 1em; padding-left: 20px; margin-left:0px;}
 div#activity dd span.description, #search-results dd span.description { display:block; }
 
+#search-results dd { margin-bottom: 1em; padding-left: 20px; margin-left:0px; }
+div#search-results-counts {float:right;}
+div#search-results-counts ul { margin-top: 0.5em; }
+div#search-results-counts  li { list-style-type:none; float: left; margin-left: 1em; }
+  
 dt.issue { background-image: url(../images/ticket.png); }
 dt.issue-edit { background-image: url(../images/ticket_edit.png); }
 dt.issue-closed { background-image: url(../images/ticket_checked.png); }
+dt.issue-note { background-image: url(../images/ticket_note.png); }
 dt.changeset { background-image: url(../images/changeset.png); }
 dt.news { background-image: url(../images/news.png); }
 dt.message { background-image: url(../images/message.png); }
@@ -287,6 +293,10 @@ table#time-report tbody tr { font-style: italic; color: #777; }
 table#time-report tbody tr.last-level { font-style: normal; color: #555; }
 table#time-report tbody tr.total { font-style: normal; font-weight: bold; color: #555; background-color:#EEEEEE; }
 table#time-report .hours-dec { font-size: 0.9em; }
+
+ul.properties {padding:0; font-size: 0.9em; color: #777;}
+ul.properties li {list-style-type:none;}
+ul.properties li span {font-style:italic;}
 
 .total-hours { font-size: 110%; font-weight: bold; }
 .total-hours span.hours-int { font-size: 120%; }
@@ -596,53 +606,31 @@ div.wiki pre {
 	overflow-x: auto;
 }
 
-div.wiki div.toc {
-	background-color: #ffffdd;
-	border: 1px solid #e4e4e4;
-	padding: 4px;
-	line-height: 1.2em;
-	margin-bottom: 12px;
-	margin-right: 12px;
-	display: table
+div.wiki ul.toc {
+    background-color: #ffffdd;
+    border: 1px solid #e4e4e4;
+    padding: 4px;
+    line-height: 1.2em;
+    margin-bottom: 12px;
+    margin-right: 12px;
+    margin-left: 0;
+    display: table
 }
-* html div.wiki
-div.toc {
-	width: 50%;
-}
-/* IE6 doesn't autosize div */
+* html div.wiki ul.toc { width: 50%; } /* IE6 doesn't autosize div */
 
-div.wiki div.toc.right {
-	float: right;
-	margin-left: 12px;
-	margin-right: 0;
-	width: auto;
-}
-div.wiki div.toc.left {
-	float: left;
-	margin-right: 12px;
-	margin-left: 0;
-	width: auto;
-}
+div.wiki ul.toc.right { float: right; margin-left: 12px; margin-right: 0; width: auto; }
+div.wiki ul.toc.left  { float: left; margin-right: 12px; margin-left: 0; width: auto; }
+div.wiki ul.toc li { list-style-type:none;}
+div.wiki ul.toc li.heading2 { margin-left: 6px; }
+div.wiki ul.toc li.heading3 { margin-left: 12px; font-size: 0.8em; }
 
-div.wiki div.toc a {
-	display: block;
-	font-size: 0.9em;
-	font-weight: normal;
-	text-decoration: none;
-	color: #606060;
+div.wiki ul.toc a {
+    font-size: 0.9em;
+    font-weight: normal;
+    text-decoration: none;
+    color: #606060;
 }
-div.wiki div.toc a:hover {
-	color: #c61a1a;
-	text-decoration: underline;
-}
-
-div.wiki div.toc a.heading2 {
-	margin-left: 6px;
-}
-div.wiki div.toc a.heading3 {
-	margin-left: 12px;
-	font-size: 0.8em;
-}
+div.wiki ul.toc a:hover { color: #c61a1a; text-decoration: underline;}
 
 /***** My page layout *****/ .block-receiver {
 	border: 1px dashed #c0c0c0;

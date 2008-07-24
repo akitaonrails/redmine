@@ -7,18 +7,15 @@ http://www.redmine.org/
 
 == Requirements
 
-* Ruby on Rails 2.0.2 (not Rails 2.1)
-* A database (see compatibility below)
+* Ruby on Rails 2.1
+* A database:
+  * MySQL (tested with MySQL 5)
+  * PostgreSQL (tested with PostgreSQL 8.1)
+  * SQLite (tested with SQLite 3)
 
 Optional:
 * SVN binaries >= 1.3 (needed for repository browsing, must be available in PATH)
 * RMagick (gantt export to png)
-
-Supported databases:
-* MySQL (tested with MySQL 5)
-* PostgreSQL (tested with PostgreSQL 8.1)
-* SQLite (tested with SQLite 3)
-
 
 == Installation
 
@@ -56,10 +53,10 @@ Supported databases:
    trackers, statuses, workflow) and adjust application settings
 
 
-== SMTP server Configuration
+== Email delivery Configuration
 
-In config/environment.rb, you can set parameters for your SMTP server:
-config.action_mailer.smtp_settings: SMTP server configuration
-config.action_mailer.perform_deliveries: set to false to disable mail delivering
-
+Copy config/email.yml.example to config/email.yml and edit this file
+to adjust your SMTP settings.
 Don't forget to restart the application after any change to this file.
+
+Please do not enter your SMTP settings in environment.rb.

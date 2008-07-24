@@ -24,6 +24,29 @@ module Redmine
       end
       
       class AbstractAdapter #:nodoc:
+        class << self
+          # Returns the version of the scm client
+          # Eg: [1, 5, 0] or [] if unknown
+          def client_version
+            []
+          end
+          
+          # Returns the version string of the scm client
+          # Eg: '1.5.0' or 'Unknown version' if unknown
+          def client_version_string
+            v = client_version || 'Unknown version'
+            v.is_a?(Array) ? v.join('.') : v.to_s
+          end
+          
+          # Returns true if the current client version is above
+          # or equals the given one
+          # If option is :unknown is set to true, it will return
+          # true if the client version is unknown
+          def client_version_above?(v, options={})
+            ((client_version <=> v) >= 0) || (client_version.empty? && options[:unknown])
+          end
+        end
+                
         def initialize(url, root_url=nil, login=nil, password=nil)
           @url = url
           @login = login if login && !login.empty?
@@ -75,6 +98,10 @@ module Redmine
         # Returns an Entries collection
         # or nil if the given path doesn't exist in the repository
         def entries(path=nil, identifier=nil)
+          return nil
+        end
+        
+        def properties(path, identifier=nil)
           return nil
         end
     
@@ -131,10 +158,18 @@ module Redmine
         end
             
         def logger
-          RAILS_DEFAULT_LOGGER
+          self.class.logger
         end
         
         def shellout(cmd, &block)
+          self.class.shellout(cmd, &block)
+        end
+        
+        def self.logger
+          RAILS_DEFAULT_LOGGER
+        end
+        
+        def self.shellout(cmd, &block)
           logger.debug "Shelling out: #{cmd}" if logger && logger.debug?
           begin
             IO.popen(cmd, "r+") do |io|

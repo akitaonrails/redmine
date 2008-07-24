@@ -48,6 +48,7 @@ general_text_no: 'ne'
 general_text_yes: 'taip'
 general_lang_name: 'Lithuanian (lietuvių)'
 general_csv_separator: ','
+general_csv_decimal_separator: '.'
 general_csv_encoding: UTF-8
 general_pdf_encoding: UTF-8
 general_day_names: pirmadienis,antradienis,trečiadienis,ketvirtadienis,penktadienis,šeštadienis,sekmadienis
@@ -621,8 +622,16 @@ label_planning: Planavimas
 text_subprojects_destroy_warning: 'Šis(ie) subprojektas(ai): %s taip pat bus ištrintas(i).'
 label_and_its_subprojects: %s projektas ir jo subprojektai
 
-mail_body_reminder: "%d issue(s) that are assigned to you are due in the next %d days:"
-mail_subject_reminder: "%d issue(s) due in the next days"
-text_user_wrote: '%s wrote:'
-label_duplicated_by: duplicated by
-setting_enabled_scm: Enabled SCM
+mail_body_reminder: "%d darbas(ai), kurie yra jums priskirti, baigiasi po %d dienų(os):"
+mail_subject_reminder: "%d darbas(ai) po kelių dienų"
+text_user_wrote: '%s parašė:'
+label_duplicated_by: susiejo
+setting_enabled_scm: Įgalintas SCM
+text_enumeration_category_reassign_to: 'Priskirti juos šiai reikšmei:'
+text_enumeration_destroy_question: '%d objektai priskirti šiai reikšmei.'
+label_incoming_emails: Įeinantys laiškai
+label_generate_key: Generuoti raktą
+setting_mail_handler_api_enabled: Įgalinti WS įeinantiems laiškams
+setting_mail_handler_api_key: API raktas
+
+text_email_delivery_not_configured: "Email delivery is not configured, and notifications are disabled.\nConfigure your SMTP server in config/email.yml and restart the application to enable them."

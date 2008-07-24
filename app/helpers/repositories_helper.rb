@@ -22,6 +22,16 @@ module RepositoriesHelper
     txt.to_s[0,8]
   end
   
+  def render_properties(properties)
+    unless properties.nil? || properties.empty?
+      content = ''
+      properties.keys.sort.each do |property|
+        content << content_tag('li', "<b>#{h property}</b>: <span>#{h properties[property]}</span>")
+      end
+      content_tag('ul', content, :class => 'properties')
+    end
+  end
+  
   def to_utf8(str)
     return str if /\A[\r\n\t\x20-\x7e]*\Z/n.match(str) # for us-ascii
     @encodings ||= Setting.repositories_encodings.split(',').collect(&:strip)

@@ -81,16 +81,16 @@ module Redmine
           div_class = 'toc'
           div_class << ' right' if $1 == '>'
           div_class << ' left' if $1 == '<'
-          out = "<div class=\"#{div_class}\">"
+          out = "<ul class=\"#{div_class}\">"
           @toc.each_with_index do |heading, index|
             # remove wiki links from the item
             toc_item = heading.last.gsub(/(\[\[|\]\])/, '')
             # remove styles
             # eg. %{color:red}Triggers% => Triggers
             toc_item.gsub! %r[%\{[^\}]*\}([^%]+)%], '\\1'
-            out << "<a href=\"##{index+1}\" class=\"heading#{heading.first}\">#{toc_item}</a>"
+            out << "<li class=\"heading#{heading.first}\"><a href=\"##{index+1}\">#{toc_item}</a></li>\n"
           end
-          out << '</div>'
+          out << '</ul>'
           out
         end
       end
@@ -129,6 +129,7 @@ module Redmine
                         )
                         (
                           (?:https?://)|           # protocol spec, or
+                          (?:ftp://)|
                           (?:www\.)                # www.*
                         )
                         (
@@ -152,12 +153,16 @@ module Redmine
           end
         end
       end
-      
+
       # Turns all email addresses into clickable links (code from Rails).
       def inline_auto_mailto(text)
         text.gsub!(/([\w\.!#\$%\-+.]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\-]+)+)/) do
-          text = $1
-          %{<a href="mailto:#{$1}" class="email">#{text}</a>}
+          mail = $1
+          if text.match(/<a\b[^>]*>(.*)(#{Regexp.escape(mail)})(.*)<\/a>/)
+            mail
+          else
+            %{<a href="mailto:#{mail}" class="email">#{mail}</a>}
+          end
         end
       end
     end

@@ -48,6 +48,7 @@ general_text_no: 'no'
 general_text_yes: 'yes'
 general_lang_name: 'English'
 general_csv_separator: ','
+general_csv_decimal_separator: '.'
 general_csv_encoding: ISO-8859-1
 general_pdf_encoding: ISO-8859-1
 general_day_names: Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
@@ -214,6 +215,8 @@ setting_user_format: Users display format
 setting_activity_days_default: Days displayed on project activity
 setting_display_subprojects_issues: Display subprojects issues on main projects by default
 setting_enabled_scm: Enabled SCM
+setting_mail_handler_api_enabled: Enable WS for incoming emails
+setting_mail_handler_api_key: API key
 
 project_module_issue_tracking: Issue tracking
 project_module_time_tracking: Time tracking
@@ -517,6 +520,8 @@ label_preferences: Preferences
 label_chronological_order: In chronological order
 label_reverse_chronological_order: In reverse chronological order
 label_planning: Planning
+label_incoming_emails: Incoming emails
+label_generate_key: Generate a key
 
 button_login: Login
 button_submit: Submit
@@ -601,6 +606,9 @@ text_destroy_time_entries: Delete reported hours
 text_assign_time_entries_to_project: Assign reported hours to the project
 text_reassign_time_entries: 'Reassign reported hours to this issue:'
 text_user_wrote: '%s wrote:'
+text_enumeration_destroy_question: '%d objects are assigned to this value.'
+text_enumeration_category_reassign_to: 'Reassign them to this value:'
+text_email_delivery_not_configured: "Email delivery is not configured, and notifications are disabled.\nConfigure your SMTP server in config/email.yml and restart the application to enable them."
 
 default_role_manager: Manager
 default_role_developper: Developer
