@@ -86,6 +86,11 @@ Redmine::AccessControl.map do |map|
     map.permission :view_changesets, :repositories => [:show, :revisions, :revision]
   end
 
+  map.project_module :continuous_integration do |map|
+    map.permission :manage_integration, { :simple_ci => [:edit, :destroy]}, :require => :member
+    map.permission :view_ci_report, {:simple_ci => :show}
+  end
+
   map.project_module :boards do |map|
     map.permission :manage_boards, {:boards => [:new, :edit, :destroy]}, :require => :member
     map.permission :view_messages, {:boards => [:index, :show], :messages => [:show]}, :public => true
@@ -131,5 +136,7 @@ Redmine::MenuManager.map :project_menu do |menu|
   menu.push :files, { :controller => 'projects', :action => 'list_files' }, :caption => :label_attachment_plural
   menu.push :repository, { :controller => 'repositories', :action => 'show' },
               :if => Proc.new { |p| p.repository && !p.repository.new_record? }
+  menu.push :integration, { :controller => 'simple_ci', :action => 'show' }              
   menu.push :settings, { :controller => 'projects', :action => 'settings' }, :last => true
+
 end

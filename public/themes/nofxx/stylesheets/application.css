@@ -140,3 +140,9 @@ h2, .wiki h1 {
 h4 {
 	border-bottom: dotted 1px #c0c0c0;
 }
+
+/* Simple CI plugin stylesheet */
+
+#builds div.build { margin-bottom: 16px; padding: 4px; }
+#builds div.success {background-color: #dfffdf;}
+#builds div.failure {background-color: #ffe3e3;}

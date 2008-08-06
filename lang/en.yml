@@ -393,6 +393,7 @@ label_not_contains: doesn't contain
 label_day_plural: days
 label_repository: Repository
 label_repository_plural: Repositories
+label_integration: Integration
 label_browse: Browse
 label_modification: %d change
 label_modification_plural: %d changes
