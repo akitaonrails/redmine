@@ -402,6 +402,9 @@ label_latest_revision: รุ่นการแก้ไขล่าสุด
 label_latest_revision_plural: รุ่นการแก้ไขล่าสุด
 label_view_revisions: ดูการแก้ไข
 label_max_size: ขนาดใหญ่สุด
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'ใน'
 label_sort_highest: ย้ายไปบนสุด
 label_sort_higher: ย้ายขึ้น

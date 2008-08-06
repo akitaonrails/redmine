@@ -365,6 +365,9 @@ label_latest_revision: Paskutinė revizija
 label_latest_revision_plural: Paskutinės revizijos 
 label_view_revisions: Pežiūrėti revizijas 
 label_max_size: Maksimalus dydis 
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'iš' 
 label_sort_highest: Perkelti į viršūnę 
 label_sort_higher: Perkelti į viršų 

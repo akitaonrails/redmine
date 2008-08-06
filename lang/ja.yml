@@ -347,6 +347,9 @@ label_latest_revision: 最新リビジョン
 label_latest_revision_plural: 最新リビジョン
 label_view_revisions: リビジョンを見る
 label_max_size: 最大サイズ
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 合計
 label_sort_highest: 一番上へ
 label_sort_higher: 上へ

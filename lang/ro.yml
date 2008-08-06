@@ -346,6 +346,9 @@ label_latest_revision: Ultima revizie
 label_latest_revision_plural: Ultimele revizii
 label_view_revisions: Vizualizare revizii
 label_max_size: Marime maxima
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'din'
 label_sort_highest: Muta prima
 label_sort_higher: Muta sus

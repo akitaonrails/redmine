@@ -406,6 +406,9 @@ label_latest_revision: 最近的修订版本
 label_latest_revision_plural: 最近的修订版本
 label_view_revisions: 查看修订
 label_max_size: 最大尺寸
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'on'
 label_sort_highest: 置顶
 label_sort_higher: 上移

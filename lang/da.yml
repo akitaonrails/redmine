@@ -393,6 +393,9 @@ label_latest_revision: Seneste revision
 label_latest_revision_plural: Seneste revisioner
 label_view_revisions: Se revisioner
 label_max_size: Maximal størrelse
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'til'
 label_sort_highest: Flyt til toppen
 label_sort_higher: Flyt op

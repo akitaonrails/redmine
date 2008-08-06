@@ -118,13 +118,6 @@ display_subprojects_issues:
   default: 1
 default_projects_public:
   default: 1
-#continuous_integration:
-feed_url_custom_field: 
-  default: 0
-success_keyword:
-  default: success
-show_descriptions: 
-  default: 2
 # encodings used to convert repository files content to UTF-8
 # multiple values accepted, comma separated
 repositories_encodings:

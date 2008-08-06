@@ -2,8 +2,13 @@ Redmine - project management software
 Copyright (C) 2006-2008  Jean-Philippe Lang
 http://www.redmine.org
 
+== This fork doesn`t have any official relation with Redmine!
+
+For install/license stuff see doc/
+
 == MODS:
 
+ - Added continuous integration feed with settings in a per project basis. (DONE)
  - More graphics and few changes on existent ones. (DONE)
  - Merge github.com/mcm nice wiki comments. (DONE)
  - Changes on the repo view: readme, last commit. (Almost Done)
@@ -12,6 +17,4 @@ http://www.redmine.org
  - Add a devs notification when new commit occurs, with the commit message. (TODO, tricky)
 
       
-== Redmine
-
-This fork doesn`t have any official relation with Redmine!                              
+                       

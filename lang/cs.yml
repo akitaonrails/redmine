@@ -403,6 +403,9 @@ label_latest_revision: Poslední revize
 label_latest_revision_plural: Poslední revize
 label_view_revisions: Zobrazit revize
 label_max_size: Maximální velikost
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'zapnuto'
 label_sort_highest: Přesunout na začátek
 label_sort_higher: Přesunout nahoru

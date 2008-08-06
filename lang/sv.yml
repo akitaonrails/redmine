@@ -346,6 +346,9 @@ label_latest_revision: Senaste revisionen
 label_latest_revision_plural: Senaste revisionerna
 label_view_revisions: Visa revisioner
 label_max_size: Maximumstorlek
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'på'
 label_sort_highest: Flytta till top
 label_sort_higher: Flytta up

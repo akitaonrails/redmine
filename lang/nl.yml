@@ -346,6 +346,9 @@ label_latest_revision: Meest recente revisie
 label_latest_revision_plural: Meest recente revisies
 label_view_revisions: Bekijk revisies
 label_max_size: Maximum grootte
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'van'
 label_sort_highest: Verplaats naar begin
 label_sort_higher: Verplaats naar boven

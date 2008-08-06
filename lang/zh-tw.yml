@@ -406,6 +406,9 @@ label_latest_revision: 最新版次
 label_latest_revision_plural: 最近版次清單
 label_view_revisions: 檢視版次清單
 label_max_size: 最大長度
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 總共
 label_sort_highest: 移動至開頭
 label_sort_higher: 往上移動

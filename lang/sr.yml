@@ -356,6 +356,9 @@ label_latest_revision: Poslednja revizija
 label_latest_revision_plural: Poslednje revizije
 label_view_revisions: Pregled revizija
 label_max_size: Maksimalna veličina
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'uključeno'
 label_sort_highest: Premesti na vrh
 label_sort_higher: premesti na gore

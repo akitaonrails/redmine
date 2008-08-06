@@ -42,9 +42,6 @@ module ProjectsHelper
             {:name => 'wiki', :action => :manage_wiki, :partial => 'projects/settings/wiki', :label => :label_wiki},
             {:name => 'repository', :action => :manage_repository, :partial => 'projects/settings/repository', :label => :label_repository},
             {:name => 'integration', :action => :manage_integration, :partial => 'projects/settings/integration', :label => :label_integration },
-            #settings :default => {'feed_url_custom_field' => 0,
-            #                      'success_keyword' => 'success',
-            #                      'show_descriptions' => 2}, :partial => 'settings/settings'
             {:name => 'boards', :action => :manage_boards, :partial => 'projects/settings/boards', :label => :label_board_plural}
             ]
     tabs.select {|tab| User.current.allowed_to?(tab[:action], @project)}     

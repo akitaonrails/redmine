@@ -369,6 +369,9 @@ label_latest_revision: Последняя редакция
 label_latest_revision_plural: Последние редакции
 label_view_revisions: Просмотреть редакции
 label_max_size: Максимальный размер
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'из'
 label_sort_highest: В начало
 label_sort_higher: Вверх

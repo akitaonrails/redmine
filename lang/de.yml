@@ -400,6 +400,9 @@ label_latest_revision: Aktuellste Revision
 label_latest_revision_plural: Aktuellste Revisionen
 label_view_revisions: Revisionen anzeigen
 label_max_size: Maximale Größe
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: von
 label_sort_highest: An den Anfang
 label_sort_higher: Eins höher

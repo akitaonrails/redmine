@@ -401,6 +401,9 @@ label_latest_revision: Legutolsó revízió
 label_latest_revision_plural: Legutolsó revíziók
 label_view_revisions: Revíziók megtekintése
 label_max_size: Maximális méret
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'összesen'
 label_sort_highest: Az elejére
 label_sort_higher: Eggyel feljebb

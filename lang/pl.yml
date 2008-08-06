@@ -338,6 +338,9 @@ label_latest_revision: Najnowsza rewizja
 label_latest_revision_plural: Najnowsze rewizje
 label_view_revisions: Pokaż rewizje
 label_max_size: Maksymalny rozmiar
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: 'z'
 label_sort_highest: Przesuń na górę
 label_sort_higher: Do góry

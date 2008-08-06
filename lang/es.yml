@@ -338,6 +338,9 @@ label_latest_revision: Última revisión
 label_latest_revision_plural: Últimas revisiones
 label_view_revisions: Ver las revisiones
 label_max_size: Tamaño máximo
+label_ci_feed: Feed URL
+label_ci_keyword: Palabras clave
+label_ci_desc: Mostrar Descripción
 label_on: de
 label_sort_highest: Primero
 label_sort_higher: Subir
