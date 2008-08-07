@@ -41,6 +41,7 @@ module ProjectsHelper
             {:name => 'categories', :action => :manage_categories, :partial => 'projects/settings/issue_categories', :label => :label_issue_category_plural},
             {:name => 'wiki', :action => :manage_wiki, :partial => 'projects/settings/wiki', :label => :label_wiki},
             {:name => 'repository', :action => :manage_repository, :partial => 'projects/settings/repository', :label => :label_repository},
+            #nofxx fork mod
             {:name => 'integration', :action => :manage_integration, :partial => 'projects/settings/integration', :label => :label_integration },
             {:name => 'boards', :action => :manage_boards, :partial => 'projects/settings/boards', :label => :label_board_plural}
             ]

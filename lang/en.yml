@@ -225,6 +225,7 @@ project_module_documents: Documents
 project_module_files: Files
 project_module_wiki: Wiki
 project_module_repository: Repository
+project_module_integration: Continuous Integration
 project_module_boards: Boards
 
 label_user: User
@@ -613,6 +614,8 @@ text_user_wrote: '%s wrote:'
 text_enumeration_destroy_question: '%d objects are assigned to this value.'
 text_enumeration_category_reassign_to: 'Reassign them to this value:'
 text_email_delivery_not_configured: "Email delivery is not configured, and notifications are disabled.\nConfigure your SMTP server in config/email.yml and restart the application to enable them."
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
+
 
 default_role_manager: Manager
 default_role_developper: Developer
@@ -635,6 +638,9 @@ default_priority_urgent: Urgent
 default_priority_immediate: Immediate
 default_activity_design: Design
 default_activity_development: Development
+default_ci_description_always: Always
+default_ci_description_onfail: Only on fail
+default_ci_description_never: Never
 
 enumeration_issue_priorities: Issue priorities
 enumeration_doc_categories: Document categories

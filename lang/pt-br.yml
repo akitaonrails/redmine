@@ -495,6 +495,7 @@ text_wiki_destroy_confirmation: Você tem certeza que deseja excluir este wiki e
 text_issue_category_destroy_question: Alguns tickets (%d) estão atribuídos a esta categoria. O que você deseja fazer?
 text_issue_category_destroy_assignments: Remover atribuições da categoria
 text_issue_category_reassign_to: Redefinir tickets para esta categoria
+text_ci_keyword_description: Palavra que determina se o teste foi bem sucedido.<br /> Pode ser uma palavra-chave ou expressão regular (caixa ignorada).
 
 default_role_manager: Gerente
 default_role_developper: Desenvolvedor
@@ -517,6 +518,9 @@ default_priority_urgent: Urgente
 default_priority_immediate: Imediato
 default_activity_design: Design
 default_activity_development: Desenvolvimento
+default_ci_description_always: Sempre
+default_ci_description_onfail: Só em falhas
+default_ci_description_never: Nunca
 
 enumeration_issue_priorities: Prioridade das tarefas
 enumeration_doc_categories: Categorias de documento
@@ -583,14 +587,17 @@ label_document_added: Documento adicionado
 label_message_posted: Mensagem enviada
 label_file_added: Arquivo adicionado
 label_news_added: Notícia adicionada
+
 project_module_boards: Fóruns
 project_module_issue_tracking: Gerenciamento de Tickets
 project_module_wiki: Wiki
 project_module_files: Arquivos
 project_module_documents: Documentos
+project_module_integration: Integração Contínua
 project_module_repository: Repositório
 project_module_news: Notícias
 project_module_time_tracking: Gerenciamento de tempo
+
 text_file_repository_writable: Repositório de arquivos gravável
 text_default_administrator_account_changed: Conta de administrador padrão modificada
 text_rmagick_available: RMagick disponível (opcional)

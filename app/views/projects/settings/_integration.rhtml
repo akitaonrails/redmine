@@ -4,11 +4,12 @@
   <p><label><%= l(:label_ci_feed) %></label><%= f.text_field :ci_feed, :size => 60 %></p>
   <p><label><%= l(:label_ci_keyword) %></label><%= f.text_field :ci_keyword, :size => 60,
       :value => @project.ci_keyword? ? @project.ci_keyword : 'success' %><br>
-    <em>Used to determine if a build is successfull regarding its RSS title.<br>
-      Can be either a keyword or a regular expression (case ignored).</em>
+    <em><%= l(:text_ci_keyword_description) %></em>
   </p>
   <p><label><%= l(:label_ci_desc) %></label><%= select_tag 'settings[show_descriptions]',
-    options_for_select([['Always', 2], ['Only for build failures', 1], ['Never', 0]], :ci_desc.to_i) %></p>
+    options_for_select([[l(:default_ci_description_always), 2], 
+                        [l(:default_ci_description_onfail), 1], 
+                        [l(:default_ci_description_never), 0]], :ci_desc.to_i) %></p>
 </div>
 <%= submit_tag l(:button_save) %> 
 <% end %>

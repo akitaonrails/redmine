@@ -468,6 +468,7 @@ text_tracker_no_workflow: No hay ningún flujo de trabajo definido para este tra
 text_unallowed_characters: Carácteres no permitidos
 text_comma_separated: Múltiples valores permitidos (separados por coma).
 text_issues_ref_in_commit_messages: Referencia y petición de corrección en los mensajes
+text_ci_keyword_description: Palabra que determina si la prueba era acertada.<br /> Puede ser una palabra clave o una expresión regular (caixa ignorada).
 
 default_role_manager: Jefe de proyecto
 default_role_developper: Desarrollador
@@ -490,6 +491,9 @@ default_priority_urgent: Urgente
 default_priority_immediate: Inmediata
 default_activity_design: Diseño
 default_activity_development: Desarrollo
+default_ci_description_always: Siempre
+default_ci_description_onfail: Solamente en falta
+default_ci_description_never: Nunca
 
 enumeration_issue_priorities: Prioridad de las peticiones
 enumeration_doc_categories: Categorías del documento

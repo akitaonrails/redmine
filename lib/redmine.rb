@@ -86,7 +86,8 @@ Redmine::AccessControl.map do |map|
     map.permission :view_changesets, :repositories => [:show, :revisions, :revision]
   end
 
-  map.project_module :continuous_integration do |map|
+  # nofxx fork
+  map.project_module :integration do |map|
     map.permission :manage_integration, { :simple_ci => [:edit, :destroy]}, :require => :member
     map.permission :view_ci_report, {:simple_ci => :show}
   end
