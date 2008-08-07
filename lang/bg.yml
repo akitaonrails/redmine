@@ -322,6 +322,7 @@ label_index_by_title: Индекс
 label_information: Информация
 label_information_plural: Информация
 label_integer: Целочислен
+label_integration: Integration
 label_internal: Вътрешен
 label_issue: Задача
 label_issue_added: Добавена задача
@@ -340,6 +341,7 @@ label_issues_by: Задачи по %s
 label_jump_to_a_project: Проект...
 label_language_based: В зависимост от езика
 label_last_changes: последни %d промени
+label_last_commit: Last commit
 label_last_login: Последно свързване
 label_last_month: последния месец
 label_last_n_days: последните %d дни
@@ -538,6 +540,7 @@ notice_successful_update: Успешно обновяване.
 project_module_boards: Форуми
 project_module_documents: Документи
 project_module_files: Файлове
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Тракинг
 project_module_news: Новини
 project_module_repository: Хранилище

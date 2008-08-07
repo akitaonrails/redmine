@@ -72,6 +72,9 @@ button_view: Переглянути
 button_watch: Дивитися
 default_activity_design: Проектування
 default_activity_development: Розробка
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: Технічна документація
 default_doc_category_user: Документація користувача
 default_issue_status_assigned: Призначено
@@ -242,6 +245,7 @@ label_change_properties: Change properties
 label_change_status: Змінити статус
 label_change_view_all: Проглянути всі зміни
 label_changes_details: Подробиці по всіх змінах
+label_changes_per_author: Changes per author
 label_changeset_plural: Набори змін
 label_chronological_order: In chronological order
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: Індекс за назвою
 label_information: Інформація
 label_information_plural: Інформація
 label_integer: Цілий
+label_integration: Integration
 label_internal: Внутрішній
 label_issue: Питання
 label_issue_added: Issue added
@@ -336,6 +341,7 @@ label_issues_by: Питання за %s
 label_jump_to_a_project: Перейти до проекту...
 label_language_based: На основі мови користувача
 label_last_changes: останні %d змін
+label_last_commit: Last commit
 label_last_login: Останнє підключення
 label_last_month: last month
 label_last_n_days: last %d days
@@ -536,6 +542,7 @@ notice_successful_update: Оновлення успішно завершене.
 project_module_boards: Boards
 project_module_documents: Documents
 project_module_files: Files
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Issue tracking
 project_module_news: News
 project_module_repository: Repository
@@ -582,6 +589,7 @@ text_are_you_sure: Ви впевнені?
 text_assign_time_entries_to_project: Assign reported hours to the project
 text_caracters_maximum: %d символів(а) максимум.
 text_caracters_minimum: Повинно мати якнайменше  %d символів(а) у довжину.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: Допустимі декілька значень (розділені комою).
 text_default_administrator_account_changed: Default administrator account changed
 text_destroy_time_entries: Delete reported hours

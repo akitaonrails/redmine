@@ -245,6 +245,7 @@ label_change_properties: Ændre indstillinger
 label_change_status: Ændrings status
 label_change_view_all: Vis alle ændringer
 label_changes_details: Detaljer for alle ænringer
+label_changes_per_author: Changes per author
 label_changeset_plural: Ændringer
 label_chronological_order: I kronologisk rækkefølge
 label_ci_desc: Show Description
@@ -321,6 +322,7 @@ label_index_by_title: Indhold efter titel
 label_information: Information
 label_information_plural: Information
 label_integer: Heltal
+label_integration: Integration
 label_internal: Intern
 label_issue: Sag
 label_issue_added: Sagen er oprettet
@@ -339,6 +341,7 @@ label_issues_by: Sager fra %s
 label_jump_to_a_project: Skift til projekt...
 label_language_based: Baseret på brugerens sprog
 label_last_changes: sidste %d ændringer
+label_last_commit: Last commit
 label_last_login: Sidste forbindelse
 label_last_month: sidste måned
 label_last_n_days: sidste %d dage
@@ -537,6 +540,7 @@ notice_successful_update: Succesfuld opdatering.
 project_module_boards: Opslagstavle
 project_module_documents: Dokumenter
 project_module_files: Filer
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Sags søgning
 project_module_news: Nyheder
 project_module_repository: Repository

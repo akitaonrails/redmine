@@ -72,6 +72,9 @@ button_view: Pregled
 button_watch: Praćenje
 default_activity_design: Dizajn
 default_activity_development: Razvoj
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: Tehnička dokumentacija
 default_doc_category_user: Korisnička dokumentacija
 default_issue_status_assigned: Dodeljeno
@@ -242,6 +245,7 @@ label_change_properties: Change properties
 label_change_status: Izmena statusa
 label_change_view_all: Prikaz svih izmena
 label_changes_details: Detalji svih izmena
+label_changes_per_author: Changes per author
 label_changeset_plural: Skupovi izmena
 label_chronological_order: In chronological order
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: Indeks po naslovima
 label_information: Informacija
 label_information_plural: Informacije
 label_integer: Integer
+label_integration: Integration
 label_internal: Interno
 label_issue: Kartica
 label_issue_added: Issue added
@@ -336,6 +341,7 @@ label_issues_by: Kartice od %s
 label_jump_to_a_project: Prebaci se na projekat...
 label_language_based: Bazirano na jeziku
 label_last_changes: Poslednjih %d izmena
+label_last_commit: Last commit
 label_last_login: Poslednja konekcija
 label_last_month: last month
 label_last_n_days: last %d days
@@ -534,6 +540,7 @@ notice_successful_update: Uspešna izmena.
 project_module_boards: Boards
 project_module_documents: Documents
 project_module_files: Files
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Issue tracking
 project_module_news: News
 project_module_repository: Repository
@@ -580,6 +587,7 @@ text_are_you_sure: Da li ste sigurni ?
 text_assign_time_entries_to_project: Assign reported hours to the project
 text_caracters_maximum: %d karaktera maksimalno.
 text_caracters_minimum: Mora biti minimum %d karaktera dugačka.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: Višestruke vrednosti su dozvoljene (razdvojene zarezom).
 text_default_administrator_account_changed: Default administrator account changed
 text_destroy_time_entries: Delete reported hours

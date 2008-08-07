@@ -246,6 +246,7 @@ label_change_properties: Cambiar propiedades
 label_change_status: Cambiar el estado
 label_change_view_all: Ver todos los cambios
 label_changes_details: Detalles de todos los cambios
+label_changes_per_author: Changes per author
 label_changeset_plural: Cambios
 label_chronological_order: En orden cronológico
 label_ci_desc: Mostrar Descripción
@@ -322,6 +323,7 @@ label_index_by_title: Índice por título
 label_information: Información
 label_information_plural: Información
 label_integer: Número
+label_integration: Integration
 label_internal: Interno
 label_issue: Petición
 label_issue_added: Petición añadida
@@ -340,6 +342,7 @@ label_issues_by: Peticiones por %s
 label_jump_to_a_project: Ir al proyecto...
 label_language_based: Badado en el idioma
 label_last_changes: %d cambios del último
+label_last_commit: Last commit
 label_last_login: Última conexión
 label_last_month: último mes
 label_last_n_days: últimos %d días
@@ -540,6 +543,7 @@ notice_successful_update: Modificación correcta.
 project_module_boards: Foros
 project_module_documents: Documentos
 project_module_files: Ficheros
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Peticiones
 project_module_news: Noticias
 project_module_repository: Repositorio

@@ -72,6 +72,9 @@ button_view: 檢視
 button_watch: 觀察
 default_activity_design: 設計
 default_activity_development: 開發
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: 技術文件
 default_doc_category_user: 使用手冊
 default_issue_status_assigned: 已指派
@@ -242,6 +245,7 @@ label_change_properties: 變更屬性
 label_change_status: 變更狀態
 label_change_view_all: 檢視所有變更
 label_changes_details: 所有變更的明細
+label_changes_per_author: Changes per author
 label_changeset_plural: 變更集清單
 label_chronological_order: 以時間由遠至近排序
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: 依標題索引
 label_information: 資訊
 label_information_plural: 資訊
 label_integer: 整數
+label_integration: Integration
 label_internal: 內部
 label_issue: 項目
 label_issue_added: 項目已新增
@@ -336,6 +341,7 @@ label_issues_by: 項目按 %s 分組顯示
 label_jump_to_a_project: 選擇欲前往的專案...
 label_language_based: 依用戶之語系決定
 label_last_changes: 最近 %d 個變更
+label_last_commit: Last commit
 label_last_login: 最近一次連線
 label_last_month: 上個月
 label_last_n_days: 過去 %d 天
@@ -534,6 +540,7 @@ notice_successful_update: 更新成功
 project_module_boards: 討論區
 project_module_documents: 文件
 project_module_files: 檔案
+project_module_integration: Continuous Integration
 project_module_issue_tracking: 項目追蹤
 project_module_news: 新聞
 project_module_repository: 版本控管
@@ -580,6 +587,7 @@ text_are_you_sure: 確定執行？
 text_assign_time_entries_to_project: 指定已報工的時數至專案中
 text_caracters_maximum: 最多 %d 個字元.
 text_caracters_minimum: 長度必須大於 %d 個字元.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: 可輸入多個值 (以逗號分隔).
 text_default_administrator_account_changed: 已變更預設管理員帳號內容
 text_destroy_time_entries: 刪除已報工的時數

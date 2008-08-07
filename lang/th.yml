@@ -72,6 +72,9 @@ button_view: มุมมอง
 button_watch: เฝ้าดู
 default_activity_design: ออกแบบ
 default_activity_development: พัฒนา
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: เอกสารทางเทคนิค
 default_doc_category_user: เอกสารของผู้ใช้
 default_issue_status_assigned: รับมอบหมาย
@@ -244,6 +247,7 @@ label_change_properties: เปลี่ยนคุณสมบัติ
 label_change_status: เปลี่ยนสถานะ
 label_change_view_all: ดูการเปลี่ยนแปลงทั้งหมด
 label_changes_details: รายละเอียดการเปลี่ยนแปลงทั้งหมด
+label_changes_per_author: Changes per author
 label_changeset_plural: กลุ่มการเปลี่ยนแปลง
 label_chronological_order: เรียงจากเก่าไปใหม่
 label_ci_desc: Show Description
@@ -320,6 +324,7 @@ label_index_by_title: เรียงตามชื่อเรื่อง
 label_information: ข้อมูล
 label_information_plural: ข้อมูล
 label_integer: จำนวนเต็ม
+label_integration: Integration
 label_internal: ภายใน
 label_issue: ปัญหา
 label_issue_added: ปัญหาถูกเพิ่ม
@@ -338,6 +343,7 @@ label_issues_by: ปัญหาโดย %s
 label_jump_to_a_project: ไปที่โครงการ...
 label_language_based: ขึ้นอยู่กับภาษาของผู้ใช้
 label_last_changes: last %d เปลี่ยนแปลง
+label_last_commit: Last commit
 label_last_login: ติดต่อครั้งสุดท้าย
 label_last_month: เดือนที่แล้ว
 label_last_n_days: %d วันย้อนหลัง
@@ -536,6 +542,7 @@ notice_successful_update: ปรับปรุงเสร็จแล้ว.
 project_module_boards: กระดานข้อความ
 project_module_documents: เอกสาร
 project_module_files: แฟ้ม
+project_module_integration: Continuous Integration
 project_module_issue_tracking: การติดตามปัญหา
 project_module_news: ข่าว
 project_module_repository: ที่เก็บต้นฉบับ
@@ -582,6 +589,7 @@ text_are_you_sure: คุณแน่ใจไหม ?
 text_assign_time_entries_to_project: ระบุเวลาที่ใช้ในโครงการนี้
 text_caracters_maximum: สูงสุด %d ตัวอักษร.
 text_caracters_minimum: ต้องยาวอย่างน้อย %d ตัวอักษร.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: ใส่ได้หลายค่า โดยคั่นด้วยลูกน้ำ( ,).
 text_default_administrator_account_changed: ค่าเริ่มต้นของบัญชีผู้บริหารจัดการถูกเปลี่ยนแปลง
 text_destroy_time_entries: ลบเวลาที่รายงานไว้

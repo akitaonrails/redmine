@@ -72,6 +72,9 @@ button_view: Žiūrėti
 button_watch: Stebėti
 default_activity_design: Projektavimas
 default_activity_development: Vystymas
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: Techniniai dokumentacija
 default_doc_category_user: Vartotojo dokumentacija
 default_issue_status_assigned: Priskirta
@@ -242,6 +245,7 @@ label_change_properties: Pakeisti nustatymus
 label_change_status: Pakeitimo padėtis
 label_change_view_all: Peržiūrėti visus pakeitimus
 label_changes_details: Visų pakeitimų detalės
+label_changes_per_author: Changes per author
 label_changeset_plural: Changesets
 label_chronological_order: Chronologine tvarka
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: Indeksas prie pavadinimo
 label_information: Informacija
 label_information_plural: Informacija
 label_integer: Sveikasis skaičius
+label_integration: Integration
 label_internal: Vidinis
 label_issue: Darbas
 label_issue_added: Darbas pridėtas
@@ -336,6 +341,7 @@ label_issues_by: Darbai pagal %s
 label_jump_to_a_project: Šuolis į projektą...
 label_language_based: Pagrįsta vartotojo kalba
 label_last_changes: paskutiniai %d, pokyčiai
+label_last_commit: Last commit
 label_last_login: Paskutinis ryšys
 label_last_month: paskutinis menuo
 label_last_n_days: paskutinių %d dienų
@@ -535,6 +541,7 @@ notice_successful_update: Sėkmingas atnaujinimas.
 project_module_boards: Forumai
 project_module_documents: Dokumentai
 project_module_files: Rinkmenos
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Darbu pėdsekys
 project_module_news: Žinios
 project_module_repository: Saugykla
@@ -582,6 +589,7 @@ text_are_you_sure: Ar esate įsitikinęs?
 text_assign_time_entries_to_project: Priskirti valandas prie projekto
 text_caracters_maximum: %d simbolių maksimumas.
 text_caracters_minimum: Turi būti mažiausiai %d simbolių ilgio.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: Leistinos kelios reikšmės (atskirtos kableliu).
 text_default_administrator_account_changed: Administratoriaus numatyta paskyra pakeista
 text_destroy_time_entries: Ištrinti paskelbtas valandas

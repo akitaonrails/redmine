@@ -72,6 +72,9 @@ button_view: Näytä
 button_watch: Seuraa
 default_activity_design: Suunnittelu
 default_activity_development: Kehitys
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: Tekninen dokumentaatio
 default_doc_category_user: Käyttäjä dokumentaatio
 default_issue_status_assigned: Nimetty
@@ -242,6 +245,7 @@ label_change_properties: Vaihda asetuksia
 label_change_status: Muutos tila
 label_change_view_all: Näytä kaikki muutokset
 label_changes_details: Kaikkien muutosten yksityiskohdat
+label_changes_per_author: Changes per author
 label_changeset_plural: Muutosryhmät
 label_chronological_order: Aikajärjestyksessä
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: Hakemisto otsikoittain
 label_information: Tieto
 label_information_plural: Tiedot
 label_integer: Kokonaisluku
+label_integration: Integration
 label_internal: Sisäinen
 label_issue: Tapahtuma
 label_issue_added: Tapahtuma lisätty
@@ -336,6 +341,7 @@ label_issues_by: Tapahtumat %s
 label_jump_to_a_project: Siirry projektiin...
 label_language_based: Pohjautuen käyttäjän kieleen
 label_last_changes: viimeiset %d muutokset
+label_last_commit: Last commit
 label_last_login: Viimeinen yhteys
 label_last_month: viime kuussa
 label_last_n_days: viimeiset %d päivää
@@ -534,6 +540,7 @@ notice_successful_update: Päivitys onnistui.
 project_module_boards: Keskustelupalsta
 project_module_documents: Dokumentit
 project_module_files: Tiedostot
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Tapahtuman seuranta
 project_module_news: Uutiset
 project_module_repository: Tietovarasto
@@ -580,6 +587,7 @@ text_are_you_sure: Oletko varma?
 text_assign_time_entries_to_project: Määritä tunnit projektille
 text_caracters_maximum: %d merkkiä enintään.
 text_caracters_minimum: Täytyy olla vähintään %d merkkiä pitkä.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: Useat arvot sallittu (pilkku eroteltuna).
 text_default_administrator_account_changed: Vakio hallinoijan tunnus muutettu
 text_destroy_time_entries: Poista raportoidut tunnit

@@ -72,6 +72,9 @@ button_view: Vizualizare
 button_watch: Urmarie
 default_activity_design: Design
 default_activity_development: Programare
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: Documentatie tehnica
 default_doc_category_user: Documentatie
 default_issue_status_assigned: Atribuit
@@ -242,6 +245,7 @@ label_change_properties: Change properties
 label_change_status: Schimbare statut
 label_change_view_all: Vizualizare toate modificarile
 label_changes_details: Detaliile modificarilor
+label_changes_per_author: Changes per author
 label_changeset_plural: Changesets
 label_chronological_order: In chronological order
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: Index by title
 label_information: Informatie
 label_information_plural: Informatii
 label_integer: Numar intreg
+label_integration: Integration
 label_internal: Internal
 label_issue: Tichet
 label_issue_added: Issue added
@@ -336,6 +341,7 @@ label_issues_by: Issues by %s
 label_jump_to_a_project: Alege un proiect ...
 label_language_based: Bazat pe limbaj
 label_last_changes: ultimele %d modificari
+label_last_commit: Last commit
 label_last_login: Ultima conectare
 label_last_month: last month
 label_last_n_days: last %d days
@@ -534,6 +540,7 @@ notice_successful_update: Modificare cu succes.
 project_module_boards: Boards
 project_module_documents: Documents
 project_module_files: Files
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Issue tracking
 project_module_news: News
 project_module_repository: Repository
@@ -580,6 +587,7 @@ text_are_you_sure: Sunteti sigur ?
 text_assign_time_entries_to_project: Assign reported hours to the project
 text_caracters_maximum: maximum %d caractere.
 text_caracters_minimum: Must be at least %d characters long.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: Se poate folosi valori multiple (separate de virgula).
 text_default_administrator_account_changed: Default administrator account changed
 text_destroy_time_entries: Delete reported hours

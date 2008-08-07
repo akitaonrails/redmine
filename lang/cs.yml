@@ -247,6 +247,7 @@ label_change_properties: Změnit vlastnosti
 label_change_status: Změnit stav
 label_change_view_all: Zobrazit všechny změny
 label_changes_details: Detail všech změn
+label_changes_per_author: Changes per author
 label_changeset_plural: Changesety
 label_chronological_order: V chronologickém pořadí
 label_ci_desc: Show Description
@@ -323,6 +324,7 @@ label_index_by_title: Index dle názvu
 label_information: Informace
 label_information_plural: Informace
 label_integer: Celé číslo
+label_integration: Integration
 label_internal: Interní
 label_issue: Úkol
 label_issue_added: Úkol přidán
@@ -341,6 +343,7 @@ label_issues_by: Úkoly od uživatele %s
 label_jump_to_a_project: Zvolit projekt...
 label_language_based: Podle výchozího jazyku
 label_last_changes: posledních %d změn
+label_last_commit: Last commit
 label_last_login: Poslední přihlášení
 label_last_month: minulý měsíc
 label_last_n_days: posledních %d dnů
@@ -540,6 +543,7 @@ notice_successful_update: Úspěšně aktualizováno.
 project_module_boards: Diskuse
 project_module_documents: Dokumenty
 project_module_files: Soubory
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Sledování úkolů
 project_module_news: Novinky
 project_module_repository: Repository

@@ -72,6 +72,9 @@ button_view: Vis
 button_watch: Overvåk
 default_activity_design: Design
 default_activity_development: Utvikling
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: Teknisk dokumentasjon
 default_doc_category_user: Bruker-dokumentasjon
 default_issue_status_assigned: Tildelt
@@ -242,6 +245,7 @@ label_change_properties: Endre egenskaper
 label_change_status: Endre status
 label_change_view_all: Vis alle endringer
 label_changes_details: Detaljer om alle endringer
+label_changes_per_author: Changes per author
 label_changeset_plural: Endringssett
 label_chronological_order: I kronologisk rekkefølge
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: Indekser etter tittel
 label_information: Informasjon
 label_information_plural: Informasjon
 label_integer: Heltall
+label_integration: Integration
 label_internal: Intern
 label_issue: Sak
 label_issue_added: Sak lagt til
@@ -336,6 +341,7 @@ label_issues_by: Saker etter %s
 label_jump_to_a_project: Gå til et prosjekt...
 label_language_based: Basert på brukerens språk
 label_last_changes: siste %d endringer
+label_last_commit: Last commit
 label_last_login: Sist innlogget
 label_last_month: siste måned
 label_last_n_days: siste %d dager
@@ -534,6 +540,7 @@ notice_successful_update: Oppdatert.
 project_module_boards: Forumer
 project_module_documents: Dokumenter
 project_module_files: Filer
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Sakssporing
 project_module_news: Nyheter
 project_module_repository: Depot
@@ -580,6 +587,7 @@ text_are_you_sure: Er du sikker ?
 text_assign_time_entries_to_project: Overfør førte timer til prosjektet
 text_caracters_maximum: %d tegn maksimum.
 text_caracters_minimum: Må være minst %d tegn langt.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: Flere verdier tillat (kommaseparert).
 text_default_administrator_account_changed: Standard administrator-konto er endret
 text_destroy_time_entries: Slett førte timer

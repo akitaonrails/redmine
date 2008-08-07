@@ -72,6 +72,9 @@ button_view: Просмотреть
 button_watch: Смотреть
 default_activity_design: Проектирование
 default_activity_development: Разработка
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: Техническая документация
 default_doc_category_user: Документация пользователя
 default_issue_status_assigned: Назначен
@@ -244,6 +247,7 @@ label_change_properties: Изменить свойства
 label_change_status: Изменить статус
 label_change_view_all: Просмотреть все изменения
 label_changes_details: Подробности по всем изменениям
+label_changes_per_author: Changes per author
 label_changeset_plural: Наборы изменений
 label_chronological_order: В хронологическом порядке
 label_ci_desc: Show Description
@@ -320,6 +324,7 @@ label_index_by_title: Индекс по названию
 label_information: Информация
 label_information_plural: Информация
 label_integer: Целый
+label_integration: Integration
 label_internal: Внутренний
 label_issue: Задача
 label_issue_added: Задача добавлена
@@ -338,6 +343,7 @@ label_issues_by: Сортировать по %s
 label_jump_to_a_project: Перейти к проекту...
 label_language_based: На основе языка
 label_last_changes: менее %d изменений
+label_last_commit: Last commit
 label_last_login: Последнее подключение
 label_last_month: последний месяц
 label_last_n_days: последние %d дней
@@ -537,6 +543,7 @@ notice_successful_update: Обновление успешно завершено
 project_module_boards: Форумы
 project_module_documents: Документы
 project_module_files: Файлы
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Задачи
 project_module_news: Новостной блок
 project_module_repository: Харнилище
@@ -583,6 +590,7 @@ text_are_you_sure: Подтвердите
 text_assign_time_entries_to_project: Прикрепить зарегистрированное время к проекту
 text_caracters_maximum: %d символов(а) максимум.
 text_caracters_minimum: Должно быть не менее %d знаков.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: Допустимы несколько значений (разделенные запятой).
 text_default_administrator_account_changed: Учетная запись администратора по умолчанию изменена
 text_destroy_time_entries: Удалить зарегистрированное время

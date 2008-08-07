@@ -72,6 +72,9 @@ button_view: 보기
 button_watch: 감시하기
 default_activity_design: 설계
 default_activity_development: 개발
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: 기술 문서
 default_doc_category_user: 사용자 문서
 default_issue_status_assigned: 확인
@@ -242,6 +245,7 @@ label_change_properties: 속성 변경
 label_change_status: 상태 변경
 label_change_view_all: 모든 변경 내역 보기
 label_changes_details: 모든 상세 변경 내역
+label_changes_per_author: Changes per author
 label_changeset_plural: 변경사항
 label_chronological_order: In chronological order
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: 제목별 색인
 label_information: 정보
 label_information_plural: 정보
 label_integer: 정수
+label_integration: Integration
 label_internal: Internal
 label_issue: 이슈 보기
 label_issue_added: Issue added
@@ -336,6 +341,7 @@ label_issues_by: Issues by %s
 label_jump_to_a_project: 다른 프로젝트로 이동하기
 label_language_based: Language based
 label_last_changes: 지난 변경사항 %d 건
+label_last_commit: Last commit
 label_last_login: 최종 접속
 label_last_month: last month
 label_last_n_days: last %d days
@@ -534,6 +540,7 @@ notice_successful_update: 변경 성공.
 project_module_boards: 게시판
 project_module_documents: 문서
 project_module_files: 관련파일
+project_module_integration: Continuous Integration
 project_module_issue_tracking: 이슈관리
 project_module_news: 뉴스
 project_module_repository: 저장소
@@ -580,6 +587,7 @@ text_are_you_sure: 계속 진행 하시겠습니까?
 text_assign_time_entries_to_project: Assign reported hours to the project
 text_caracters_maximum: 최대 %d 글자 가능.
 text_caracters_minimum: 최소한 %d 글자 이상이어야 합니다.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: 복수의 값들이 허용됩니다.(구분자 ,)
 text_default_administrator_account_changed: 기본 관리자 계정이 변경되었습니다.
 text_destroy_time_entries: Delete reported hours

@@ -72,6 +72,9 @@ button_view: Megnéz
 button_watch: Megfigyel
 default_activity_design: Tervezés
 default_activity_development: Fejlesztés
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: Technikai dokumentáció
 default_doc_category_user: Felhasználói dokumentáció
 default_issue_status_assigned: Kiosztva
@@ -242,6 +245,7 @@ label_change_properties: Tulajdonságok változtatása
 label_change_status: Státusz módosítása
 label_change_view_all: Minden változás megtekintése
 label_changes_details: Változások részletei
+label_changes_per_author: Changes per author
 label_changeset_plural: Changesets
 label_chronological_order: Időrendben
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: Cím szerint indexelve
 label_information: Információ
 label_information_plural: Információk
 label_integer: Egész
+label_integration: Integration
 label_internal: Belső
 label_issue: Feladat
 label_issue_added: Feladat hozzáadva
@@ -336,6 +341,7 @@ label_issues_by: %s feladatai
 label_jump_to_a_project: Ugrás projekthez...
 label_language_based: A felhasználó nyelve alapján
 label_last_changes: utolsó %d változás
+label_last_commit: Last commit
 label_last_login: Utolsó bejelentkezés
 label_last_month: múlt hónap
 label_last_n_days: az elmúlt %d nap
@@ -534,6 +540,7 @@ notice_successful_update: Sikeres módosítás.
 project_module_boards: Fórumok
 project_module_documents: Dokumentumok
 project_module_files: Fájlok
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Feladat követés
 project_module_news: Hírek
 project_module_repository: Tároló
@@ -580,6 +587,7 @@ text_are_you_sure: Biztos benne ?
 text_assign_time_entries_to_project: A rögzített órák hozzárendelése a projekthez
 text_caracters_maximum: maximum %d karakter.
 text_caracters_minimum: Legkevesebb %d karakter hosszúnek kell lennie.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: Több érték megengedett (vesszővel elválasztva)
 text_default_administrator_account_changed: Alapértelmezett adminisztrátor fiók megváltoztatva
 text_destroy_time_entries: A rögzített órák törlése

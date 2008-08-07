@@ -72,6 +72,9 @@ button_view: Voir
 button_watch: Surveiller
 default_activity_design: Conception
 default_activity_development: Développement
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: Documentation technique
 default_doc_category_user: Documentation utilisateur
 default_issue_status_assigned: Assigné
@@ -242,6 +245,7 @@ label_change_properties: Changer les propriétés
 label_change_status: Changer le statut
 label_change_view_all: Voir tous les changements
 label_changes_details: Détails de tous les changements
+label_changes_per_author: Changes per author
 label_changeset_plural: Révisions
 label_chronological_order: Dans l'ordre chronologique
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: Index par titre
 label_information: Information
 label_information_plural: Informations
 label_integer: Entier
+label_integration: Integration
 label_internal: Interne
 label_issue: Demande
 label_issue_added: Demande ajoutée
@@ -336,6 +341,7 @@ label_issues_by: Demandes par %s
 label_jump_to_a_project: Aller à un projet...
 label_language_based: Basé sur la langue de l'utilisateur
 label_last_changes: %d derniers changements
+label_last_commit: Last commit
 label_last_login: Dernière connexion
 label_last_month: le mois dernier
 label_last_n_days: les %d derniers jours
@@ -534,6 +540,7 @@ notice_successful_update: Mise à jour effectuée avec succès.
 project_module_boards: Forums de discussion
 project_module_documents: Publication de documents
 project_module_files: Publication de fichiers
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Suivi des demandes
 project_module_news: Publication d'annonces
 project_module_repository: Dépôt de sources
@@ -580,6 +587,7 @@ text_are_you_sure: Etes-vous sûr ?
 text_assign_time_entries_to_project: Reporter les heures sur le projet
 text_caracters_maximum: %d caractères maximum.
 text_caracters_minimum: %d caractères minimum.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: Plusieurs valeurs possibles (séparées par des virgules).
 text_default_administrator_account_changed: Compte administrateur par défaut changé
 text_destroy_time_entries: Supprimer les heures

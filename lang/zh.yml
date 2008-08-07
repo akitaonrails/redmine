@@ -72,6 +72,9 @@ button_view: 查看
 button_watch: 跟踪
 default_activity_design: 设计
 default_activity_development: 开发
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: 技术文档
 default_doc_category_user: 用户文档
 default_issue_status_assigned: 已指派
@@ -242,6 +245,7 @@ label_change_properties: 修改属性
 label_change_status: 变更状态
 label_change_view_all: 查看所有变更
 label_changes_details: 所有变更的详情
+label_changes_per_author: Changes per author
 label_changeset_plural: 变更
 label_chronological_order: 按时间顺序
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: 按标题索引
 label_information: 信息
 label_information_plural: 信息
 label_integer: 整数
+label_integration: Integration
 label_internal: 内部
 label_issue: 问题
 label_issue_added: 问题已添加
@@ -336,6 +341,7 @@ label_issues_by: 按 %s 分组显示问题
 label_jump_to_a_project: 选择一个项目...
 label_language_based: 根据用户的语言
 label_last_changes: 最近的 %d 次变更
+label_last_commit: Last commit
 label_last_login: 最后登录
 label_last_month: 下月
 label_last_n_days: 最后 %d 天
@@ -534,6 +540,7 @@ notice_successful_update: 更新成功
 project_module_boards: 讨论区
 project_module_documents: 文档
 project_module_files: 文件
+project_module_integration: Continuous Integration
 project_module_issue_tracking: 问题跟踪
 project_module_news: 新闻
 project_module_repository: 版本库
@@ -580,6 +587,7 @@ text_are_you_sure: 您确定？
 text_assign_time_entries_to_project: 将已上报的工作量提交到项目中
 text_caracters_maximum: 最多 %d 个字符。
 text_caracters_minimum: 至少需要 %d 个字符。
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: 可以使用多个值（用逗号,分开）。
 text_default_administrator_account_changed: 默认的管理员帐号已改变
 text_destroy_time_entries: 删除上报的工作量

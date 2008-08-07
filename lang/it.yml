@@ -72,6 +72,9 @@ button_view: Mostra
 button_watch: Osserva
 default_activity_design: Progettazione
 default_activity_development: Sviluppo
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: Documentazione tecnica
 default_doc_category_user: Documentazione utente
 default_issue_status_assigned: Assegnato
@@ -319,6 +322,7 @@ label_index_by_title: Index by title
 label_information: Informazione
 label_information_plural: Informazioni
 label_integer: Intero
+label_integration: Integration
 label_internal: Interno
 label_issue: Segnalazione
 label_issue_added: Segnalazioni aggiunte
@@ -337,6 +341,7 @@ label_issues_by: Segnalazioni di %s
 label_jump_to_a_project: Vai al progetto...
 label_language_based: Basato sul linguaggio
 label_last_changes: ultime %d modifiche
+label_last_commit: Last commit
 label_last_login: Ultimo collegamento
 label_last_month: ultimo mese
 label_last_n_days: ultimi %d giorni
@@ -535,6 +540,7 @@ notice_successful_update: Modifica effettuata.
 project_module_boards: Boards
 project_module_documents: Documenti
 project_module_files: File
+project_module_integration: Continuous Integration
 project_module_issue_tracking: Tracking delle segnalazioni
 project_module_news: Notizie
 project_module_repository: Repository
@@ -581,6 +587,7 @@ text_are_you_sure: Sei sicuro ?
 text_assign_time_entries_to_project: Assegna le ore segnalate al progetto
 text_caracters_maximum: massimo %d caratteri.
 text_caracters_minimum: Deve essere lungo almeno %d caratteri.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: Valori multipli permessi (separati da virgola).
 text_default_administrator_account_changed: L'account amministrativo di default è stato modificato
 text_destroy_time_entries: Elimina le ore segnalate

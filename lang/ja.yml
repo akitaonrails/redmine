@@ -73,6 +73,9 @@ button_view: 見る
 button_watch: ウォッチ
 default_activity_design: デザイン作業
 default_activity_development: 開発作業
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: 技術文書
 default_doc_category_user: ユーザ文書
 default_issue_status_assigned: 担当
@@ -243,6 +246,7 @@ label_change_properties: プロパティの変更
 label_change_status: ステータスの変更
 label_change_view_all: 全ての変更を見る
 label_changes_details: 全変更の詳細
+label_changes_per_author: Changes per author
 label_changeset_plural: チェンジセット
 label_chronological_order: 古い順
 label_ci_desc: Show Description
@@ -319,6 +323,7 @@ label_index_by_title: 索引(名前順)
 label_information: 情報
 label_information_plural: 情報
 label_integer: 整数
+label_integration: Integration
 label_internal: Internal
 label_issue: チケット
 label_issue_added: チケットが追加されました
@@ -337,6 +342,7 @@ label_issues_by: %s別のチケット
 label_jump_to_a_project: プロジェクトへ移動...
 label_language_based: 既定の言語の設定に従う
 label_last_changes: 最新の変更%d件
+label_last_commit: Last commit
 label_last_login: 最近の接続
 label_last_month: 先月
 label_last_n_days: 最後の%d日間
@@ -535,6 +541,7 @@ notice_successful_update: 更新しました。
 project_module_boards: フォーラム
 project_module_documents: 文書
 project_module_files: ファイル
+project_module_integration: Continuous Integration
 project_module_issue_tracking: チケットトラッキング
 project_module_news: ニュース
 project_module_repository: リポジトリ
@@ -581,6 +588,7 @@ text_are_you_sure: よろしいですか？
 text_assign_time_entries_to_project: 記録された時間をプロジェクトに割り当て
 text_caracters_maximum: 最大 %d 文字です。
 text_caracters_minimum: 最低%d文字の長さが必要です
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: (カンマで区切った)複数の値が使えます
 text_default_administrator_account_changed: デフォルト管理アカウントが変更済
 text_destroy_time_entries: 記録された時間を削除

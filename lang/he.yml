@@ -72,6 +72,9 @@ button_view: צפה
 button_watch: צפה
 default_activity_design: עיצוב
 default_activity_development: פיתוח
+default_ci_description_always: Always
+default_ci_description_never: Never
+default_ci_description_onfail: Only on fail
 default_doc_category_tech: תיעוד טכני
 default_doc_category_user: תיעוד משתמש
 default_issue_status_assigned: מוצב
@@ -242,6 +245,7 @@ label_change_properties: שנה מאפיינים
 label_change_status: שנה מצב
 label_change_view_all: צפה בכל השינוים
 label_changes_details: פירוט כל השינויים
+label_changes_per_author: Changes per author
 label_changeset_plural: אוסף שינוים
 label_chronological_order: בסדר כרונולוגי
 label_ci_desc: Show Description
@@ -318,6 +322,7 @@ label_index_by_title: סדר עך פי כותרת
 label_information: מידע
 label_information_plural: מידע
 label_integer: מספר שלם
+label_integration: Integration
 label_internal: פנימי
 label_issue: נושא
 label_issue_added: נושא הוסף
@@ -336,6 +341,7 @@ label_issues_by: נושאים של %s
 label_jump_to_a_project: קפוץ לפרויקט...
 label_language_based: מבוסס שפה
 label_last_changes: %d שינוים אחרונים
+label_last_commit: Last commit
 label_last_login: חיבור אחרון
 label_last_month: חודש שעבר
 label_last_n_days: ב-%d ימים אחרונים
@@ -534,6 +540,7 @@ notice_successful_update: עידכון מוצלח.
 project_module_boards: לוחות
 project_module_documents: מסמכים
 project_module_files: קבצים
+project_module_integration: Continuous Integration
 project_module_issue_tracking: מעקב נושאים
 project_module_news: חדשות
 project_module_repository: מאגר
@@ -580,6 +587,7 @@ text_are_you_sure: האם אתה בטוח ?
 text_assign_time_entries_to_project: הצב שעות שדווחו לפרויקט הזה
 text_caracters_maximum: מקסימום %d תווים.
 text_caracters_minimum: חייב להיות לפחות באורך של %d תווים.
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 text_comma_separated: הכנסת ערכים מרובים מותרת (מופרדים בפסיקים).
 text_default_administrator_account_changed: מנהל המערכת ברירת המחדל שונה
 text_destroy_time_entries: מחק שעות שדווחו
