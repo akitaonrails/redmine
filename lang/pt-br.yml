@@ -73,6 +73,9 @@ notice_not_authorized: Você não está autorizado a acessar esta página.
 notice_email_sent: Um email foi enviado para %s
 notice_email_error: Um erro ocorreu ao enviar o email (%s)
 notice_feeds_access_key_reseted: Sua chave RSS foi reconfigurada.
+error_ci_feed_invalid: Feed RSS inválido.
+error_ci_remote_host: Não foi possível conectar ao servidor remoto.
+error_ci_feed_not_defined: A URL de integração não foi definida para este projeto.
 
 error_scm_not_found: "A entrada e/ou a revisão não existe no repositório."
 error_scm_command_failed: "Ocorreu um erro ao tentar acessar o repositório: %s"

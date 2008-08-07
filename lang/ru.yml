@@ -647,3 +647,6 @@ label_changes_per_author: Changes per author
 default_ci_description_always: Always
 label_integration: Integration
 default_ci_description_never: Never
+error_ci_remote_host: Unable to connect to remote host.
+error_ci_feed_not_defined: The feed URL is not defined for this project.
+error_ci_feed_invalid: Invalid RSS feed.

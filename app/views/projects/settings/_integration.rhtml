@@ -6,10 +6,8 @@
       :value => @project.ci_keyword? ? @project.ci_keyword : 'success' %><br>
     <em><%= l(:text_ci_keyword_description) %></em>
   </p>
-  <p><label><%= l(:label_ci_desc) %></label><%= select_tag 'settings[show_descriptions]',
-    options_for_select([[l(:default_ci_description_always), 2], 
-                        [l(:default_ci_description_onfail), 1], 
-                        [l(:default_ci_description_never), 0]], :ci_desc.to_i) %></p>
+  <p><label><%= l(:label_ci_desc) %></label><%= f.select :ci_desc, ([[l(:default_ci_description_always), 2], 
+            [l(:default_ci_description_onfail), 1], [l(:default_ci_description_never), 0]]) %></p>
 </div>
 <%= submit_tag l(:button_save) %> 
 <% end %>

@@ -5,8 +5,9 @@
   <% else %>
       <div id="builds">
       <% @builds.each do |build| %>
+      <%= @builds.length %>
         <% content_tag('div', :class => 'build ' + (build[:success] == true ? 'success' : 'failure')) do -%>
-          <%= build[:time] %>: <%= link_to build[:title], build[:url] %><br />
+          <%= build[:time] %> (<%= time_ago_in_words(build[:time]) %>): <%= link_to build[:title], build[:url] %><br />
           <%= build[:description] if (@show_descriptions == 2 || (@show_descriptions == 1 && !build[:success])) %>
         <% end -%>
       <% end %>

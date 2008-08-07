@@ -29,7 +29,7 @@ class SimpleCiController < ApplicationController
     success_re = Regexp.new(@project.ci_keyword.strip, Regexp::IGNORECASE)
     # Find the project's CI RSS feed URL
     # This URL is stored in a 'regular' project custom field
-    feed_url = @project.ci_feed
+    feed_url = @project.ci_feed ? @project.ci_feed : ''
     #feed_url = feed_url.value if feed_url
     if !feed_url.blank?
       begin
@@ -48,14 +48,14 @@ class SimpleCiController < ApplicationController
             build
           end
         else
-          flash.now[:error] = 'Invalid RSS feed.' unless @builds
+          flash.now[:error] = l(:error_ci_feed_invalid) unless @builds
         end
       rescue SocketError
-        flash.now[:error] = 'Unable to connect to remote host.'
+        flash.now[:error] = l(:error_ci_remote_host)
       end
     @show_descriptions = @project.ci_desc.to_i
     else
-      flash.now[:error] = 'The feed URL is not defined for this project.'
+      flash.now[:error] = l(:error_ci_feed_not_defined)
     end
   end
   
