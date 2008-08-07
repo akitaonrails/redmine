@@ -579,6 +579,7 @@ text_select_project_modules: 'Vælg moduler er skal være aktiveret for dette pr
 text_default_administrator_account_changed: Standard administrator konto ændret
 text_file_repository_writable: Filarkiv er skrivbar
 text_rmagick_available: RMagick tilgængelig (valgfri)
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 
 default_role_manager: Leder
 default_role_developper: Udvikler
@@ -601,6 +602,9 @@ default_priority_urgent: Akut
 default_priority_immediate: Omgående
 default_activity_design: Design
 default_activity_development: Udvikling
+default_ci_description_always: Always
+default_ci_description_onfail: Only on fail
+default_ci_description_never: Never
 
 enumeration_issue_priorities: Sags prioriteter
 enumeration_doc_categories: Dokument kategorier

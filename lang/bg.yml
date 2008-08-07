@@ -493,6 +493,7 @@ text_wiki_destroy_confirmation: Сигурни ли сте, че искате д
 text_issue_category_destroy_question: Има задачи (%d) обвързани с тази категория. Какво ще изберете?
 text_issue_category_destroy_assignments: Премахване на връзките с категорията
 text_issue_category_reassign_to: Преобвързване с категория
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 
 default_role_manager: Мениджър
 default_role_developper: Разработчик
@@ -515,6 +516,9 @@ default_priority_urgent: Спешен
 default_priority_immediate: Веднага
 default_activity_design: Дизайн
 default_activity_development: Разработка
+default_ci_description_always: Always
+default_ci_description_onfail: Only on fail
+default_ci_description_never: Never
 
 enumeration_issue_priorities: Приоритети на задачи
 enumeration_doc_categories: Категории документи

@@ -596,6 +596,7 @@ text_destroy_time_entries_question: Es wurden bereits %.02f Stunden auf dieses T
 text_destroy_time_entries: Gebuchte Aufwände löschen
 text_assign_time_entries_to_project: Gebuchte Aufwände dem Projekt zuweisen
 text_reassign_time_entries: 'Gebuchte Aufwände diesem Ticket zuweisen:'
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 
 default_role_manager: Manager
 default_role_developper: Entwickler
@@ -618,6 +619,9 @@ default_priority_urgent: Dringend
 default_priority_immediate: Sofort
 default_activity_design: Design
 default_activity_development: Entwicklung
+default_ci_description_always: Always
+default_ci_description_onfail: Only on fail
+default_ci_description_never: Never
 
 enumeration_issue_priorities: Ticket-Prioritäten
 enumeration_doc_categories: Dokumentenkategorien

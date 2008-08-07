@@ -598,6 +598,7 @@ text_destroy_time_entries_question: U úkolů, které chcete odstranit je evidov
 text_destroy_time_entries: Odstranit evidované hodiny.
 text_assign_time_entries_to_project: Přiřadit evidované hodiny projektu
 text_reassign_time_entries: 'Přeřadit evidované hodiny k tomuto úkolu:'
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 
 default_role_manager: Manažer
 default_role_developper: Vývojář
@@ -620,6 +621,9 @@ default_priority_urgent: Urgentní
 default_priority_immediate: Okamžitá
 default_activity_design: Design
 default_activity_development: Vývoj
+default_ci_description_always: Always
+default_ci_description_onfail: Only on fail
+default_ci_description_never: Never
 
 enumeration_issue_priorities: Priority úkolů
 enumeration_doc_categories: Kategorie dokumentů
