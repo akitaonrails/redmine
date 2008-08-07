@@ -86,6 +86,13 @@ class Project < ActiveRecord::Base
     end 
   end
 
+  # nofxx fork mod
+  # ruby rss doest like feed:// , replace all with http://
+  def ci_feed=(feed)
+    feed.gsub!('feed://', 'http://') if feed =~ /feed:\//
+    write_attribute(:ci_feed, feed)
+  end
+  
   # returns latest created projects
   # non public projects will be returned only if user is a member of those
   def self.latest(user=nil, count=5)

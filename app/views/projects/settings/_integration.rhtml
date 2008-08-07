@@ -2,7 +2,8 @@
 
 <div class="box tabular">
   <p><label><%= l(:label_ci_feed) %></label><%= f.text_field :ci_feed, :size => 60 %></p>
-  <p><label><%= l(:label_ci_keyword) %></label><%= f.text_field :ci_keyword, :size => 60 %><br>
+  <p><label><%= l(:label_ci_keyword) %></label><%= f.text_field :ci_keyword, :size => 60,
+      :value => @project.ci_keyword? ? @project.ci_keyword : 'success' %><br>
     <em>Used to determine if a build is successfull regarding its RSS title.<br>
       Can be either a keyword or a regular expression (case ignored).</em>
   </p>

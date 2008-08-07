@@ -20,7 +20,7 @@ require 'rss/2.0'
 require 'open-uri'
 
 class SimpleCiController < ApplicationController
-  unloadable
+  #unloadable
   layout 'base'
   before_filter :find_project, :authorize
   
