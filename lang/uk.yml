@@ -648,3 +648,5 @@ default_ci_description_never: Never
 error_ci_remote_host: Unable to connect to remote host.
 error_ci_feed_not_defined: The feed URL is not defined for this project.
 error_ci_feed_invalid: Invalid RSS feed.
+label_ci_fail: This commit failed to build.
+label_ci_pass: This commit was built with success.

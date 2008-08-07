@@ -648,3 +648,5 @@ label_generate_key: Gerar uma chave
 setting_mail_handler_api_enabled: Habilitar WS para emails recebidos
 setting_mail_handler_api_key: Chave da API
 text_email_delivery_not_configured: "Envio de email não está configurado, portanto, notificações estão desabilitadas.\nConfigure seu servidor SMTP em config/email.yml e reinicie a aplicação para habilitá-las."
+label_ci_fail: Este commit falhou no teste.
+label_ci_pass: Este commit passou no teste.
