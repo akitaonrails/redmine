@@ -56,15 +56,15 @@
 
 <% html_title @page.pretty_title %>
 
-<h2>Comments</h2>
+<h2><%= l(:label_comment_plural) %></h2>
 <div id="comments">
   <%= render :partial => "wiki/comment", :collection => @page.comments %>
 </div>
 
 <%- if authorize_for('wiki', 'add_comment') -%>
-  <%= link_to_function "Leave Comment", "$('add_comment_form').show();" %><br/>
+  <%= link_to_function l(:label_comment_add), "$('add_comment_form').show();" %><br/>
   <%- remote_form_for :comment, :url => { :controller => 'wiki', :action => 'add_comment', :page => @page.title }, :html => { :id => 'add_comment_form', :style => "display:none" } do |f| -%>
     <%= f.text_area :comments, :rows => 10, :cols => 70 %><br/>
-    <%= f.submit "Add Comment" %>
+    <%= f.submit l(:button_add) %>
   <%- end -%>
 <%- end -%>
