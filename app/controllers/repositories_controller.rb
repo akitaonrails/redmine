@@ -78,7 +78,8 @@ class RepositoriesController < ApplicationController
           rss = RSS::Parser.parse(content, false)
           if rss
             @ci_status[:link] = rss.items.last.link
-            @ci_status[:txt] = success_re.match(rss.items.last.title) ?  l(:label_ci_pass) : l(:label_ci_fail)
+            @ci_status[:bool] = success_re.match(rss.items.last.title) ? true : false
+            @ci_status[:txt] = @ci_status[:bool] ?  l(:label_ci_pass) : l(:label_ci_fail)
           else
             @ci_status[:link] = l(:error_ci_feed_invalid)
           end
