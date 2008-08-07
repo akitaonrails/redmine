@@ -414,6 +414,8 @@ label_integration: Integration
 label_ci_feed: Feed URL
 label_ci_keyword: Success Keyword
 label_ci_desc: Show Description
+label_ci_pass: This commit was built with success.
+label_ci_fail: This commit failed to build.
 label_on: 'on'
 label_sort_highest: Move to top
 label_sort_higher: Move up

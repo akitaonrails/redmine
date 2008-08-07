@@ -11,11 +11,13 @@
           
 <% unless @changesets.empty? %>
 	<h2><%= l(:label_last_commit) %></h2>  
-	  <% for changeset in [@changesets.first] do %>      
-			<h4> <%=h changeset.committer.to_s.split('<').first %> <%= format_time(changeset.committed_on) %></h4>
-		  <p><%= textilizable(changeset.comments) %></p>
+	  <% for changeset in [@changesets.first] do %>   
+      <h4> <%=h changeset.committer.to_s.split('<').first %> <%= format_time(changeset.committed_on) %></h4>
+      <p><%= textilizable(changeset.comments) %></p>
+        <h5><%= @ci_status[:txt] if @ci_status %> <%= link_to @ci_status[:link] if @ci_status %></h5>
 	  <% end %>                             
 <% end %>
+
 
 <% if !@entries.nil? && authorize_for('repositories', 'browse') %>
 <%= render :partial => 'dir_list' %>

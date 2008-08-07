@@ -19,6 +19,9 @@ require 'SVG/Graph/Bar'
 require 'SVG/Graph/BarHorizontal'     
 require 'SVG/Graph/Pie'
 require 'digest/sha1'
+require 'rss/1.0'
+require 'rss/2.0'
+require 'open-uri'
 
 class ChangesetNotFound < Exception; end
 class InvalidRevisionParam < Exception; end
@@ -62,6 +65,28 @@ class RepositoriesController < ApplicationController
     # readme if any  
     # suppose to return nil if no file found
     @readme = @repository.cat('README', @rev)
+    
+    if @repository.project.ci_feed    
+      success_re = Regexp.new(@repository.project.ci_keyword.strip, Regexp::IGNORECASE)
+      feed_url = @repository.project.ci_feed
+      if !feed_url.blank?
+        begin
+          content = ''
+          @ci_status = {}
+          # Open the feed and parse it
+          open(feed_url) do |s| content = s.read end
+          rss = RSS::Parser.parse(content, false)
+          if rss
+            @ci_status[:link] = rss.items.last.link
+            @ci_status[:txt] = success_re.match(rss.items.last.title) ?  l(:label_ci_pass) : l(:label_ci_fail)
+          else
+            @ci_status[:link] = l(:error_ci_feed_invalid)
+          end
+        rescue SocketError
+          @ci_status[:link] = l(:error_ci_remote_host)
+        end
+      end
+    end
   end
   
   def browse
