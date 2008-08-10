@@ -66,6 +66,8 @@ class RepositoriesController < ApplicationController
     # suppose to return nil if no file found
     @readme = @repository.cat('README', @rev)
     
+    # Continuous integration integration heh
+    # TODO: maybe a rss integration parse lib? code duplicated on simple_ci
     if @repository.project.ci_feed    
       success_re = Regexp.new(@repository.project.ci_keyword.strip, Regexp::IGNORECASE)
       feed_url = @repository.project.ci_feed
@@ -83,7 +85,7 @@ class RepositoriesController < ApplicationController
           else
             @ci_status[:link] = l(:error_ci_feed_invalid)
           end
-        rescue SocketError
+        rescue #SocketError
           @ci_status[:link] = l(:error_ci_remote_host)
         end
       end

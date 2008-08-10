@@ -50,7 +50,8 @@ class SimpleCiController < ApplicationController
         else
           flash.now[:error] = l(:error_ci_feed_invalid) unless @builds
         end
-      rescue SocketError
+        #TODO: handle error better
+      rescue #SocketError
         flash.now[:error] = l(:error_ci_remote_host)
       end
     @show_descriptions = @project.ci_desc.to_i
