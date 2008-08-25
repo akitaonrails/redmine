@@ -114,7 +114,6 @@ class WikiPage < ActiveRecord::Base
     !protected? || usr.allowed_to?(:protect_wiki_pages, wiki.project)
   end
   
-<<<<<<< HEAD:app/models/wiki_page.rb
   # Indexes comments automatically when being returned.
   def comments_with_indexing
     comments = comments_without_indexing
@@ -122,7 +121,7 @@ class WikiPage < ActiveRecord::Base
     comments
   end
   alias_method_chain :comments, :indexing
-=======
+
   def parent_title
     @parent_title || (self.parent && self.parent.pretty_title)
   end
@@ -140,7 +139,6 @@ class WikiPage < ActiveRecord::Base
     errors.add(:parent_title, :activerecord_error_circular_dependency) if parent && (parent == self || parent.ancestors.include?(self))
     errors.add(:parent_title, :activerecord_error_not_same_project) if parent && (parent.wiki_id != wiki_id)
   end
->>>>>>> 95c9da9e4524de32520bc65f0826481a1dc32b4f:app/models/wiki_page.rb
 end
 
 class WikiDiff
