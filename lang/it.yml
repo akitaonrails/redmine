@@ -346,9 +346,6 @@ label_latest_revision: Ultima versione
 label_latest_revision_plural: Ultime versioni
 label_view_revisions: Mostra versioni
 label_max_size: Dimensione massima
-label_ci_feed: Feed URL
-label_ci_keyword: Success Keyword
-label_ci_desc: Show Description
 label_on: 'on'
 label_sort_highest: Sposta in cima
 label_sort_higher: Su
@@ -381,7 +378,6 @@ label_change_plural: Modifiche
 label_statistics: Statistiche
 label_commits_per_month: Commit per mese
 label_commits_per_author: Commit per autore
-label_changes_per_author: Changes per author 
 label_view_diff: mostra differenze
 label_diff_inline: in linea
 label_diff_side_by_side: fianco a fianco
@@ -636,15 +632,5 @@ label_generate_key: Genera una chiave
 setting_mail_handler_api_enabled: Abilita WS per le e-mail in arrivo
 setting_mail_handler_api_key: chiave API
 text_email_delivery_not_configured: "La consegna via e-mail non è configurata e le notifiche sono disabilitate.\nConfigura il tuo server SMTP in config/email.yml e riavvia l'applicazione per abilitarle."
-default_ci_description_onfail: Only on fail
-label_last_commit: Last commit  
-text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
-project_module_integration: Continuous Integration
-default_ci_description_always: Always
-label_integration: Integration
-default_ci_description_never: Never
-error_ci_remote_host: Unable to connect to remote host.
-error_ci_feed_not_defined: The feed URL is not defined for this project.
-error_ci_feed_invalid: Invalid RSS feed.
-label_ci_fail: This commit failed to build.
-label_ci_pass: This commit was built with success.
+field_parent_title: Parent page
+label_issue_watchers: Watchers

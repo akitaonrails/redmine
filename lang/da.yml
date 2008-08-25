@@ -393,9 +393,6 @@ label_latest_revision: Seneste revision
 label_latest_revision_plural: Seneste revisioner
 label_view_revisions: Se revisioner
 label_max_size: Maximal størrelse
-label_ci_feed: Feed URL
-label_ci_keyword: Success Keyword
-label_ci_desc: Show Description
 label_on: 'til'
 label_sort_highest: Flyt til toppen
 label_sort_higher: Flyt op
@@ -579,7 +576,6 @@ text_select_project_modules: 'Vælg moduler er skal være aktiveret for dette pr
 text_default_administrator_account_changed: Standard administrator konto ændret
 text_file_repository_writable: Filarkiv er skrivbar
 text_rmagick_available: RMagick tilgængelig (valgfri)
-text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 
 default_role_manager: Leder
 default_role_developper: Udvikler
@@ -602,9 +598,6 @@ default_priority_urgent: Akut
 default_priority_immediate: Omgående
 default_activity_design: Design
 default_activity_development: Udvikling
-default_ci_description_always: Always
-default_ci_description_onfail: Only on fail
-default_ci_description_never: Never
 
 enumeration_issue_priorities: Sags prioriteter
 enumeration_doc_categories: Dokument kategorier
@@ -641,12 +634,5 @@ label_generate_key: Generate a key
 setting_mail_handler_api_enabled: Enable WS for incoming emails
 setting_mail_handler_api_key: API key
 text_email_delivery_not_configured: "Email delivery is not configured, and notifications are disabled.\nConfigure your SMTP server in config/email.yml and restart the application to enable them."
-label_last_commit: Last commit  
-project_module_integration: Continuous Integration
-label_changes_per_author: Changes per author
-label_integration: Integration
-error_ci_remote_host: Unable to connect to remote host.
-error_ci_feed_not_defined: The feed URL is not defined for this project.
-error_ci_feed_invalid: Invalid RSS feed.
-label_ci_fail: This commit failed to build.
-label_ci_pass: This commit was built with success.
+field_parent_title: Parent page
+label_issue_watchers: Watchers

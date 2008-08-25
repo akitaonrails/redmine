@@ -338,9 +338,6 @@ label_latest_revision: Última revisión
 label_latest_revision_plural: Últimas revisiones
 label_view_revisions: Ver las revisiones
 label_max_size: Tamaño máximo
-label_ci_feed: Feed URL
-label_ci_keyword: Palabras clave
-label_ci_desc: Mostrar Descripción
 label_on: de
 label_sort_highest: Primero
 label_sort_higher: Subir
@@ -468,7 +465,6 @@ text_tracker_no_workflow: No hay ningún flujo de trabajo definido para este tra
 text_unallowed_characters: Carácteres no permitidos
 text_comma_separated: Múltiples valores permitidos (separados por coma).
 text_issues_ref_in_commit_messages: Referencia y petición de corrección en los mensajes
-text_ci_keyword_description: Palabra que determina si la prueba era acertada.<br /> Puede ser una palabra clave o una expresión regular (caixa ignorada).
 
 default_role_manager: Jefe de proyecto
 default_role_developper: Desarrollador
@@ -491,9 +487,6 @@ default_priority_urgent: Urgente
 default_priority_immediate: Inmediata
 default_activity_design: Diseño
 default_activity_development: Desarrollo
-default_ci_description_always: Siempre
-default_ci_description_onfail: Solamente en falta
-default_ci_description_never: Nunca
 
 enumeration_issue_priorities: Prioridad de las peticiones
 enumeration_doc_categories: Categorías del documento
@@ -642,12 +635,5 @@ label_generate_key: Generate a key
 setting_mail_handler_api_enabled: Enable WS for incoming emails
 setting_mail_handler_api_key: API key
 text_email_delivery_not_configured: "Email delivery is not configured, and notifications are disabled.\nConfigure your SMTP server in config/email.yml and restart the application to enable them."
-label_last_commit: Last commit  
-project_module_integration: Continuous Integration
-label_changes_per_author: Changes per author
-label_integration: Integration
-error_ci_remote_host: Unable to connect to remote host.
-error_ci_feed_not_defined: The feed URL is not defined for this project.
-error_ci_feed_invalid: Invalid RSS feed.
-label_ci_fail: This commit failed to build.
-label_ci_pass: This commit was built with success.
+field_parent_title: Parent page
+label_issue_watchers: Watchers

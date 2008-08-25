@@ -20,7 +20,11 @@ require File.dirname(__FILE__) + '/../../test_helper'
 class ApplicationHelperTest < HelperTestCase
   include ApplicationHelper
   include ActionView::Helpers::TextHelper
-  fixtures :projects, :repositories, :changesets, :trackers, :issue_statuses, :issues, :documents, :versions, :wikis, :wiki_pages, :wiki_contents, :roles, :enabled_modules
+  fixtures :projects, :roles, :enabled_modules,
+                      :repositories, :changesets, 
+                      :trackers, :issue_statuses, :issues, :versions, :documents,
+                      :wikis, :wiki_pages, :wiki_contents,
+                      :boards, :messages
 
   def setup
     super
@@ -83,6 +87,8 @@ class ApplicationHelperTest < HelperTestCase
     version_link = link_to('1.0', {:controller => 'versions', :action => 'show', :id => 2},
                                   :class => 'version')
 
+    message_url = {:controller => 'messages', :action => 'show', :board_id => 1, :id => 4}
+    
     source_url = {:controller => 'repositories', :action => 'entry', :id => 'ecookbook', :path => ['some', 'file']}
     source_url_with_ext = {:controller => 'repositories', :action => 'entry', :id => 'ecookbook', :path => ['some', 'file.ext']}
     
@@ -111,6 +117,9 @@ class ApplicationHelperTest < HelperTestCase
       'source:/some/file.ext#L110'  => link_to('source:/some/file.ext#L110', source_url_with_ext.merge(:anchor => 'L110'), :class => 'source'),
       'source:/some/file@52#L110'   => link_to('source:/some/file@52#L110', source_url.merge(:rev => 52, :anchor => 'L110'), :class => 'source'),
       'export:/some/file'           => link_to('export:/some/file', source_url.merge(:format => 'raw'), :class => 'source download'),
+      # message
+      'message#4'                   => link_to('Post 2', message_url, :class => 'message'),
+      'message#5'                   => link_to('RE: post 2', message_url.merge(:anchor => 'message-5'), :class => 'message'),
       # escaping
       '!#3.'                        => '#3.',
       '!r1'                         => 'r1',
@@ -133,6 +142,9 @@ class ApplicationHelperTest < HelperTestCase
     to_test = {
       '[[CookBook documentation]]' => '<a href="/wiki/ecookbook/CookBook_documentation" class="wiki-page">CookBook documentation</a>',
       '[[Another page|Page]]' => '<a href="/wiki/ecookbook/Another_page" class="wiki-page">Page</a>',
+      # link with anchor
+      '[[CookBook documentation#One-section]]' => '<a href="/wiki/ecookbook/CookBook_documentation#One-section" class="wiki-page">CookBook documentation</a>',
+      '[[Another page#anchor|Page]]' => '<a href="/wiki/ecookbook/Another_page#anchor" class="wiki-page">Page</a>',
       # page that doesn't exist
       '[[Unknown page]]' => '<a href="/wiki/ecookbook/Unknown_page" class="wiki-page new">Unknown page</a>',
       '[[Unknown page|404]]' => '<a href="/wiki/ecookbook/Unknown_page" class="wiki-page new">404</a>',
@@ -214,14 +226,14 @@ h1. Another title
 
 RAW
 
-    expected = '<div class="toc">' +
-               '<a href="#1" class="heading1">Title</a>' +
-               '<a href="#2" class="heading2">Subtitle</a>' + 
-               '<a href="#3" class="heading2">Subtitle with red text</a>' +
-               '<a href="#4" class="heading1">Another title</a>' +
-               '</div>'
+    expected = '<ul class="toc">' +
+               '<li class="heading1"><a href="#Title">Title</a></li>' +
+               '<li class="heading2"><a href="#Subtitle">Subtitle</a></li>' + 
+               '<li class="heading2"><a href="#Subtitle-with-red-text">Subtitle with red text</a></li>' +
+               '<li class="heading1"><a href="#Another-title">Another title</a></li>' +
+               '</ul>'
                
-    assert textilizable(raw).include?(expected)
+    assert textilizable(raw).gsub("\n", "").include?(expected)
   end
   
   def test_blockquote

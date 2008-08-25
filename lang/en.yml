@@ -185,6 +185,7 @@ field_time_zone: Time zone
 field_searchable: Searchable
 field_default_value: Default value
 field_comments_sorting: Display comments
+field_parent_title: Parent page
 
 setting_app_title: Application title
 setting_app_subtitle: Application subtitle
@@ -532,6 +533,7 @@ label_reverse_chronological_order: In reverse chronological order
 label_planning: Planning
 label_incoming_emails: Incoming emails
 label_generate_key: Generate a key
+label_issue_watchers: Watchers
 
 button_login: Login
 button_submit: Submit

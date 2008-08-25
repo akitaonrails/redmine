@@ -32,10 +32,16 @@ class WikiControllerTest < Test::Unit::TestCase
   end
   
   def test_show_start_page
-    get :index, :id => 1
+    get :index, :id => 'ecookbook'
     assert_response :success
     assert_template 'show'
     assert_tag :tag => 'h1', :content => /CookBook documentation/
+
+    # child_pages macro
+    assert_tag :ul, :attributes => { :class => 'pages-hierarchy' },
+               :child => { :tag => 'li',
+                           :child => { :tag => 'a', :attributes => { :href => '/wiki/ecookbook/Page_with_an_inline_image' },
+                                                    :content => 'Page with an inline image' } }
   end
   
   def test_show_page_with_name
@@ -103,8 +109,18 @@ class WikiControllerTest < Test::Unit::TestCase
     assert_template 'history'
     assert_not_nil assigns(:versions)
     assert_equal 3, assigns(:versions).size
+    assert_select "input[type=submit][name=commit]"
   end
-  
+
+  def test_history_with_one_version
+    get :history, :id => 1, :page => 'Another_page'
+    assert_response :success
+    assert_template 'history'
+    assert_not_nil assigns(:versions)
+    assert_equal 1, assigns(:versions).size
+    assert_select "input[type=submit][name=commit]", false
+  end
+
   def test_diff
     get :diff, :id => 1, :page => 'CookBook_documentation', :version => 2, :version_from => 1
     assert_response :success
@@ -163,8 +179,16 @@ class WikiControllerTest < Test::Unit::TestCase
     pages = assigns(:pages)
     assert_not_nil pages
     assert_equal Project.find(1).wiki.pages.size, pages.size
-    assert_tag :tag => 'a', :attributes => { :href => '/wiki/ecookbook/CookBook_documentation' },
-                            :content => /CookBook documentation/
+    
+    assert_tag :ul, :attributes => { :class => 'pages-hierarchy' },
+                    :child => { :tag => 'li', :child => { :tag => 'a', :attributes => { :href => '/wiki/ecookbook/CookBook_documentation' },
+                                              :content => 'CookBook documentation' },
+                                :child => { :tag => 'ul',
+                                            :child => { :tag => 'li',
+                                                        :child => { :tag => 'a', :attributes => { :href => '/wiki/ecookbook/Page_with_an_inline_image' },
+                                                                                 :content => 'Page with an inline image' } } } },
+                    :child => { :tag => 'li', :child => { :tag => 'a', :attributes => { :href => '/wiki/ecookbook/Another_page' },
+                                                                       :content => 'Another page' } }
   end
   
   def test_not_found

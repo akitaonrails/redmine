@@ -403,9 +403,6 @@ label_latest_revision: Poslední revize
 label_latest_revision_plural: Poslední revize
 label_view_revisions: Zobrazit revize
 label_max_size: Maximální velikost
-label_ci_feed: Feed URL
-label_ci_keyword: Success Keyword
-label_ci_desc: Show Description
 label_on: 'zapnuto'
 label_sort_highest: Přesunout na začátek
 label_sort_higher: Přesunout nahoru
@@ -598,7 +595,6 @@ text_destroy_time_entries_question: U úkolů, které chcete odstranit je evidov
 text_destroy_time_entries: Odstranit evidované hodiny.
 text_assign_time_entries_to_project: Přiřadit evidované hodiny projektu
 text_reassign_time_entries: 'Přeřadit evidované hodiny k tomuto úkolu:'
-text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
 
 default_role_manager: Manažer
 default_role_developper: Vývojář
@@ -621,9 +617,6 @@ default_priority_urgent: Urgentní
 default_priority_immediate: Okamžitá
 default_activity_design: Design
 default_activity_development: Vývoj
-default_ci_description_always: Always
-default_ci_description_onfail: Only on fail
-default_ci_description_never: Never
 
 enumeration_issue_priorities: Priority úkolů
 enumeration_doc_categories: Kategorie dokumentů
@@ -644,12 +637,5 @@ label_generate_key: Generate a key
 setting_mail_handler_api_enabled: Enable WS for incoming emails
 setting_mail_handler_api_key: API key
 text_email_delivery_not_configured: "Email delivery is not configured, and notifications are disabled.\nConfigure your SMTP server in config/email.yml and restart the application to enable them."
-label_last_commit: Last commit  
-project_module_integration: Continuous Integration
-label_changes_per_author: Changes per author
-label_integration: Integration
-error_ci_remote_host: Unable to connect to remote host.
-error_ci_feed_not_defined: The feed URL is not defined for this project.
-error_ci_feed_invalid: Invalid RSS feed.
-label_ci_fail: This commit failed to build.
-label_ci_pass: This commit was built with success.
+field_parent_title: Parent page
+label_issue_watchers: Watchers
