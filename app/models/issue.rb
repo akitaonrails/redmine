@@ -99,6 +99,8 @@ class Issue < ActiveRecord::Base
     return true
   end
   
+  delegate :task_code, :to => :tracker
+  
   def priority_id=(pid)
     self.priority = nil
     write_attribute(:priority_id, pid)

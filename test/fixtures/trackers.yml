@@ -3,14 +3,17 @@ trackers_001:
   name: Bug
   id: 1
   is_in_chlog: true
+  task_code: non_billable
   position: 1
 trackers_002: 
   name: Feature request
   id: 2
+  task_code: billable
   is_in_chlog: true
   position: 2
 trackers_003: 
   name: Support request
   id: 3
+  task_code: billable
   is_in_chlog: false
   position: 3

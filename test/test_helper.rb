@@ -58,6 +58,25 @@ class Test::Unit::TestCase
     ActionController::TestUploadedFile.new(Test::Unit::TestCase.fixture_path + "/files/#{name}", mime)
   end
   
+  def with_xml_request
+    @request.env["HTTP_ACCEPT"] = "application/xml"
+    yield if block_given?
+  end
+  
+end
+
+
+# ActionController::TestUploadedFile bug
+# see http://dev.rubyonrails.org/ticket/4635
+class String
+  def original_filename
+    "testfile.txt"
+  end
+  
+  def content_type
+    "text/plain"
+  end
+  
   # Use a temporary directory for attachment related tests
   def set_tmp_attachments_directory
     Dir.mkdir "#{RAILS_ROOT}/tmp/test" unless File.directory?("#{RAILS_ROOT}/tmp/test")
