@@ -255,7 +255,7 @@ module ApplicationHelper
     end
     
     project = options[:project] || @project || (obj && obj.respond_to?(:project) ? obj.project : nil)
-    
+
     # Wiki links
     # 
     # Examples:

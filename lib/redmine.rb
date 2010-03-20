@@ -82,12 +82,19 @@ Redmine::AccessControl.map do |map|
     map.permission :view_wiki_pages, :wiki => [:index, :history, :diff, :annotate, :special]
     map.permission :edit_wiki_pages, :wiki => [:edit, :preview, :add_attachment, :destroy_attachment]
     map.permission :protect_wiki_pages, {:wiki => :protect}, :require => :member
+    map.permission :comment_wiki_pages, {:wiki => :add_comment}, :require => :member
   end
     
   map.project_module :repository do |map|
     map.permission :manage_repository, {:repositories => [:edit, :destroy]}, :require => :member
     map.permission :browse_repository, :repositories => [:show, :browse, :entry, :annotate, :changes, :diff, :stats, :graph]
     map.permission :view_changesets, :repositories => [:show, :revisions, :revision]
+  end
+
+  # nofxx fork
+  map.project_module :integration do |map|
+    map.permission :manage_integration, { :simple_ci => [:edit, :destroy]}, :require => :member
+    map.permission :view_ci_report, {:simple_ci => :show}
   end
 
   map.project_module :boards do |map|
@@ -135,7 +142,9 @@ Redmine::MenuManager.map :project_menu do |menu|
   menu.push :files, { :controller => 'projects', :action => 'list_files' }, :caption => :label_attachment_plural
   menu.push :repository, { :controller => 'repositories', :action => 'show' },
               :if => Proc.new { |p| p.repository && !p.repository.new_record? }
+  menu.push :integration, { :controller => 'simple_ci', :action => 'show' }              
   menu.push :settings, { :controller => 'projects', :action => 'settings' }, :last => true
+
 end
 
 Redmine::Activity.map do |activity|

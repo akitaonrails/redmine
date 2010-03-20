@@ -18,6 +18,7 @@
 class Wiki < ActiveRecord::Base
   belongs_to :project
   has_many :pages, :class_name => 'WikiPage', :dependent => :destroy, :order => 'title'
+  has_many :toc_pages, :class_name => 'WikiPage', :conditions => "display_in_toc", :order => "title"
   has_many :redirects, :class_name => 'WikiRedirect', :dependent => :delete_all
   
   validates_presence_of :start_page
@@ -44,11 +45,31 @@ class Wiki < ActiveRecord::Base
   end
   
   # turn a string into a valid page title
+  # WARNING: Don't use gsub! and co as the original title object shouldn't be changed
   def self.titleize(title)
+    # convert camel-case to underscored
+    title = title.gsub(/_*([A-Z]+)/, '_\1')
+    
     # replace spaces with _ and remove unwanted caracters
     title = title.gsub(/\s+/, '_').delete(',./?;|:') if title
+
+    # cleanup
+    title = title.gsub(/_+/, '_').gsub(/^_+/, '')
+    
     # upcase the first letter
     title = (title.slice(0..0).upcase + (title.slice(1..-1) || '')) if title
     title
-  end  
+  end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: wikis
+#
+#  id         :integer         not null, primary key
+#  project_id :integer         not null
+#  start_page :string(255)     not null
+#  status     :integer         default(1), not null
+#
+

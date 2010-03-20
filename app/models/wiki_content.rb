@@ -87,3 +87,18 @@ class WikiContent < ActiveRecord::Base
   end
   
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: wiki_contents
+#
+#  id         :integer         not null, primary key
+#  author_id  :integer         
+#  page_id    :integer         not null
+#  comments   :string(255)     default("")
+#  text       :text            
+#  version    :integer         not null
+#  updated_on :datetime        not null
+#
+

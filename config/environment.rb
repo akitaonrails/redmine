@@ -49,7 +49,13 @@ Rails::Initializer.run do |config|
   # Use Active Record's schema dumper instead of SQL when creating the test database
   # (enables use of different database adapters for development and test environments)
   # config.active_record.schema_format = :ruby
-  
+
+	# Tell ActionMailer not to deliver emails to the real world.
+	# The :test delivery method accumulates sent emails in the
+	# ActionMailer::Base.deliveries array.
+	#config.action_mailer.delivery_method = :test
+	config.action_mailer.delivery_method = :smtp  
+
   # Deliveries are disabled by default. Do NOT modify this section.
   # Define your email configuration in email.yml instead.
   # It will automatically turn deliveries on

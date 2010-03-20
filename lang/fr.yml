@@ -407,6 +407,9 @@ label_latest_revision: Dernière révision
 label_latest_revision_plural: Dernières révisions
 label_view_revisions: Voir les révisions
 label_max_size: Taille maximale
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
 label_on: sur
 label_sort_highest: Remonter en premier
 label_sort_higher: Remonter
@@ -635,3 +638,16 @@ default_activity_development: Développement
 enumeration_issue_priorities: Priorités des demandes
 enumeration_doc_categories: Catégories des documents
 enumeration_activities: Activités (suivi du temps)
+default_ci_description_onfail: Only on fail
+label_last_commit: Last commit  
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
+project_module_integration: Continuous Integration
+label_changes_per_author: Changes per author
+default_ci_description_always: Always
+label_integration: Integration
+default_ci_description_never: Never
+error_ci_remote_host: Unable to connect to remote host.
+error_ci_feed_not_defined: The feed URL is not defined for this project.
+error_ci_feed_invalid: Invalid RSS feed.
+label_ci_fail: This commit failed to build.
+label_ci_pass: This commit was built with success.

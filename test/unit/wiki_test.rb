@@ -39,6 +39,13 @@ class WikiTest < Test::Unit::TestCase
   
   def test_titleize
     assert_equal 'Page_title_with_CAPITALES', Wiki.titleize('page title with CAPITALES')
+    assert_equal 'Page_Title_With_CAPITALES', Wiki.titleize('PageTitleWithCAPITALES')
     assert_equal 'テスト', Wiki.titleize('テスト')
+  end
+  
+  # Every wiki can have pages included in TOC
+  def test_has_toc_pages
+    @wiki = Wiki.find(1)
+    assert_equal [ WikiPage.find(5) ], @wiki.toc_pages
   end
 end

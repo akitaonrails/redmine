@@ -28,3 +28,15 @@ class Watcher < ActiveRecord::Base
     errors.add :user_id, :activerecord_error_invalid unless user.nil? || user.active?
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: watchers
+#
+#  id             :integer         not null, primary key
+#  user_id        :integer         
+#  watchable_id   :integer         default(0), not null
+#  watchable_type :string(255)     default(""), not null
+#
+

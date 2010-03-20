@@ -23,3 +23,17 @@ class JournalDetail < ActiveRecord::Base
     self.old_value = old_value[0..254] if old_value && old_value.is_a?(String)
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: journal_details
+#
+#  id         :integer         not null, primary key
+#  journal_id :integer         default(0), not null
+#  old_value  :string(255)     
+#  prop_key   :string(30)      default(""), not null
+#  property   :string(30)      default(""), not null
+#  value      :string(255)     
+#
+

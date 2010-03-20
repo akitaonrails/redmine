@@ -16,8 +16,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 require 'SVG/Graph/Bar'
-require 'SVG/Graph/BarHorizontal'
+require 'SVG/Graph/BarHorizontal'     
+require 'SVG/Graph/Pie'
 require 'digest/sha1'
+require 'rss/1.0'
+require 'rss/2.0'
+require 'open-uri'
 
 class ChangesetNotFound < Exception; end
 class InvalidRevisionParam < Exception; end
@@ -55,8 +59,36 @@ class RepositoriesController < ApplicationController
     # root entries
     @entries = @repository.entries('', @rev)    
     # latest changesets
-    @changesets = @repository.changesets.find(:all, :limit => 10, :order => "committed_on DESC")
-    show_error_not_found unless @entries || @changesets.any?
+    @changesets = @repository.changesets.find(:all, :limit => 15, :order => "committed_on DESC")
+    show_error_not_found unless @entries || @changesets.any?     
+    # readme if any  
+    # suppose to return nil if no file found
+    @readme = @repository.cat('README', @rev)
+    
+    # Continuous integration integration heh
+    # TODO: maybe a rss integration parse lib? code duplicated on simple_ci
+    if @repository.project.ci_feed    
+      success_re = Regexp.new(@repository.project.ci_keyword.strip, Regexp::IGNORECASE)
+      feed_url = @repository.project.ci_feed
+      if !feed_url.blank?
+        begin
+          content = ''
+          @ci_status = {}
+          # Open the feed and parse it
+          open(feed_url) do |s| content = s.read end
+          rss = RSS::Parser.parse(content, false)
+          if rss
+            @ci_status[:link] = rss.items.last.link
+            @ci_status[:bool] = success_re.match(rss.items.last.title) ? true : false
+            @ci_status[:txt] = @ci_status[:bool] ?  l(:label_ci_pass) : l(:label_ci_fail)
+          else
+            @ci_status[:link] = l(:error_ci_feed_invalid)
+          end
+        rescue #SocketError
+          @ci_status[:link] = l(:error_ci_remote_host)
+        end
+      end
+    end
   end
   
   def browse
@@ -164,11 +196,15 @@ class RepositoriesController < ApplicationController
   
   def graph
     data = nil    
-    case params[:graph]
+    data = case params[:graph]
     when "commits_per_month"
-      data = graph_commits_per_month(@repository)
+      then graph_commits_per_month(@repository)
     when "commits_per_author"
-      data = graph_commits_per_author(@repository)
+      then graph_commits_per_author(@repository)
+    when "commits_per_author_pie"
+      then graph_commits_per_author_pie(@repository)
+    when "changes_per_author_pie"
+      then graph_changes_per_author_pie(@repository)
     end
     if data
       headers["Content-Type"] = "image/svg+xml"
@@ -229,7 +265,7 @@ private
   
     graph = SVG::Graph::Bar.new(
       :height => 300,
-      :width => 800,
+      :width => 1000,
       :fields => fields.reverse,
       :stack => :side,
       :scale_integers => true,
@@ -272,7 +308,7 @@ private
     
     graph = SVG::Graph::BarHorizontal.new(
       :height => 400,
-      :width => 800,
+      :width => 1000,
       :fields => fields,
       :stack => :side,
       :scale_integers => true,
@@ -293,6 +329,80 @@ private
     )
        
     graph.burn
+  end
+  
+  def graph_commits_per_author_pie(repository)
+    commits_by_author = repository.changesets.count(:all, :group => :committer)
+    commits_by_author.sort! {|x, y| x.last <=> y.last}
+
+    fields = commits_by_author.collect {|r| r.first}
+    commits_data = commits_by_author.collect {|r| r.last}
+    
+    # Remove email adress in usernames
+    fields = fields.collect {|c| c.gsub(%r{<.+@.+>}, '') }
+    
+    
+    graph = SVG::Graph::Pie.new(
+      :height => 350,
+      :width => 800,
+      :fields => fields,
+      :scale_integers => true,
+#      :show_data_values => false,
+      :graph_title => l(:label_commits_per_author),
+      :show_graph_title => true,
+      :show_shadow => false,
+      :show_percent => true,
+      :expand_gap => 100,
+    # :expand_greatest => true,
+    # :expanded => true,
+      :show_actual_values => false,
+      :show_key_percent => true,
+      :show_percent => true
+    )
+    
+    graph.add_data(
+      :data => commits_data,
+      :title => l(:label_revision_plural)
+    )
+
+    graph.burn
+
+  end
+  
+  def graph_changes_per_author_pie(repository)
+    commits_by_author = repository.changesets.count(:all, :group => :committer)
+    commits_by_author.sort! {|x, y| x.last <=> y.last}
+
+    changes_by_author = repository.changes.count(:all, :group => :committer)
+    h = changes_by_author.inject({}) {|o, i| o[i.first] = i.last; o}
+    
+    fields = commits_by_author.collect {|r| r.first}
+    commits_data = commits_by_author.collect {|r| r.last}
+    changes_data = commits_by_author.collect {|r| h[r.first] || 0}
+    
+    # Remove email adress in usernames
+    fields = fields.collect {|c| c.gsub(%r{<.+@.+>}, '') }
+
+    graph = SVG::Graph::Pie.new(
+      :height => 350,
+      :width => 800,
+      :fields => fields,
+      :scale_integers => true,
+#      :show_data_values => false,
+      :graph_title => l(:label_changes_per_author),
+      :show_graph_title => true,
+      :show_shadow => false,
+      :show_percent => true
+#      :expanded => true
+    )
+    
+    graph.add_data(
+      :data => changes_data,
+      :title => l(:label_change_plural)
+    )
+       
+    graph.burn
+
   end
 
 end

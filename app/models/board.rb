@@ -27,3 +27,19 @@ class Board < ActiveRecord::Base
   validates_length_of :name, :maximum => 30
   validates_length_of :description, :maximum => 255
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: boards
+#
+#  id              :integer         not null, primary key
+#  last_message_id :integer         
+#  project_id      :integer         not null
+#  description     :string(255)     
+#  messages_count  :integer         default(0), not null
+#  name            :string(255)     default(""), not null
+#  position        :integer         default(1)
+#  topics_count    :integer         default(0), not null
+#
+

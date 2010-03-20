@@ -21,3 +21,14 @@ class EnabledModule < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :project_id
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: enabled_modules
+#
+#  id         :integer         not null, primary key
+#  project_id :integer         
+#  name       :string(255)     not null
+#
+

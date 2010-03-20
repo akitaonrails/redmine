@@ -22,3 +22,15 @@ user_preferences_002:
   id: 2
   user_id: 3
   hide_mail: false
+# == Schema Info
+# Schema version: 94
+#
+# Table name: user_preferences
+#
+#  id        :integer         not null, primary key
+#  user_id   :integer         default(0), not null
+#  hide_mail :boolean         
+#  others    :text            
+#  time_zone :string(255)     
+#
+

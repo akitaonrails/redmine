@@ -22,3 +22,16 @@ class Workflow < ActiveRecord::Base
 
   validates_presence_of :role, :old_status, :new_status
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: workflows
+#
+#  id            :integer         not null, primary key
+#  new_status_id :integer         default(0), not null
+#  old_status_id :integer         default(0), not null
+#  role_id       :integer         default(0), not null
+#  tracker_id    :integer         default(0), not null
+#
+

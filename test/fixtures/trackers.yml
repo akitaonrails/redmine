@@ -17,3 +17,16 @@ trackers_003:
   task_code: billable
   is_in_chlog: false
   position: 3
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: trackers
+#
+#  id            :integer         not null, primary key
+#  is_in_chlog   :boolean         not null
+#  is_in_roadmap :boolean         default(TRUE), not null
+#  name          :string(30)      default(""), not null
+#  position      :integer         default(1)
+#
+

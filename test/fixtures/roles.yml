@@ -165,3 +165,16 @@ roles_005:
 
   position: 5
   
+# == Schema Info
+# Schema version: 94
+#
+# Table name: roles
+#
+#  id          :integer         not null, primary key
+#  assignable  :boolean         default(TRUE)
+#  builtin     :integer         default(0), not null
+#  name        :string(30)      default(""), not null
+#  permissions :text            
+#  position    :integer         default(1)
+#
+

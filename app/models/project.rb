@@ -86,6 +86,13 @@ class Project < ActiveRecord::Base
     end 
   end
 
+  # nofxx fork mod
+  # ruby rss doest like feed:// , replace all with http://
+  def ci_feed=(feed)
+    feed.gsub!('feed://', 'http://') if feed =~ /feed:\//
+    write_attribute(:ci_feed, feed)
+  end
+  
   # returns latest created projects
   # non public projects will be returned only if user is a member of those
   def self.latest(user=nil, count=5)
@@ -272,3 +279,22 @@ private
     @actions_allowed ||= allowed_permissions.inject([]) { |actions, permission| actions += Redmine::AccessControl.allowed_actions(permission) }.flatten
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: projects
+#
+#  id             :integer         not null, primary key
+#  parent_id      :integer         
+#  description    :text(255)       
+#  homepage       :string(255)     default("")
+#  identifier     :string(20)      
+#  is_public      :boolean         default(TRUE), not null
+#  name           :string(30)      default(""), not null
+#  projects_count :integer         default(0)
+#  status         :integer         default(1), not null
+#  created_on     :datetime        
+#  updated_on     :datetime        
+#
+

@@ -77,3 +77,16 @@ class IssueRelation < ActiveRecord::Base
     TYPES[self.relation_type][:order] <=> TYPES[relation.relation_type][:order]
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: issue_relations
+#
+#  id            :integer         not null, primary key
+#  issue_from_id :integer         not null
+#  issue_to_id   :integer         not null
+#  delay         :integer         
+#  relation_type :string(255)     default(""), not null
+#
+

@@ -20,4 +20,29 @@ class Comment < ActiveRecord::Base
   belongs_to :author, :class_name => 'User', :foreign_key => 'author_id'
 
   validates_presence_of :commented, :author, :comments
+
+  # Used in the views to anchor comments
+  attr_accessor :indice
+
+  # Returns TRUE if this comment is editable by a user given.
+  # Note: this check reuses :edit_issue_notes and :edit_own_issue_notes permissions.
+  def editable_by?(user)
+    project = commented.project
+    user && user.logged? && (user.allowed_to?(:edit_issue_notes, project) || (self.author == user && user.allowed_to?(:edit_own_issue_notes, project)))
+  end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: comments
+#
+#  id             :integer         not null, primary key
+#  author_id      :integer         default(0), not null
+#  commented_id   :integer         default(0), not null
+#  commented_type :string(30)      default(""), not null
+#  comments       :text            
+#  created_on     :datetime        not null
+#  updated_on     :datetime        not null
+#
+

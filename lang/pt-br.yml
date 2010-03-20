@@ -1,7 +1,7 @@
 _gloc_rule_default: '|n| n==1 ? "" : "_plural" '
 
 actionview_datehelper_select_day_prefix:
-actionview_datehelper_select_month_names: Janeiro,Fevereiro,Março,Abrill,Maio,Junho,Julho,Agosto,Setembro,Outubro,Novembro,Dezembro
+actionview_datehelper_select_month_names: Janeiro,Fevereiro,Março,Abril,Maio,Junho,Julho,Agosto,Setembro,Outubro,Novembro,Dezembro
 actionview_datehelper_select_month_names_abbr: Jan,Fev,Mar,Abr,Mai,Jun,Jul,Ago,Set,Out,Nov,Dez
 actionview_datehelper_select_month_prefix:
 actionview_datehelper_select_year_prefix:
@@ -31,7 +31,7 @@ activerecord_error_too_short: é muito curto
 activerecord_error_wrong_length: esta com o tamanho errado
 activerecord_error_taken: já foi obtido
 activerecord_error_not_a_number: não é um numero
-activerecord_error_not_a_date: não é uma data valida
+activerecord_error_not_a_date: não é uma data válida
 activerecord_error_greater_than_start_date: deve ser maior que a data inicial
 activerecord_error_not_same_project: não pode pertencer ao mesmo projeto
 activerecord_error_circular_dependency: Esta relação geraria uma dependência circular
@@ -54,13 +54,13 @@ general_pdf_encoding: ISO-8859-1
 general_day_names: Segunda,Terça,Quarta,Quinta,Sexta,Sabado,Domingo
 general_first_day_of_week: '1'
 
-notice_account_updated: Conta foi alterada com sucesso.
-notice_account_invalid_creditentials: Usuário ou senha inválido.
+notice_account_updated: Conta alterada.
+notice_account_invalid_creditentials: Usuário ou senha inválido(a).
 notice_account_password_updated: Senha alterada com sucesso.
 notice_account_wrong_password: Senha inválida.
-notice_account_register_done: Conta criada com sucesso.
+notice_account_register_done: Conta criada.
 notice_account_unknown_email: Usuário desconhecido.
-notice_can_t_change_password: Esta conta usa autenticação externa. E impossível alterar a senha.
+notice_can_t_change_password: Esta conta usa autenticação externa. É impossível alterar a senha.
 notice_account_lost_email_sent: Um email com instruções para escolher uma nova senha foi enviado para você.
 notice_account_activated: Sua conta foi ativada. Você pode acessá-la agora.
 notice_successful_create: Criado com sucesso.
@@ -73,6 +73,9 @@ notice_not_authorized: Você não está autorizado a acessar esta página.
 notice_email_sent: Um email foi enviado para %s
 notice_email_error: Um erro ocorreu ao enviar o email (%s)
 notice_feeds_access_key_reseted: Sua chave RSS foi reconfigurada.
+error_ci_feed_invalid: Feed RSS inválido.
+error_ci_remote_host: Não foi possível conectar ao servidor remoto.
+error_ci_feed_not_defined: A URL de integração não foi definida para este projeto.
 
 error_scm_not_found: "A entrada e/ou a revisão não existe no repositório."
 error_scm_command_failed: "Ocorreu um erro ao tentar acessar o repositório: %s"
@@ -171,21 +174,21 @@ setting_app_subtitle: Sub-título da aplicação
 setting_welcome_text: Texto de boas-vindas
 setting_default_language: Idioma padrão
 setting_login_required: Autenticação obrigatória
-setting_self_registration: Permitido Auto-registro
+setting_self_registration: Permitido auto-registro
 setting_attachment_max_size: Tamanho máximo do anexo
-setting_issues_export_limit: Limite de exportação das tarefas
+setting_issues_export_limit: Limite de exportação de tarefas
 setting_mail_from: Email enviado de
 setting_host_name: Servidor
 setting_text_formatting: Formato do texto
-setting_wiki_compression: Compactação de histórico do Wiki
+setting_wiki_compression: Compactação do histórico do Wiki
 setting_feeds_limit: Limite do Feed
-setting_autofetch_changesets: Auto-obter commits
+setting_autofetch_changesets: Obter automaticamente os commits
 setting_sys_api_enabled: Ativa WS para gerenciamento do repositório
-setting_commit_ref_keywords: Palavras de referência
-setting_commit_fix_keywords: Palavras de fechamento
+setting_commit_ref_keywords: Palavras de referências
+setting_commit_fix_keywords: Palavras de correções
 setting_autologin: Auto-login
 setting_date_format: Formato da data
-setting_cross_project_issue_relations: Permitir relacionar tickets entre projetos
+setting_cross_project_issue_relations: Permitir relacionamento de tickets entre projetos
 
 label_user: Usuário
 label_user_plural: Usuários
@@ -227,7 +230,7 @@ label_enumeration_new: Novo
 label_information: Informação
 label_information_plural: Informações
 label_please_login: Efetue o login
-label_register: Registre-se
+label_register: Registrar
 label_password_lost: Perdi minha senha
 label_home: Página inicial
 label_my_page: Minha página
@@ -239,7 +242,7 @@ label_logout: Sair
 label_help: Ajuda
 label_reported_issues: Tickets reportados
 label_assigned_to_me_issues: Meus tickets
-label_last_login: Última conexao
+label_last_login: Última conexão
 label_last_updates: Última alteração
 label_last_updates_plural: %d Últimas alterações
 label_registered_on: Registrado em
@@ -252,11 +255,11 @@ label_auth_source: Modo de autenticação
 label_auth_source_new: Novo modo de autenticação
 label_auth_source_plural: Modos de autenticação
 label_subproject_plural: Sub-projetos
-label_min_max_length: Tamanho mín-máx
+label_min_max_length: Tamanho mín máx
 label_list: Lista
 label_date: Data
 label_integer: Inteiro
-label_boolean: Boleano
+label_boolean: Booleano
 label_string: Texto
 label_text: Texto longo
 label_attribute: Atributo
@@ -296,7 +299,7 @@ label_permissions: Permissões
 label_current_status: Status atual
 label_new_statuses_allowed: Novo status permitido
 label_all: todos
-label_none: nenhum
+label_none: nenhum(a)
 label_next: Próximo
 label_previous: Anterior
 label_used_by: Usado por
@@ -307,8 +310,8 @@ label_calendar: Calendário
 label_months_from: meses a partir de
 label_gantt: Gantt
 label_internal: Interno
-label_last_changes: últimas %d alteraçoes
-label_change_view_all: Mostrar todas as alteraçoes
+label_last_changes: últimas %d alterações
+label_change_view_all: Mostrar todas as alterações
 label_personalize_page: Personalizar esta página
 label_comment: Comentário
 label_comment_plural: Comentários
@@ -346,6 +349,10 @@ label_latest_revision: Última revisão
 label_latest_revision_plural: Últimas revisões
 label_view_revisions: Visualizar revisões
 label_max_size: Tamanho máximo
+label_integration: Integração
+label_ci_feed: Feed URL
+label_ci_keyword: Palavra-chave
+label_ci_desc: Mostrar Descrição
 label_on: 'em'
 label_sort_highest: Mover para o início
 label_sort_higher: Mover para cima
@@ -354,7 +361,7 @@ label_sort_lowest: Mover para o fim
 label_roadmap: Planejamento
 label_roadmap_due_in: Previsão em
 label_roadmap_overdue: %s atrasado
-label_roadmap_no_issues: Sem tickets para esta versão
+label_roadmap_no_issues: Sem tickets nesta versão
 label_search: Busca
 label_result_plural: Resultados
 label_all_words: Todas as palavras
@@ -375,9 +382,11 @@ label_f_hour: %.2f hora
 label_f_hour_plural: %.2f horas
 label_time_tracking: Tempo trabalhado
 label_change_plural: Mudanças
+label_last_commit: Último commit
 label_statistics: Estatísticas
 label_commits_per_month: Commits por mês
 label_commits_per_author: Commits por autor
+label_changes_per_author: Modificações por autor
 label_view_diff: Ver diferenças
 label_diff_inline: inline
 label_diff_side_by_side: lado a lado
@@ -412,7 +421,7 @@ label_message_plural: Mensagens
 label_message_last: Última mensagem
 label_message_new: Nova mensagem
 label_reply_plural: Respostas
-label_send_information: Enviar informação de conta para o usuário
+label_send_information: Enviar informações da conta para o usuário
 label_year: Ano
 label_month: Mês
 label_week: Semana
@@ -425,9 +434,9 @@ label_feeds_access_key_created_on: chave de acesso RSS criada %s atrás
 label_module_plural: Módulos
 label_added_time_by: Adicionado por %s %s atrás
 label_updated_time: Atualizado %s atrás
-label_jump_to_a_project: Ir para o projeto...
+label_jump_to_a_project: Ver projeto...
 
-button_login: Login
+button_login: Entrar
 button_submit: Enviar
 button_save: Salvar
 button_check_all: Marcar todos
@@ -464,7 +473,7 @@ status_active: ativo
 status_registered: registrado
 status_locked: bloqueado
 
-text_select_mail_notifications: Selecionar ações para ser enviado uma notificação por email
+text_select_mail_notifications: Selecionar ações que enviam notificações por email
 text_regexp_info: ex. ^[A-Z0-9]+$
 text_min_max_length_info: 0 siginifica sem restrição
 text_project_destroy_confirmation: Você tem certeza que deseja excluir este projeto e todos os dados relacionados?
@@ -489,6 +498,7 @@ text_wiki_destroy_confirmation: Você tem certeza que deseja excluir este wiki e
 text_issue_category_destroy_question: Alguns tickets (%d) estão atribuídos a esta categoria. O que você deseja fazer?
 text_issue_category_destroy_assignments: Remover atribuições da categoria
 text_issue_category_reassign_to: Redefinir tickets para esta categoria
+text_ci_keyword_description: Palavra que determina se o teste foi bem sucedido.<br /> Pode ser uma palavra-chave ou expressão regular (caixa ignorada).
 
 default_role_manager: Gerente
 default_role_developper: Desenvolvedor
@@ -511,6 +521,9 @@ default_priority_urgent: Urgente
 default_priority_immediate: Imediato
 default_activity_design: Design
 default_activity_development: Desenvolvimento
+default_ci_description_always: Sempre
+default_ci_description_onfail: Só em falhas
+default_ci_description_never: Nunca
 
 enumeration_issue_priorities: Prioridade das tarefas
 enumeration_doc_categories: Categorias de documento
@@ -519,7 +532,7 @@ label_file_plural: Arquivos
 label_changeset_plural: Changesets
 field_column_names: Colunas
 label_default_columns: Colunas padrão
-setting_issue_list_default_columns: Colunas padrão visíveis na lista de tickets
+setting_issue_list_default_columns: Colunas visíveis por padrão na lista de tickets
 setting_repositories_encodings: Codificação dos repositórios
 notice_no_issue_selected: "Nenhum ticket está selecionado! Por favor, marque os tickets que você deseja alterar."
 label_bulk_edit_selected_issues: Edição em massa dos tickets selecionados.
@@ -555,7 +568,7 @@ button_annotate: Anotar
 label_issues_by: Tickets por %s
 field_searchable: Pesquisável
 label_display_per_page: 'Por página: %s'
-setting_per_page_options: Opções de itens por página
+setting_per_page_options: Opções de ítens por página
 notice_default_data_loaded: Configuração padrão carregada com sucesso.
 text_load_default_configuration: Carregar a configuração padrão
 text_no_configuration_data: "Os Papéis, tipos de tickets, status de tickets e workflows não foram configurados ainda.\nÉ altamente recomendado carregar as configurações padrão. Você poderá modificar estas configurações assim que carregadas."
@@ -577,14 +590,17 @@ label_document_added: Documento adicionado
 label_message_posted: Mensagem enviada
 label_file_added: Arquivo adicionado
 label_news_added: Notícia adicionada
+
 project_module_boards: Fóruns
 project_module_issue_tracking: Gerenciamento de Tickets
 project_module_wiki: Wiki
 project_module_files: Arquivos
 project_module_documents: Documentos
+project_module_integration: Integração Contínua
 project_module_repository: Repositório
 project_module_news: Notícias
 project_module_time_tracking: Gerenciamento de tempo
+
 text_file_repository_writable: Repositório de arquivos gravável
 text_default_administrator_account_changed: Conta de administrador padrão modificada
 text_rmagick_available: RMagick disponível (opcional)
@@ -618,19 +634,21 @@ setting_default_projects_public: Novos projetos são públicos por padrão
 error_scm_annotate: "Esta entrada não existe ou não pode ser anotada."
 label_planning: Planejamento
 text_subprojects_destroy_warning: 'Seu(s) subprojeto(s): %s também serão excluídos.'
-label_age: Age
-label_and_its_subprojects: %s and its subprojects
-mail_body_reminder: "%d issue(s) that are assigned to you are due in the next %d days:"
-mail_subject_reminder: "%d issue(s) due in the next days"
-text_user_wrote: '%s wrote:'
-label_duplicated_by: duplicated by
-setting_enabled_scm: Enabled SCM
-text_enumeration_category_reassign_to: 'Reassign them to this value:'
-text_enumeration_destroy_question: '%d objects are assigned to this value.'
-label_incoming_emails: Incoming emails
-label_generate_key: Generate a key
-setting_mail_handler_api_enabled: Enable WS for incoming emails
-setting_mail_handler_api_key: API key
-text_email_delivery_not_configured: "Email delivery is not configured, and notifications are disabled.\nConfigure your SMTP server in config/email.yml and restart the application to enable them."
-field_parent_title: Parent page
-label_issue_watchers: Watchers
+label_age: Idade
+label_and_its_subprojects: %s e seus subprojetos
+mail_body_reminder: "%d ticket(s) que estão com seu nome são para os próximos %d dias:"
+mail_subject_reminder: "%d ticket(s) para os próximos dias"
+text_user_wrote: '%s escreveu:'
+label_duplicated_by: duplicado por
+setting_enabled_scm: SCM habilitado
+text_enumeration_category_reassign_to: 'Atribuir a este valor:'
+text_enumeration_destroy_question: '%d objetos estão atribuídos a este valor.'
+label_incoming_emails: Emails recebidos
+label_generate_key: Gerar uma chave
+setting_mail_handler_api_enabled: Habilitar WS para emails recebidos
+setting_mail_handler_api_key: Chave da API
+text_email_delivery_not_configured: "Envio de email não está configurado, portanto, notificações estão desabilitadas.\nConfigure seu servidor SMTP em config/email.yml e reinicie a aplicação para habilitá-las."
+label_ci_fail: Este commit falhou no teste.
+label_ci_pass: Este commit passou no teste.
+field_parent_title: Página acima
+label_issue_watchers: Observadores

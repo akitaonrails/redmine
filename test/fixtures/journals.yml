@@ -14,3 +14,16 @@ journals_002:
   user_id: 2
   journalized_id: 1
   
+# == Schema Info
+# Schema version: 94
+#
+# Table name: journals
+#
+#  id               :integer         not null, primary key
+#  journalized_id   :integer         default(0), not null
+#  user_id          :integer         default(0), not null
+#  journalized_type :string(30)      default(""), not null
+#  notes            :text            
+#  created_on       :datetime        not null
+#
+

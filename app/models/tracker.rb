@@ -55,3 +55,16 @@ private
     raise "Can't delete tracker" if Issue.find(:first, :conditions => ["tracker_id=?", self.id])
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: trackers
+#
+#  id            :integer         not null, primary key
+#  is_in_chlog   :boolean         not null
+#  is_in_roadmap :boolean         default(TRUE), not null
+#  name          :string(30)      default(""), not null
+#  position      :integer         default(1)
+#
+

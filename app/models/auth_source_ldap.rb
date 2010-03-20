@@ -85,3 +85,25 @@ private
     entry[attr_name].is_a?(Array) ? entry[attr_name].first : entry[attr_name]
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: auth_sources
+#
+#  id                :integer         not null, primary key
+#  account           :string(255)     
+#  account_password  :string(60)      
+#  attr_firstname    :string(30)      
+#  attr_lastname     :string(30)      
+#  attr_login        :string(30)      
+#  attr_mail         :string(30)      
+#  base_dn           :string(255)     
+#  host              :string(60)      
+#  name              :string(60)      default(""), not null
+#  onthefly_register :boolean         not null
+#  port              :integer         
+#  tls               :boolean         not null
+#  type              :string(30)      default(""), not null
+#
+

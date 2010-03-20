@@ -83,6 +83,9 @@ error_scm_not_found: "The entry or revision was not found in the repository."
 error_scm_command_failed: "An error occurred when trying to access the repository: %s"
 error_scm_annotate: "The entry does not exist or can not be annotated."
 error_issue_not_found_in_project: 'The issue was not found or does not belong to this project'
+error_ci_feed_invalid: Invalid RSS feed.
+error_ci_remote_host: Unable to connect to remote host.
+error_ci_feed_not_defined: The feed URL is not defined for this project.
 
 mail_subject_lost_password: Your %s password
 mail_body_lost_password: 'To change your password, click on the following link:'
@@ -226,6 +229,7 @@ project_module_documents: Documents
 project_module_files: Files
 project_module_wiki: Wiki
 project_module_repository: Repository
+project_module_integration: Continuous Integration
 project_module_boards: Boards
 
 label_user: User
@@ -407,6 +411,12 @@ label_latest_revision: Latest revision
 label_latest_revision_plural: Latest revisions
 label_view_revisions: View revisions
 label_max_size: Maximum size
+label_integration: Integration
+label_ci_feed: Feed URL
+label_ci_keyword: Success Keyword
+label_ci_desc: Show Description
+label_ci_pass: This commit was built with success.
+label_ci_fail: This commit failed to build.
 label_on: 'on'
 label_sort_highest: Move to top
 label_sort_higher: Move up
@@ -436,9 +446,11 @@ label_f_hour: %.2f hour
 label_f_hour_plural: %.2f hours
 label_time_tracking: Time tracking
 label_change_plural: Changes
+label_last_commit: Last commit  
 label_statistics: Statistics
 label_commits_per_month: Commits per month
 label_commits_per_author: Commits per author
+label_changes_per_author: Changes per author
 label_view_diff: View differences
 label_diff_inline: inline
 label_diff_side_by_side: side by side
@@ -609,6 +621,8 @@ text_user_wrote: '%s wrote:'
 text_enumeration_destroy_question: '%d objects are assigned to this value.'
 text_enumeration_category_reassign_to: 'Reassign them to this value:'
 text_email_delivery_not_configured: "Email delivery is not configured, and notifications are disabled.\nConfigure your SMTP server in config/email.yml and restart the application to enable them."
+text_ci_keyword_description: Used to determine if a build is successfull regarding its RSS title.<br /> Can be either a keyword or a regular expression (case ignored).
+
 
 default_role_manager: Manager
 default_role_developper: Developer
@@ -631,6 +645,9 @@ default_priority_urgent: Urgent
 default_priority_immediate: Immediate
 default_activity_design: Design
 default_activity_development: Development
+default_ci_description_always: Always
+default_ci_description_onfail: Only on fail
+default_ci_description_never: Never
 
 enumeration_issue_priorities: Issue priorities
 enumeration_doc_categories: Document categories

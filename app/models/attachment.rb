@@ -132,3 +132,23 @@ private
     df
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: attachments
+#
+#  id             :integer         not null, primary key
+#  author_id      :integer         default(0), not null
+#  container_id   :integer         default(0), not null
+#  container_type :string(30)      default(""), not null
+#  content_type   :string(255)     default("")
+#  description    :string(255)     
+#  digest         :string(40)      default(""), not null
+#  disk_filename  :string(255)     default(""), not null
+#  downloads      :integer         default(0), not null
+#  filename       :string(255)     default(""), not null
+#  filesize       :integer         default(0), not null
+#  created_on     :datetime        
+#
+

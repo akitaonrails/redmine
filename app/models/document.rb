@@ -29,3 +29,17 @@ class Document < ActiveRecord::Base
   validates_presence_of :project, :title, :category
   validates_length_of :title, :maximum => 60
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: documents
+#
+#  id          :integer         not null, primary key
+#  category_id :integer         default(0), not null
+#  project_id  :integer         default(0), not null
+#  description :text            
+#  title       :string(60)      default(""), not null
+#  created_on  :datetime        
+#
+

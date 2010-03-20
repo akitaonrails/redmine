@@ -1,0 +1,22 @@
+Redmine - project management software
+Copyright (C) 2006-2008  Jean-Philippe Lang
+http://www.redmine.org
+
+== This fork doesn`t have any official relation with Redmine!
+
+ For INSTALL/LICENSE stuff see doc/
+
+== MODS:
+
+ - Add hours spent on the scm commit (TODO)                   
+ - Add a simpler new ticket view, for ppl not aware of project intrinsics, clients... (TODO)
+ - Add a devs notification when new commit occurs, with the commit message. (TODO, tricky)
+ 
+ - Added CI feed in the repository view. (DONE)
+ - Added continuous integration feed with settings in a per project basis. (DONE)
+ - More graphics and few changes on existent ones. (DONE)
+ - Merge github.com/mcm nice wiki comments. (DONE)
+ - Changes on the repo view: readme, last commit. (DONE)
+
+      
+                       

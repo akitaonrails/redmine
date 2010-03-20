@@ -33,6 +33,8 @@ ActionController::Routing::Routes.draw do |map|
     omap.repositories_revision 'repositories/revision/:id/:rev', :action => 'revision'
   end
   
+  map.connect 'simple_ci/:id', :controller => 'simple_ci', :action => 'show'
+  
   map.connect 'attachments/:id', :controller => 'attachments', :action => 'show', :id => /\d+/
   map.connect 'attachments/:id/:filename', :controller => 'attachments', :action => 'show', :id => /\d+/, :filename => /.*/
   map.connect 'attachments/download/:id/:filename', :controller => 'attachments', :action => 'download', :id => /\d+/, :filename => /.*/

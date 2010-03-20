@@ -77,3 +77,24 @@ class TimeEntry < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: time_entries
+#
+#  id          :integer         not null, primary key
+#  activity_id :integer         not null
+#  issue_id    :integer         
+#  project_id  :integer         not null
+#  user_id     :integer         not null
+#  comments    :string(255)     
+#  hours       :float           not null
+#  tmonth      :integer         not null
+#  tweek       :integer         not null
+#  tyear       :integer         not null
+#  created_on  :datetime        not null
+#  spent_on    :date            not null
+#  updated_on  :datetime        not null
+#
+

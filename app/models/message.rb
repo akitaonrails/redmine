@@ -69,3 +69,23 @@ class Message < ActiveRecord::Base
     board.project
   end
 end
+
+# == Schema Info
+# Schema version: 94
+#
+# Table name: messages
+#
+#  id            :integer         not null, primary key
+#  author_id     :integer         
+#  board_id      :integer         not null
+#  last_reply_id :integer         
+#  parent_id     :integer         
+#  content       :text            
+#  locked        :boolean         
+#  replies_count :integer         default(0), not null
+#  sticky        :integer         default(0)
+#  subject       :string(255)     default(""), not null
+#  created_on    :datetime        not null
+#  updated_on    :datetime        not null
+#
+

@@ -5,3 +5,16 @@ documents_001:
   id: 1
   description: "Document description"
   category_id: 1
+# == Schema Info
+# Schema version: 94
+#
+# Table name: documents
+#
+#  id          :integer         not null, primary key
+#  category_id :integer         default(0), not null
+#  project_id  :integer         default(0), not null
+#  description :text            
+#  title       :string(60)      default(""), not null
+#  created_on  :datetime        
+#
+
